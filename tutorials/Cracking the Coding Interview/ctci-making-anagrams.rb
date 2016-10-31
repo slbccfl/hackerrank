@@ -1,30 +1,33 @@
 #!/bin/ruby
+require 'pry'
 
-a = 'cde'
-b = 'abc'
 
 a = gets.strip
 b = gets.strip
 
-a.sort!
-b.sort!
+x = a.split(//)
+y = b.split(//)
+
+x.sort!
+y.sort!
 
 delCount = 0
 j = 0
-while j <= [a.length, b.length].min do
-    puts j + ' of ' + [a.length, b.length].min
-    if a[j] != b[j]
-        if a[j] < b[j]
-            a.slice!(0)
-            j -= 1
-            delCount += 1
-        elsif a[j] > b[j]
-            b.pop
-            j -= 1
-            delCount += 1
-        end
+# binding.pry
+while j < [x.length, y.length].min do
+    # puts "#{j} of #{[x.length, y.length].min}"
+    # puts "x: #{x} - y: #{y}"
+    if x[j] == y[j]
+        j += 1
+    elsif x[j] < y[j]
+        x.slice!(j)
+        delCount += 1
+    elsif x[j] > y[j]
+        y.slice!(j)
+        delCount += 1
     end
 end
-a = a[0,i]
-b = b[0,i]
+delCount += [x.length, y.length].max - [x.length, y.length].min
+a = a[0,j]
+b = b[0,j]
 puts delCount
