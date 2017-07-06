@@ -25,10 +25,8 @@ public class Solution {
         case '(' :
           bracketStack.push(')');
           break;
-          case bracketStack.isEmpty();
-          break;
         default :
-          if character != bracketStack.pop()) return false;
+          if (!bracketStack.isEmpty() && character != bracketStack.pop()) return false;
       }
     }
     return true;
