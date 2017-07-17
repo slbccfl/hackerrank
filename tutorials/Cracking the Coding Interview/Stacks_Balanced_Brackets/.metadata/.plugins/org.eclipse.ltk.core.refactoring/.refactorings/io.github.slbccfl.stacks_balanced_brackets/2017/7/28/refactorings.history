@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete element from project &apos;io.github.slbccfl.stacks_balanced_brackets&apos;&#x0A;- Original project: &apos;io.github.slbccfl.stacks_balanced_brackets&apos;&#x0A;- Original element: &apos;io.github.slbccfl.stacks_balanced_brackets/io.github.slbccfl.stacks_balanced_brackets&apos;" description="Delete element" element1="/&lt;io.github.slbccfl.stacks_balanced_brackets" element2="/&lt;io.github.slbccfl" element3="/&lt;io.github" element4="/&lt;io" elements="4" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1499711829569" subPackages="false" version="1.0"/>
+</session>
