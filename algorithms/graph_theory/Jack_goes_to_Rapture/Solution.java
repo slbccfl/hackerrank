@@ -1,4 +1,5 @@
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 class Node 
@@ -20,6 +21,7 @@ public class Solution {
     public static int start, edges, end; // start and end points, and number of edges in the graph, end is also "N" the number of nodes
     
     public static void main(String[] args) {
+//    	timestamp();
         in = new Scanner(System.in);
         String parameters = in.nextLine();
         String[] parmsArray = parameters.split("\\s+");
@@ -36,15 +38,24 @@ public class Solution {
         // Input the graph:
         String[] edgeArray;
         String edge;
+        TreeMap<Integer, Integer[]> adjacencyMap = new TreeMap<Integer, Integer[]>();
         for (int i = 0; i < edges; i++) {
         	edge = in.nextLine();
         	edgeArray = edge.split("\\s+");
-//            int v1 = in.nextInt();
-//            int v2 = in.nextInt();
-//            int w = in.nextInt();            
             int v1 = Integer.parseInt(edgeArray[0]);
             int v2 = Integer.parseInt(edgeArray[1]);
             int w = Integer.parseInt(edgeArray[2]);
+        	adjacencyMap.put(w, new Integer[] {v1,v2});
+        }
+        
+        Set set = adjacencyMap.entrySet();
+        Iterator i = set.iterator();
+        while (i.hasNext()) {
+        	Map.Entry me = (Map.Entry)i.next();
+        	int w = (Integer) me.getKey();
+        	Integer[] v = (Integer[]) me.getValue();
+            int v1 = v[0];
+            int v2 = v[1];
             Node node = new Node(v2, w);
             graph[v1].add(node);
             node = new Node(v1, w);
@@ -56,6 +67,8 @@ public class Solution {
         } else {
         	System.out.println(cheapest());
         }
+
+//    	timestamp();
     }
     
     public static int cheapest() {
@@ -120,4 +133,11 @@ public class Solution {
         return table[end].weight;
         
     }
+    public static void timestamp() {
+    	Date date = new Date();
+    	SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy h:mm:ss a");
+    	String formattedDate = sdf.format(date);
+    	System.out.println(formattedDate); // 12/01/2011 4:48:16 PM
+    }
+    
 }
