@@ -21,7 +21,7 @@ public class Solution {
     public static int start, edges, end; // start and end points, and number of edges in the graph, end is also "N" the number of nodes
     
     public static void main(String[] args) {
-//    	timestamp();
+    	timestamp();
         in = new Scanner(System.in);
         String parameters = in.nextLine();
         String[] parmsArray = parameters.split("\\s+");
@@ -33,33 +33,43 @@ public class Solution {
         // Initialize adjacency list structure to empty lists:
         graph = new LinkedList[end+1];
         for (int i = 0; i <= end; i++)
-            graph[i] = new LinkedList();
+            graph[i] = new LinkedList<Node>();
         
         // Input the graph:
         String[] edgeArray;
         String edge;
-        TreeMap<Integer, Integer[]> adjacencyMap = new TreeMap<Integer, Integer[]>();
+        TreeMap<Integer, HashMap<Integer, Integer>> adjacencyMap = new TreeMap<Integer, HashMap<Integer, Integer>>();
         for (int i = 0; i < edges; i++) {
         	edge = in.nextLine();
         	edgeArray = edge.split("\\s+");
             int v1 = Integer.parseInt(edgeArray[0]);
             int v2 = Integer.parseInt(edgeArray[1]);
             int w = Integer.parseInt(edgeArray[2]);
-        	adjacencyMap.put(w, new Integer[] {v1,v2});
+            HashMap<Integer, Integer> verts = adjacencyMap.get(w);
+            if (verts == null) {
+	            verts = new HashMap<Integer, Integer>();
+            }
+            verts.put(v1,v2);
+        	adjacencyMap.put(w, verts);
         }
         
-        Set set = adjacencyMap.entrySet();
-        Iterator i = set.iterator();
+        Set setOfEdges = adjacencyMap.entrySet();
+        Iterator i = setOfEdges.iterator();
         while (i.hasNext()) {
         	Map.Entry me = (Map.Entry)i.next();
         	int w = (Integer) me.getKey();
-        	Integer[] v = (Integer[]) me.getValue();
-            int v1 = v[0];
-            int v2 = v[1];
-            Node node = new Node(v2, w);
-            graph[v1].add(node);
-            node = new Node(v1, w);
-            graph[v2].add(node);
+        	HashMap<Integer, Integer> verts = (HashMap<Integer, Integer>) me.getValue();
+        	Set setOfVerts = verts.entrySet();
+        	Iterator v = setOfVerts.iterator();
+        	while (v.hasNext()) {
+        		Map.Entry ve = (Map.Entry) v.next(); 
+                int v1 = (int) ve.getKey();
+                int v2 = (int) ve.getValue();
+                Node node = new Node(v2, w);
+                graph[v1].add(node);
+                node = new Node(v1, w);
+                graph[v2].add(node);
+        	}
         }
         
         if (cheapest() == Integer.MAX_VALUE) {
@@ -68,7 +78,7 @@ public class Solution {
         	System.out.println(cheapest());
         }
 
-//    	timestamp();
+    	timestamp();
     }
     
     public static int cheapest() {
