@@ -17,7 +17,7 @@ class Node
 public class Solution {
 	
     public static Scanner in; // for standard input
-    public static LinkedList[] graph; // adjacency list representation
+    public static LinkedList<Node>[] graph; // adjacency list representation
     public static int start, edges, end; // start and end points, and number of edges in the graph, end is also "N" the number of nodes
     
     public static void main(String[] args) {
@@ -53,10 +53,8 @@ public class Solution {
         	adjacencyMap.put(w, verts);
         }
         
-        Set setOfEdges = adjacencyMap.entrySet();
-        Iterator i = setOfEdges.iterator();
-        while (i.hasNext()) {
-        	Map.Entry me = (Map.Entry)i.next();
+        Set<Map.Entry<Integer,HashMap<Integer,Integer>>> setOfEdges = adjacencyMap.entrySet();
+        for (Map.Entry me : setOfEdges) {
         	int w = (Integer) me.getKey();
         	HashMap<Integer, Integer> verts = (HashMap<Integer, Integer>) me.getValue();
         	Set setOfVerts = verts.entrySet();
