@@ -20,7 +20,7 @@ public class TestSolution extends TestCase {
 		assertEquals(grid[rowIndex][colIndex], "X");
 		assertEquals(node.row, rowIndex);
 		assertEquals(node.col, colIndex);
-		assertTrue(node.settled);
+		assertEquals(grid[node.row][node.col], -1);
 		System.out.println(node.adjacencyList);
 		return;
 		
