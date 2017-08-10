@@ -6,7 +6,9 @@ import java.util.regex.*;
 
 public class Solution {
 	
-	static HashMap<Integer, Stack<Integer>> pricesDirectory = new HashMap<Integer, Stack<Integer>>();
+	static HashMap<Integer, Queue<Integer>> pricesDirectory = new HashMap<Integer, Queue<Integer>>();
+
+    Queue<Integer> idQueue = new LinkedList<Integer>();
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -16,12 +18,13 @@ public class Solution {
             int n = in.nextInt();
             int a[] = new int[n];
             pricesDirectory.clear();
-            Stack<Integer> idStack;
+            Queue<Integer> idQueue;
             for(int a_i=0; a_i < n; a_i++){
                 a[a_i] = in.nextInt();
-                idStack = pricesDirectory.get(a[a_i]);
-                idStack.push(a_i);
-                pricesDirectory.put(a[a_i], idStack);
+                idQueue = pricesDirectory.get(a[a_i]);
+                if (idQueue == null) idQueue = new LinkedList<Integer>();
+                idQueue.add(a_i);
+                pricesDirectory.put(a[a_i], idQueue);
                 
             }
         	Integer firstFlavorID = null;
@@ -32,13 +35,13 @@ public class Solution {
             	firstFlavorID = a_i;
             	firstFlavorCost = a[a_i];
             	
-                idStack = pricesDirectory.get(a[a_i]);
-                idStack.pop();
-                pricesDirectory.put(a[a_i], idStack);
+                idQueue = pricesDirectory.get(a[a_i]);
+                idQueue.poll();
+                pricesDirectory.put(a[a_i], idQueue);
             	
             	secondFlavorCost = m - firstFlavorCost;
-            	idStack = pricesDirectory.get(secondFlavorCost);
-            	secondFlavorID = idStack.pop()
+            	idQueue = pricesDirectory.get(secondFlavorCost);
+            	if (idQueue != null) secondFlavorID = idQueue.poll();
             	
             }
             System.out.println((firstFlavorID + 1) + " " + (secondFlavorID + 1));
