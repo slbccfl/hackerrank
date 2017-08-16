@@ -27,17 +27,13 @@ class Node {
 
 public class Solution {
 	
-    static int[][] laplacianMatrix;
-    static HashMap<Integer, Boolean> visited;
-
-
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();
         int m = in.nextInt();
         LinkedList<Edge> edges;
-        laplacianMatrix = new int[n][n];
-        visited = new HashMap<Integer, Boolean>();
+        int[][] laplacianMatrix = new int[n][n];
+        HashMap<Integer, Boolean>visited = new HashMap<Integer, Boolean>();
         TreeMap<Long, LinkedList<Edge>> graph = new TreeMap<Long, LinkedList<Edge>>();
         for(int i = 0; i < m; i++){
             int x = in.nextInt() - 1;
@@ -49,13 +45,13 @@ public class Solution {
             if (edges == null) edges = new LinkedList<Edge>();
             edges.add(new Edge(x,y,z));
             graph.put(z, edges);
-            addEdgeToLaplacianMatrix(x,y);
+            addEdgeToLaplacianMatrix(laplacianMatrix, x,y);
         }
         
-        System.out.println(countOfMSTs(graph) + "/" + countOfSpanningTrees(laplacianMatrix));
+        System.out.println(countOfMSTs(graph, visited) + "/" + countOfSpanningTrees(laplacianMatrix));
     }
     
-    private static void addEdgeToLaplacianMatrix(int x, int y) {
+    private static void addEdgeToLaplacianMatrix(int[][] laplacianMatrix, int x, int y) {
     	// add to degree cells
     	laplacianMatrix[x][x]++;
     	laplacianMatrix[y][y]++;
@@ -65,7 +61,7 @@ public class Solution {
     	
     }
     
-    private static int countOfMSTs(TreeMap<Long, LinkedList<Edge>> graph) {
+    private static int countOfMSTs(TreeMap<Long, LinkedList<Edge>> graph, HashMap<Integer, Boolean>visited) {
     	// using Kruskal's algorithm to assemble a MST and then collect a count of possible MST's
     	int count = 1; // initialize to 1 on the assumption that there is at least one MST
     	LinkedList<Edge> edges, nodeEdges;
@@ -131,6 +127,7 @@ public class Solution {
 		int[][] minorMatrix = new int[n-1][n-1]; 
 		int element = 1;
 		int sign = 1;
+		int minorDeterminant = 0;
 		int determinant = 0;
     	if (n == 2) {
     		int a = matrix[0][0];
@@ -141,23 +138,26 @@ public class Solution {
     	} else {
     		for (int j = 0; j < n; j++) {
     			element = matrix[0][j];
-    			minorMatrix = new int[n-1][n-1];
-    			if (j % 2 == 0) {
-    				sign = 1;
-    			} else {
-    				sign = -1;
-    			}
-    			for (int x = 1; x < n; x++) {
-    				int z = 0;
-            		for (int y = 0;y+z < n-1; y++) {
-            			if (y == j) {
-            				z = -1;
-            			} else {
-                			minorMatrix[x-1][y+z] = matrix[x][y];
-            			}
-            		}
-    			}
-        		determinant += sign * element * minorDeterminant(minorMatrix);
+				if (element != 0) {
+	    			minorMatrix = new int[n-1][n-1];
+	    			if (j % 2 == 0) {
+	    				sign = 1;
+	    			} else {
+	    				sign = -1;
+	    			}
+	    			for (int x = 1; x < n; x++) {
+	    				int z = 0;
+	            		for (int y = 0;y+z < n-1; y++) {
+	            			if (y == j) {
+	            				z = -1;
+	            			} else {
+	                			minorMatrix[x-1][y+z] = matrix[x][y];
+	            			}
+	            		}
+	    			}
+					minorDeterminant = minorDeterminant(minorMatrix);
+	        		determinant += sign * element * minorDeterminant;
+				}
 	    	}
     		return determinant;
 	    }
