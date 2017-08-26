@@ -27,31 +27,44 @@ class Node {
 
 public class Solution {
 	
+	static HashMap<Integer, Boolean>visited;
+	
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();
         int m = in.nextInt();
+        Node nodex, nodey;
         LinkedList<Edge> edges;
         int[][] laplacianMatrix = new int[n][n];
-        HashMap<Integer, Boolean>visited = new HashMap<Integer, Boolean>();
-        TreeMap<Long, LinkedList<Edge>> graph = new TreeMap<Long, LinkedList<Edge>>();
+        visited = new HashMap<Integer, Boolean>();
+        HashMap<Integer, Node> graph = new HashMap<Integer, Node>();
         for(int i = 0; i < m; i++){
-            int x = in.nextInt() - 1;
-            int y = in.nextInt() - 1;
+            int x = in.nextInt();
+            int y = in.nextInt();
             long z = in.nextInt();
             visited.put(x, false);
             visited.put(y, false);
-            edges = graph.get(z);
-            if (edges == null) edges = new LinkedList<Edge>();
-            edges.add(new Edge(x,y,z));
-            graph.put(z, edges);
-            addEdgeToLaplacianMatrix(laplacianMatrix, x,y);
+            Edge edge = new Edge(x,y,z);
+            addToGraph(graph, x, edge);
+            addToGraph(graph, y, edge);
+            laplacianMatrix = addEdgeToLaplacianMatrix(laplacianMatrix, x-1,y-1);
         }
         
-        System.out.println(countOfMSTs(graph, visited) + "/" + countOfSpanningTrees(laplacianMatrix));
+        System.out.println(countOfMSTs(graph, visited, n) + "/" + countOfSpanningTrees(laplacianMatrix, n));
     }
+
+	static void addToGraph(HashMap<Integer, Node> graph, int x, Edge edge) {
+		Node nodex;
+		if (graph.containsKey(x)) {
+		    nodex = graph.get(x);
+			nodex.adjacencyList.add(edge);
+		} else {
+			nodex = new Node(x, edge);
+		}
+		graph.put(x, nodex);
+	}
     
-    private static void addEdgeToLaplacianMatrix(int[][] laplacianMatrix, int x, int y) {
+    private static int[][] addEdgeToLaplacianMatrix(int[][] laplacianMatrix, int x, int y) {
     	// add to degree cells
     	laplacianMatrix[x][x]++;
     	laplacianMatrix[y][y]++;
@@ -59,57 +72,72 @@ public class Solution {
     	laplacianMatrix[x][y] = -1;
     	laplacianMatrix[y][x] = -1;
     	
+    	return laplacianMatrix;
+    }
+    private static TreeMap<Long, LinkedList<Edge>> queueNodeEdges(TreeMap<Long, LinkedList<Edge>>edgesQueue, Node node) {
+    	Integer newNode, connectedNode;
+    	LinkedList<Edge> edges = node.adjacencyList;
+    	for (Edge edge : edges) {
+    		newNode = null;
+    		connectedNode = null;   
+    		int adjacentNode = 0;
+    		if (edge.startNode == node.nodeID) adjacentNode = edge.endNode;
+    		if (edge.endNode == node.nodeID) adjacentNode = edge.startNode;
+    		if (visited.containsKey(adjacentNode)) continue; 
+    		edges = edgesQueue.get(adjacentNode);
+    		if (edges == null) edges = new LinkedList<Edge>();
+    		edges.add(edge);
+    		edgesQueue.put(edge.weight, edges);
+    	}
+    	return edgesQueue;
     }
     
-    private static int countOfMSTs(TreeMap<Long, LinkedList<Edge>> graph, HashMap<Integer, Boolean>visited) {
-    	// using Kruskal's algorithm to assemble a MST and then collect a count of possible MST's
-    	int count = 1; // initialize to 1 on the assumption that there is at least one MST
-    	LinkedList<Edge> edges, nodeEdges;
+    private static int countOfMSTs(HashMap<Integer, Node> graph, HashMap<Integer, Boolean>visited, int n) {
+    	int count = 1;
+    	// using Prim's algorithm to assemble a MST ...
+
     	LinkedList<Node> MSTgraph = new LinkedList<Node>();
-    	long weight;
-    	long currentWeight = 0;
-    	Node node; 
-    	Integer newNode, otherNode;
-    	boolean firstEdge = true;
-        for (Map.Entry<Long, LinkedList<Edge>> entry : graph.entrySet()) {
-        	if (!visited.containsValue(false)) break;
-        	weight = entry.getKey();
-        	edges = entry.getValue();
-        	for (Edge edge : edges) {
-        		newNode = null;
-        		if (firstEdge) {
-        			// if first edge, initialize it's startNode as first node of MSTgraph and visited list
-        			firstEdge = false;
-        			visited.put(edge.startNode, true);
-        			node = new Node(edge.startNode, edge);
-	        		MSTgraph.add(node); 
+    	Map.Entry<Integer, Node> entry = graph.entrySet().iterator().next();  // get a single random node form the graph
+    	int nodeID = entry.getKey();
+    	Node node = entry.getValue();
+    	TreeMap<Long, LinkedList<Edge>> edgesQueue = new TreeMap<Long, LinkedList<Edge>>();
+    	MSTgraph.add(node);
+    	visited.put(nodeID, true);
+    	queueNodeEdges(edgesQueue, node);
+    	
+    	while (!edgesQueue.isEmpty()) { 
+        	Edge lowestEdge = null;
+        	LinkedList<Edge> lowestEdges;
+        	while (lowestEdge == null) {
+            	Integer newNode = null;
+            	Map.Entry<Long,LinkedList<Edge>> lowestEdgeEntry = edgesQueue.pollFirstEntry();
+            	if (lowestEdgeEntry == null) continue; 
+        		lowestEdges = lowestEdgeEntry.getValue();
+        		for (Edge edge : lowestEdges) {
+            		if (!visited.get(lowestEdge.startNode)) {
+            			lowestEdge = edge;
+            			newNode = lowestEdge.startNode;
+            		} else {
+            			if (!visited.get(lowestEdge.endNode)) {
+	            			lowestEdge = edge;
+	            			newNode = lowestEdge.startNode;
+            			}
+            		}
         		}
-        		
-	        	if (!visited.get(edge.startNode)) {
-	        		newNode = edge.startNode;
-	        		otherNode = edge.endNode;
-	        	}
-	        	if (!visited.get(edge.endNode)) {
-	        		newNode = edge.endNode;
-	        		otherNode = edge.startNode;
-	        	} 
-	        	if (newNode != null) {
-	        		visited.put(newNode, true);
-        			node = new Node(newNode, edge);
-	        		MSTgraph.add(node); 
-	        	} else {
-	        		// the same weight as an edge used to connect both nodes already,
-	        		// therefore an alternate path at the same weight
-	        		count ++;
-	        	}
+        		node = graph.get(newNode);
+            	MSTgraph.add(node);
+            	visited.put(newNode, true);
+            	queueNodeEdges(edgesQueue, node);
         	}
     	}
 
     	return count;
     }
     
-    private static int countOfSpanningTrees(int[][] matrix) {
-    	int n = matrix.length;
+    private static Integer countOfSpanningTrees(int[][] matrix, int n) {
+    	if (n == 0) return null;
+    	if (n == 1) return 0;
+    	if (n == 2) return 1;
 		int[][] minorMatrix = new int[n-1][n-1]; 
     	
 		minorMatrix = new int[n-1][n-1];
@@ -122,9 +150,9 @@ public class Solution {
     	return minorDeterminant(minorMatrix);
     }
     
-    static int minorDeterminant(int[][] matrix) {
+    static Integer minorDeterminant(int[][] matrix) {
     	int n = matrix.length;
-		int[][] minorMatrix = new int[n-1][n-1]; 
+		int[][] minorMatrix; 
 		int element = 1;
 		int sign = 1;
 		int minorDeterminant = 0;

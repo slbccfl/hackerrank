@@ -1,12 +1,14 @@
 package alexvsfedor;
 import static org.junit.Assert.*;
 
+import java.util.HashMap;
+
 import org.junit.Test;
 
 public class TestSolution {
 
 	@Test
-	public void testMinorDeterminant() {
+	public void testMinorDeterminant3x3() {
 		int[][] laplacianMatrix;
 		int determinant;
 		laplacianMatrix = new int[][] {
@@ -20,9 +22,14 @@ public class TestSolution {
 			{3, -1, -1},
 			{-1, 3, -1},
 			{-1, -1, 2}
-		};
+		};	
 		determinant = Solution.minorDeterminant(laplacianMatrix);
 		assertEquals(8, determinant);
+	}
+		@Test
+		public void testMinorDeterminant4x4() {
+			int[][] laplacianMatrix;
+			int determinant;
 		laplacianMatrix = new int[][] {
 			{3, 2, 0, 1},
 			{4, 0, 1, 2},
@@ -56,6 +63,19 @@ public class TestSolution {
 		determinant = Solution.minorDeterminant(laplacianMatrix);
 		assertEquals(72, determinant);
 		laplacianMatrix = new int[][] {
+			{2, -1, -1, 0},
+			{-1, 2, -1, 0},
+			{-1, -1, 2, 0},
+			{0, 0, 0, 0}
+		};
+		determinant = Solution.minorDeterminant(laplacianMatrix);
+		assertEquals(3, determinant);
+	}
+		@Test
+		public void testMinorDeterminant5x5() {
+			int[][] laplacianMatrix;
+			int determinant;
+		laplacianMatrix = new int[][] {
 			{3, 2, 4, 1, 5},
 			{-2, 0, 1, 3, 2},
 			{1, 0, 0, 4, 0},
@@ -64,6 +84,11 @@ public class TestSolution {
 		};
 		determinant = Solution.minorDeterminant(laplacianMatrix);
 		assertEquals(412, determinant);
+	}
+		@Test
+		public void testMinorDeterminant9x9() {
+			int[][] laplacianMatrix;
+			int determinant;
 		laplacianMatrix = new int[][] {
 			{5, -1, 0, 0, 0, -1, -1, 0, 0},
 			{-1, 8, -1, -1, -1, 0, -1, -1, 0},
@@ -88,5 +113,17 @@ public class TestSolution {
 		int determinant = Solution.quadDeterminant(a, b, c, d);
 		assertEquals(5, determinant);
 	}
+	
+//	@Test
+//	public void testAddToGraph() {
+//        HashMap<Integer, Node> graph = new HashMap<Integer, Node>();
+//		int x = 1;
+//	    int y = 2;
+//	    long z = 3;
+//        Edge edge = new Edge(x,y,z);
+//        addToGraph(graph, x, edge);
+//        addToGraph(graph, y, edge);
+//        
+//	}
 
 }
