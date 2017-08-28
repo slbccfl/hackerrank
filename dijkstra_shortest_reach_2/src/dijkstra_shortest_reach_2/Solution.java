@@ -38,25 +38,29 @@ public class Solution {
     public static void main(String[] args) {
 
         Scanner in = new Scanner(System.in);
-        numberOfNodes = in.nextInt();
-        numberOfEdges = in.nextInt();
-//        Node nodex, nodey;
-//        LinkedList<Edge> edges;
-        settled = new HashMap<Integer, Boolean>();
-//        for (int i = 0; i < numberOfNodes; i++) {
-//            visited.put(i + 1, false);
-//        }
-        for(int i = 0; i < numberOfEdges; i++){
-            int x = in.nextInt();
-            int y = in.nextInt();
-            settled.put(x, false);
-            settled.put(y, false);
-//            distances.put(x, Long.MAX_VALUE);
-//            distances.put(y, Long.MAX_VALUE);
-            long z = in.nextInt();
-            Edge edge = new Edge(x,y,z);
-            addToGraph(x, edge);
-            addToGraph(y, edge);
+        int testCases = in.nextInt();
+        for(int a0 = 0; a0 < testCases; a0++) {
+	        
+	        numberOfNodes = in.nextInt();
+	        numberOfEdges = in.nextInt();
+	//        Node nodex, nodey;
+	//        LinkedList<Edge> edges;
+	        settled = new HashMap<Integer, Boolean>();
+	//        for (int i = 0; i < numberOfNodes; i++) {
+	//            visited.put(i + 1, false);
+	//        }
+	        for(int i = 0; i < numberOfEdges; i++){
+	            int x = in.nextInt();
+	            int y = in.nextInt();
+	            settled.put(x, false);
+	            settled.put(y, false);
+	//            distances.put(x, Long.MAX_VALUE);
+	//            distances.put(y, Long.MAX_VALUE);
+	            long z = in.nextInt();
+	            Edge edge = new Edge(x,y,z);
+	            addToGraph(x, edge);
+	            addToGraph(y, edge);
+	        }
         }
         int startNodeID = in.nextInt();
 //        distances.put(startNodeID, 0L);
@@ -65,7 +69,9 @@ public class Solution {
         while (it.hasNext()) {
         	Map.Entry<Integer, Node> graphEntry = (Map.Entry)it.next();
         	Node node = graphEntry.getValue();
-        	System.out.println(node.distance);
+        	if (node.distance != 0) {
+        		System.out.print(node.distance + " ");
+        	}
         }
 
         in.close();
