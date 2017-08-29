@@ -22,56 +22,57 @@ class Node {
 	
 	public Node(int r, Edge edge) {
 		nodeID = r;
-		distance = Integer.MAX_VALUE;
+		distance = Long.MAX_VALUE;
 		adjacencyList = new LinkedList<Edge>();
 		if (edge != null) adjacencyList.add(edge);
 	}
 }
 public class Solution {
 
-    static HashMap<Integer, Node> graph = new HashMap<Integer, Node>();
+    static HashMap<Integer, Node> graph;
 	static HashMap<Integer, Boolean>settled;
-//	static HashMap<Integer, Long>distances;
 	static LinkedList<Edge> SPTgraph;
 	static int numberOfNodes, numberOfEdges;
+	static long startTime;
 
     public static void main(String[] args) {
+    	startTime = System.currentTimeMillis( );
+    	System.out.println(new Date());
 
         Scanner in = new Scanner(System.in);
         int testCases = in.nextInt();
         for(int a0 = 0; a0 < testCases; a0++) {
-	        
+        	graph = new HashMap<Integer, Node>();
 	        numberOfNodes = in.nextInt();
 	        numberOfEdges = in.nextInt();
-	//        Node nodex, nodey;
-	//        LinkedList<Edge> edges;
 	        settled = new HashMap<Integer, Boolean>();
-	//        for (int i = 0; i < numberOfNodes; i++) {
-	//            visited.put(i + 1, false);
-	//        }
 	        for(int i = 0; i < numberOfEdges; i++){
 	            int x = in.nextInt();
 	            int y = in.nextInt();
 	            settled.put(x, false);
 	            settled.put(y, false);
-	//            distances.put(x, Long.MAX_VALUE);
-	//            distances.put(y, Long.MAX_VALUE);
 	            long z = in.nextInt();
 	            Edge edge = new Edge(x,y,z);
 	            addToGraph(x, edge);
 	            addToGraph(y, edge);
 	        }
-        }
-        int startNodeID = in.nextInt();
-//        distances.put(startNodeID, 0L);
-        dijkstraSPT(startNodeID);
-        Iterator<Map.Entry<Integer, Node>> it = graph.entrySet().iterator();
-        while (it.hasNext()) {
-        	Map.Entry<Integer, Node> graphEntry = (Map.Entry)it.next();
-        	Node node = graphEntry.getValue();
-        	if (node.distance != 0) {
-        		System.out.print(node.distance + " ");
-        	}
+	        int startNodeID = in.nextInt();
+	        dijkstraSPT(startNodeID);
+	        Iterator<Map.Entry<Integer, Node>> it = graph.entrySet().iterator();
+	        while (it.hasNext()) {
+	        	Map.Entry<Integer, Node> graphEntry = (Map.Entry)it.next();
+	        	Node node = graphEntry.getValue();
+	        	if (node.distance != 0) {
+	        		if (node.distance == Long.MAX_VALUE) node.distance = -1;
+	        		System.out.print(node.distance + " ");
+	        	}
+	        }
+	        System.out.println();
+
+	    	long endTime = System.currentTimeMillis( );
+	    	System.out.println(new Date());
+	    	System.out.println("Nodes: " + numberOfNodes + "   Edges: " + numberOfEdges);
+	    	System.out.println("Elapsed Milliseconds: " + (endTime - startTime));
         }
 
         in.close();
@@ -98,10 +99,14 @@ public class Solution {
     	edgesQueue = queueNodeEdges(edgesQueue, node);
     	Edge lowestEdge;
     	
-    	while (settled.containsValue(false)) { 
-        	lowestEdge = findLowestEdge(edgesQueue);
-        	Node newNode = graph.get(lowestEdge.endNode);
-        	edgesQueue = queueNodeEdges(edgesQueue, newNode);
+    	while (settled.containsValue(false) && !edgesQueue.isEmpty()) { 
+    		lowestEdge = findLowestEdge(edgesQueue);
+        	if (lowestEdge != null) {
+//        		long endTime = System.currentTimeMillis( );
+//        		System.out.println("Elapsed Milliseconds: " + (endTime - startTime) + "  --  " + lowestEdge.startNode + " to " + lowestEdge.endNode + " distance: " + lowestEdge.weight);
+        		Node newNode = graph.get(lowestEdge.endNode);
+        		edgesQueue = queueNodeEdges(edgesQueue, newNode);
+        	}
     	}
     	return;
     }
@@ -109,7 +114,12 @@ public class Solution {
     	settled.put(node.nodeID, true);
     	List<Edge> edgesQueue = new ArrayList<Edge>();
     	for (Edge edge : startingEdgesQueue) {
-    		if (!settled.get(edge.endNode)) edgesQueue.add(edge);
+    		if (!settled.get(edge.endNode)) {
+    			edgesQueue.add(edge);
+//    		} else {
+//    			long endTime = System.currentTimeMillis( );
+//        		System.out.println("Elapsed Milliseconds: " + (endTime - startTime) + "  --  " + edge.startNode + " to " + edge.endNode + " distance: " + edge.weight);
+    		}
     	}
     	LinkedList<Edge> edges = node.adjacencyList;
     	for (Edge edge : edges) {
@@ -134,8 +144,10 @@ public class Solution {
     			lowestDistance = nodeDistance;
     		}
     	}
-    	SPTgraph.add(lowestEdge);
-    	graph.get(lowestEdge.endNode).distance = lowestDistance;
+    	if (lowestEdge != null) {
+	    	SPTgraph.add(lowestEdge);
+	    	graph.get(lowestEdge.endNode).distance = lowestDistance;
+    	}
     	return lowestEdge;
     }
 }
