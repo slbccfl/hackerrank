@@ -33,11 +33,10 @@ public class Solution {
 	static HashMap<Integer, Boolean>settled;
 	static LinkedList<Edge> SPTgraph;
 	static int numberOfNodes, numberOfEdges;
-	static long startTime;
+	static long startTime = System.currentTimeMillis();;
 
     public static void main(String[] args) {
-    	startTime = System.currentTimeMillis( );
-    	System.out.println(new Date());
+    	timeStamp("");
 
     	BufferedReader br = new BufferedReader (new InputStreamReader(System.in));
     	Integer testCases = null;
@@ -54,7 +53,6 @@ public class Solution {
         	try {
 				line = br.readLine();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	        numberOfNodes = Integer.parseInt(line.split("\\s")[0]);
@@ -84,7 +82,13 @@ public class Solution {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+	        
+	    	timeStamp("Test case " + a0 + " Loaded  --  Nodes: " + numberOfNodes + "   Edges: " + numberOfEdges);
+	    	
 	        dijkstraSPT(startNodeID);
+	        
+	    	timeStamp("Output");
+	        
 	        Iterator<Map.Entry<Integer, Node>> it = graph.entrySet().iterator();
 	        StringBuilder sb = new StringBuilder();
 	        while (it.hasNext()) {
@@ -98,9 +102,7 @@ public class Solution {
 	        }
 	        System.out.println(sb);
 	        
-	    	long endTime = System.currentTimeMillis( );
-//	    	System.out.println(new Date());
-//	    	System.out.println("Elapsed Milliseconds: " + (endTime - startTime));
+//	    	timeStamp("");
         }
         try {
 			br.close();
@@ -108,11 +110,15 @@ public class Solution {
 			e.printStackTrace();
 		}
         
-    	long endTime = System.currentTimeMillis( );
-    	System.out.println(new Date());
-    	System.out.println("Nodes: " + numberOfNodes + "   Edges: " + numberOfEdges);
-    	System.out.println("Elapsed Milliseconds: " + (endTime - startTime));
+        timeStamp("");
     }
+
+	private static void timeStamp(String title) {
+		long endTime = System.currentTimeMillis( );
+		System.out.println(new Date());
+		System.out.println("Elapsed Milliseconds: " + (endTime - startTime));
+		System.out.println(title);
+	}
 
 	static void addToGraph(int x, Edge edge) {
 		Node nodex;
@@ -140,10 +146,12 @@ public class Solution {
         	if (lowestEdge != null) {
         		nodesQueue = queueNodeEdges(nodesQueue, lowestEdge.endNode);
         	}
+        	timeStamp("SPTgraph size:" + SPTgraph.size() + " - queue size: " + nodesQueue.size());
     	}
     	return;
     }
     static List<Integer> queueNodeEdges(List<Integer> nodesQueue, Integer nodeID) {
+//    	timeStamp("queueNodeEdges in");
     	settled.put(nodeID, true);
     	if (nodesQueue.contains(nodeID)) nodesQueue.remove(nodeID);
     	Node node, adjacentNode;
@@ -160,9 +168,11 @@ public class Solution {
     			
     		}
     	}
+//    	timeStamp("queueNodeEdges out - queue size: " + nodesQueue.size());
     	return nodesQueue;
     }
     static Edge findLowestEdge(List<Integer> nodesQueue) {
+//    	timeStamp("findLowestEdge in");
     	long lowestDistance = Long.MAX_VALUE;
     	Edge lowestEdge = null;
     	Node node;
@@ -188,6 +198,8 @@ public class Solution {
 	    	node = graph.get(lowestEdge.endNode);
 	    	node.distance = lowestDistance;
     	}
+//    	timeStamp("findLowestEdge out --" + lowestEdge.startNode + " to " + lowestEdge.endNode + " w:" + lowestEdge.weight);
     	return lowestEdge;
     }
+    
 }
