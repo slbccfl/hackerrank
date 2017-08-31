@@ -18,13 +18,16 @@ class Edge {
 class Node {
 	int nodeID;
 	long distance;
-	LinkedList<Edge> adjacencyList; 
+	HashMap<Integer, Edge> adjacencyList; 
 	
 	public Node(int r, Edge edge) {
 		nodeID = r;
 		distance = Long.MAX_VALUE;
-		adjacencyList = new LinkedList<Edge>();
-		if (edge != null) adjacencyList.add(edge);
+		adjacencyList = new HashMap<Integer, Edge>();
+		Integer adjacentNode = null;
+		if (edge.startNode == nodeID) adjacentNode = edge.endNode;
+		if (edge.endNode == nodeID) adjacentNode = edge.startNode;
+		if (edge != null) adjacencyList.put(adjacentNode, edge);
 	}
 }
 public class Solution {
@@ -83,11 +86,11 @@ public class Solution {
 				e.printStackTrace();
 			}
 	        
-	    	timeStamp("Test case " + a0 + " Loaded  --  Nodes: " + numberOfNodes + "   Edges: " + numberOfEdges);
+//	    	timeStamp("Test case " + a0 + " Loaded  --  Nodes: " + numberOfNodes + "   Edges: " + numberOfEdges);
 	    	
 	        dijkstraSPT(startNodeID);
 	        
-	    	timeStamp("Output");
+//	    	timeStamp("Output");
 	        
 	        Iterator<Map.Entry<Integer, Node>> it = graph.entrySet().iterator();
 	        StringBuilder sb = new StringBuilder();
@@ -124,7 +127,13 @@ public class Solution {
 		Node nodex;
 		if (graph.containsKey(x)) {
 		    nodex = graph.get(x);
-	    	nodex.adjacencyList.add(edge);
+			Integer adjacentNode = null;
+			if (edge.startNode == x) adjacentNode = edge.endNode;
+			if (edge.endNode == x) adjacentNode = edge.startNode;
+			Edge priorEdge = nodex.adjacencyList.get(adjacentNode);
+			if (priorEdge == null || edge.weight < priorEdge.weight) {
+				nodex.adjacencyList.put(adjacentNode, edge);
+			}
 		} else {
 			nodex = new Node(x, edge);
 		}
@@ -146,7 +155,7 @@ public class Solution {
         	if (lowestEdge != null) {
         		nodesQueue = queueNodeEdges(nodesQueue, lowestEdge.endNode);
         	}
-        	timeStamp("SPTgraph size:" + SPTgraph.size() + " - queue size: " + nodesQueue.size());
+//        	timeStamp("SPTgraph size:" + SPTgraph.size() + " - queue size: " + nodesQueue.size());
     	}
     	return;
     }
@@ -156,8 +165,11 @@ public class Solution {
     	if (nodesQueue.contains(nodeID)) nodesQueue.remove(nodeID);
     	Node node, adjacentNode;
     	node = graph.get(nodeID);
-    	LinkedList<Edge> edges = node.adjacencyList;
-    	for (Edge edge : edges) {
+    	HashMap<Integer, Edge> edges = node.adjacencyList;
+    	Iterator<Map.Entry<Integer, Edge>> edgeIterator = edges.entrySet().iterator();
+    	while (edgeIterator.hasNext()) {
+    		Map.Entry<Integer, Edge> edgeEntry = (Map.Entry<Integer, Edge>)edgeIterator.next();
+    		Edge edge = edgeEntry.getValue();
     		Integer adjacentNodeID = null;
     		if (edge.startNode == nodeID) adjacentNodeID = edge.endNode;
     		if (edge.endNode == nodeID) adjacentNodeID = edge.startNode;
@@ -178,7 +190,11 @@ public class Solution {
     	Node node;
     	for (int nodeID : nodesQueue) { 
     		node = graph.get(nodeID);
-    		for (Edge edge : node.adjacencyList) {
+        	HashMap<Integer, Edge> edges = node.adjacencyList;
+        	Iterator<Map.Entry<Integer, Edge>> edgeIterator = edges.entrySet().iterator();
+        	while (edgeIterator.hasNext()) {
+        		Map.Entry<Integer, Edge> edgeEntry = (Map.Entry<Integer, Edge>)edgeIterator.next();
+        		Edge edge = edgeEntry.getValue();
         		Integer adjacentNodeID = null;
         		if (edge.startNode == nodeID) adjacentNodeID = edge.endNode;
         		if (edge.endNode == nodeID) adjacentNodeID = edge.startNode;
