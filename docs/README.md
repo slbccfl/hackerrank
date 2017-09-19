@@ -1,4 +1,4 @@
-# HackerRank Exercises
+# Solutions to HackerRank Exercises
 # and Notes on Lessons Learned
 
 ## Purpose:
