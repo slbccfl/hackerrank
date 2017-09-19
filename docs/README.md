@@ -6,4 +6,4 @@ This repository contains my efforts to use Eclipse and Java to resolve a suite o
 ## Principles:
 1. My own code - While I have investigated solutions broadly, I have developed my own coding solutions for each of these exercises.
 2. Use Standards - As I have developed these solutions I have sought to understand the standards used by the software industry and to employ those standards.
-3. Code to Learn - In some cases I have employed data structures or approached solutions to give myself and opportunity to learn Java functionality or to see if a theory would solve a problem.
+3. Code to Learn - In some cases I have employed data structures or approached problems in such a way as to give myself more of an opportunity to learn about Java functionality or problem solving methodologies.
