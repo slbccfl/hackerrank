@@ -1,4 +1,5 @@
-# HackerRank Exercises and Notes on Lessons Learned
+# HackerRank Exercises
+# and Notes on Lessons Learned
 
 ## Purpose:
 This repository contains my efforts to use Eclipse and Java to resolve a suite of the coding exercises available on the HackerRank website. This effort was intended to develop my understanding and skills in Java coding and using Eclipse to develop this code. Adjunct to this I have endevored to employ TDD (Test Driven Development) in more advanced exercises and to leverage on Github-Pages and Javadoc to document the lessons I have learned during this overall effort.
