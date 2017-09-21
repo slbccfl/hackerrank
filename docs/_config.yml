@@ -1,9 +1,10 @@
 # basic options
 title: Hackerrank exercises
-author: Steven Barnes 
+author: Steven Barnes
 email: slbcr@yahoo.com
-description: Collection of coding exercises from hackerrank
+description: Collection of coding solutions for exercises on hackerrank
 github_username:  slbccfl
+theme: jekyll-theme-hacker
 
 # Build settings
 markdown: kramdown
