@@ -1,7 +1,8 @@
 # basic options
-title: Hackerrank exercises
+title: Solutions to HackerRank Exercises and Notes on Lessons Learned
 author: Steven Barnes
 email: slbcr@yahoo.com
+linkedin_link: https://www.linkedin.com/in/steven-barnes-mba-pmp/
 description: Collection of coding solutions for exercises on hackerrank
 github_username:  slbccfl
 theme: jekyll-theme-hacker
@@ -9,3 +10,7 @@ theme: jekyll-theme-hacker
 # Build settings
 markdown: kramdown
 theme: jekyll-theme-hacker
+
+collections:
+  solutions:
+    output: true
