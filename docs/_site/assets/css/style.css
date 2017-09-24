@@ -131,3 +131,7 @@ a { color: #63c0f5; text-shadow: 0 0 5px rgba(104, 182, 255, 0.5); }
 .cf:after { clear: both; }
 
 .cf { zoom: 1; }
+
+header h1:before { content: ""; font-size: 24px; }
+
+.container { width: 90%; max-width: none; margin: 0 auto; }

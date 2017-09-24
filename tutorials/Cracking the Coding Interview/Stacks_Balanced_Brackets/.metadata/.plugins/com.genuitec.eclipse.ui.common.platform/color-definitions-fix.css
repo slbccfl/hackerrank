@@ -1260,10 +1260,11 @@ IEclipsePreferences#org-eclipse-tm-terminal-control {
 IEclipsePreferences#org-eclipse-ui-editors {
 	preferences:
 		'AbstractTextEditor.Color.Background.SystemDefault=false'
-		'org.eclipse.cdt.ui.writeOccurrenceIndicationColor=27,98,145'
+		'org.eclipse.cdt.ui.writeOccurrenceIndicationColor=68,68,5'
 		'lineNumberColor=101,123,131'
 		'searchResultIndication=true'
 		'hyperlinkColor.SystemDefault=false'
+		'findIndicationColor=60,71,145'
 		'AbstractTextEditor.Color.SelectionBackground.SystemDefault=false'
 		'spellingIndicationColor=253,170,211'
 		'AbstractTextEditor.Color.SelectionForeground=147,161,161'
@@ -1277,10 +1278,10 @@ IEclipsePreferences#org-eclipse-ui-editors {
 		'AbstractTextEditor.Color.FindScope=30,120,155'
 		'linked.slave.color=66,156,255'
 		'filteredSearchResultIndicationColor=27,98,145'
-		'asOccurencesIndicationColor=72,72,72'
+		'asOccurencesIndicationColor=68,68,5'
 		'breakpointIndicationColor=51,119,193'
 		'AbstractTextEditor.Color.Background=32,36,37'
-		'writeOccurrenceIndicationColor=27,98,145'
+		'writeOccurrenceIndicationColor=68,68,5'
 		'PHPReadOccurrenceIndicationColor=0,0,0'
 		'PHPWriteOccurrenceIndicationColor=0,0,0'
 		'deletionIndicationColor=224,226,228'
@@ -1294,7 +1295,7 @@ IEclipsePreferences#org-eclipse-ui-editors {
 		'searchResultIndicationColor=94,94,94'
 		'currentIPColor=54,54,54'
 		'pydevOccurrenceIndicationColor=0,0,0'
-		'occurrenceIndicationColor=27,98,145'
+		'occurrenceIndicationColor=68,68,5'
 		'overrideIndicatorColor=78,120,117'
 }
 IEclipsePreferences#org-eclipse-ui-workbench {
@@ -1412,6 +1413,8 @@ IEclipsePreferences#org-eclipse-ui-workbench {
 		'org.eclipse.jdt.ui.typeArgumentHighlighting=255,255,0'
 		'org.eclipse.jdt.ui.typeParameterHighlighting=247,173,123'
 		'org.eclipse.jdt.ui.typeVariableDeclarationHighlighting=247,173,123'
+		'org.eclipse.mat.ui.oql_comment=109,167,136'
+		'org.eclipse.mat.ui.oql_keyword=205,77,164'
 		'org.eclipse.mylyn.tasks.ui.colors.category.gradient.end=35,35,35'
 		'org.eclipse.mylyn.tasks.ui.colors.category.gradient.start=15,15,15'
 		'org.eclipse.mylyn.tasks.ui.colors.foreground.completed=127,127,127'
