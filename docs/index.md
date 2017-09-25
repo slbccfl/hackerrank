@@ -5,6 +5,6 @@ layout: default
 ## Exercises:
 <ul>
   {% for solution in site.solutions %}
-    <li><a href="{{ solution.url }}">{{ solution.title }}</a></li>
+    <li><a href="{{ solution.url }}">{{ solution.title }}</a><br>{{solution.description}}</li>
   {% endfor %}
 </ul>

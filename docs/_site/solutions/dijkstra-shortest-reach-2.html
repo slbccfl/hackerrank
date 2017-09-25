@@ -4,7 +4,7 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=23ccbe1b7158750aa9ca1dfa5f60999159a9c961">
+    <link rel="stylesheet" href="/assets/css/style.css?v=7aaec0fceb3d9632f6b061e124a12237b3d2263d">
 
   </head>
 
@@ -22,17 +22,51 @@
       <section id="main_content">
         <a href="http://localhost:4000">Back to Top</a>
 <h1>Dijkstra Shortest Reach 2</h1>
+An implementation of the Dijkstra algorithm for finding the the shortest distance path from a starting position node to all of the other nodes in a graph.<br><br>
 <h2>Problem:</h2>
 <p>See HackerRank website for the problem description.<br>
 (<a href="https://www.hackerrank.com/challenges/dijkstrashortreach" target="_blank">HackerRank Problem Description</a>)</p>
 <h2 id="solution">Solution:</h2>
 <h3 id="strategy">Strategy:</h3>
-
+<p>This solution implements the Dijkstra algorithm for finding the the path.<br />
+See the following references for descriptions and graphics  of Dijkstra’s algorithm.<br />
+<a href="https://en.wikipedia.org/wiki/Dijkstra's_algorithm">Wikipedia</a><br />
+<a href="http://www.geeksforgeeks.org/greedy-algorithms-set-6-dijkstras-shortest-path-algorithm/">GeeksforGeeks</a></p>
+<h3 id="classes-outside-the-solution-class">Classes outside the Solution class:</h3>
+<h4 id="edge">Edge</h4>
+<p>A class defined to represent an edge in the graph, includes attributes for weight, starting node and ending node.</p>
+<h4 id="node">Node</h4>
+<p>A class defined to represent a node in the graph. That attributes include the nodeID, as defined by the input, distance from the starting point in the graph, and an adjacencyList of the egdes that link to this node. When a node is instantiated distance is set to Long.MAX_VALUE and a new HashMap is instantiated for the adjacencyList. An edge is optionally passed to the constructor for the node. If an edge is included, the node being instantiated is identified as the starting or ending node of the edge and the other node is set as the adjacentNode and put in the adjacencyList for the node.</p>
+<h3 id="solution-class-fields">Solution Class fields:</h3>
+<h4 id="graph">graph</h4>
+<p>A HashMap that is the internal representation of the graph.</p>
+<h4 id="settled">settled</h4>
+<p>A HashMap used to track what nodes have been settled per the Dijkstra algorithm.</p>
+<h4 id="numberofnodes-and-numberofedges">numberOfNodes and numberOfEdges</h4>
+<p>The initial inputs for the  current run.</p>
+<h4 id="starttime">startTime</h4>
+<p>This field is used for timing the algorithm and is not directly relevant to the solution.</p>
 <h3 id="methods">Methods:</h3>
 <h4 id="main">main</h4>
-<p>The main method is almost exclusively dedicated to loading the STDIN data…</p>
-
+<p>The main method acts as something of a wrapper for the primary method in this solution, dijkstraSPT. Loading the STDIN data before executing that method, and then constructing and outputting the STDOUT string after. One thing to note in the solution is the use of BufferedReader to read STDIN in an attempt to gain efficiency. Similarly, StringBuilder is used to compose the STDOUT string, also in an attempt to gain efficiency there.</p>
+<h4 id="timestamp">timeStamp</h4>
+<p>The timeStamp method is a method only used during development to evaluate efforts to optimize the code efficiency.</p>
+<h4 id="addtograph">addToGraph</h4>
+<p>This method is used to add edges to the internal representation of the graph during the initial load of data from STDIN by the main method.</p>
+<h4 id="dijkstraspt">dijkstraSPT</h4>
+<p>This method uses a TreeMap (nodesQueue) to collect and hold the nodes to be evaluated on the frontier of analysis.
+queueNodeEdges is initilized, using queueNodeEdges to load the startNode. And then a loop runs findLowestEdge and queueNodeEdges until there are no more unsettled nodes no more nodes in nodesQueue to process. At this point the Dijkstra algorithm has been completed.</p>
+<h4 id="queuenodeedges">queueNodeEdges</h4>
+<p>Broadly, this method takes in and returns the nodesQueue, also taking in a node to be added to this queue. But it’s more complicated than that. The method iterates through each of the edges to link to the node being enqueued. For each adjacent node that has not been previously settled, the distance of the current node + the weight of the connecting edge is compared to the distance the adjacent node currently has and updates that distance if the new value is lower. And the adjacent node is enqueued in nodesQueue under the new distance value.</p>
+<h4 id="findlowestedge">findLowestEdge</h4>
 <h3 id="data-structures">Data Structures:</h3>
+<h4 id="treemaplong-linkedlistnodesqueue">TreeMap&lt;Long, LinkedList<Integer>&gt;nodesQueue</Integer></h4>
+<p>This structure is used to store the nodes to be evaluated along the frontier of analysis. The Long key is used to store sets of nodes by their distance from the startNode. The LinkedList then allows for multiple nodes having the same distance from the startNode.</p>
+<h2 id="testsolution---junit-testing-method">TestSolution - junit testing method</h2>
+<h3 id="methods-1">Methods:</h3>
+<h4 id="testaddtograph">testAddToGraph</h4>
+<h4 id="testqueuenodeedges">testQueueNodeEdges</h4>
+<h4 id="testdijkstraspt">testDijkstraSPT</h4>
 
 <a href="http://localhost:4000">Back to Top</a>
 

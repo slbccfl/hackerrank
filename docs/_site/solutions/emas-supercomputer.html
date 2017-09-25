@@ -4,7 +4,7 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=23ccbe1b7158750aa9ca1dfa5f60999159a9c961">
+    <link rel="stylesheet" href="/assets/css/style.css?v=7aaec0fceb3d9632f6b061e124a12237b3d2263d">
 
   </head>
 
@@ -22,6 +22,7 @@
       <section id="main_content">
         <a href="http://localhost:4000">Back to Top</a>
 <h1>Ema's Supercomputer</h1>
+Uses two dimensional arrays to finds the optimal placement of two pluses on a matrix to maximize the product of the areas covered by the pluses.<br><br>
 <h2>Problem:</h2>
 <p>See HackerRank website for the problem description.<br>
 (<a href="https://www.hackerrank.com/challenges/two-pluses" target="_blank">HackerRank Problem Description</a>)</p>
@@ -30,9 +31,9 @@
 <p>This solution iterates through the matrix of ‘B’ and ‘G’ letters and scores each cell that has a ‘G’ for potentially hosting the first of the two pluses. When I say a cell potentially hosts a plus I mean that the cell would be the point at which the two segments cross. Or put another way, the cell from which the four arms of the plus originate from. All the potential sizes,lengths of arms, of each plus is considered at each location too. And as each of these pluses are considered, the solution examines and scores all the remaining cells as the potential host of the second plus. In evaluating the second plus, the maximum size of plus is all that has to be considered. It is important to vary the size of the first plus as it’s maximum size (arm length) will not necessarily yield the optimal result, “…the maximum product of their areas.” It is possible that a smaller first plus, at a given location, would allow a second plus to be larger, where the increase in area of the second plus outweighs the reduction in area of the first plus.</p>
 <h3 id="methods">Methods:</h3>
 <h4 id="main">main</h4>
-<p>The main method is almost exclusively dedicated to loading the STDIN data. The inputs for this problem are loaded into integer variables “rows” and “columns” and the matrix of letters are loaded into a two dimensional array (char[][]) called “matrix” using nextLine and charAt to get each character. Then the required STDOUT is provided by a println of the returned value from a method “findoptimalScorePair”.</p>
-<h4 id="findoptimalscorepair">findoptimalScorePair</h4>
-<p>In “findoptimalScorePair” the code iterates through each row and column. For each cell with a ‘G’, a score for the cell is determined. The score is the area of the first plus. For each ‘G’ cell a “maxRange” is set by a method “scoreCell”. Next maxRange is decremented to 0, setting tempMaxRange. For each value “tempMaxRange”, a tempMatrix is cloned from matrix, and “findMatrixHighScore” is called to return the highest scoring second plus. The method “tagPlus” is used to temporarily mark out the cells used by the first plus. A highScore is updated if the product of a pair of scores is greater. The variable highScore is returned by this method.</p>
+<p>The main method is almost exclusively dedicated to loading the STDIN data. The inputs for this problem are loaded into integer variables “rows” and “columns” and the matrix of letters are loaded into a two dimensional array (char[][]) called “matrix” using nextLine and charAt to get each character. Then the required STDOUT is provided by a println of the returned value from a method “findOptimalScorePair”.</p>
+<h4 id="findoptimalscorepair">findOptimalScorePair</h4>
+<p>In “findOptimalScorePair” the code iterates through each row and column. For each cell with a ‘G’, a score for the cell is determined. The score is the area of the first plus. For each ‘G’ cell a “maxRange” is set by a method “scoreCell”. Next maxRange is decremented to 0, setting tempMaxRange. For each value “tempMaxRange”, a tempMatrix is cloned from matrix, and “findMatrixHighScore” is called to return the highest scoring second plus. The method “tagPlus” is used to temporarily mark out the cells used by the first plus. A highScore is updated if the product of a pair of scores is greater. The variable highScore is returned by this method.</p>
 <h4 id="findmatrixhighscore">findMatrixHighScore</h4>
 <p>For each temporary matrix passed to this method, with a first plus marked out by “tagPlus”, this method iterates through all rows and columns and scores each ‘G’ cell as a potential host for the second plus. “scoreCell” is used by this method to determine the maxRange available to each cell and the calculates a cell score that is the area of the plus (1 + (maxRange * 4)). The cell score is compared to the high cell score found so far, is is assigned to “highScore” if the new score is higher than any prior. “highScore” is returned after all cells have been evaluated.</p>
 <h4 id="tagplus">tagPlus</h4>
