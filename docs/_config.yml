@@ -14,3 +14,4 @@ theme: jekyll-theme-hacker
 collections:
   solutions:
     output: true
+    permalink: /:collection/:name
