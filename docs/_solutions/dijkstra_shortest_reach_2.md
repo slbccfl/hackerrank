@@ -8,8 +8,8 @@ exercise_link: https://www.hackerrank.com/challenges/dijkstrashortreach
 ### Strategy:
 This solution implements the Dijkstra algorithm for finding the the path.<br>
 See the following references for descriptions and graphics  of Dijkstra's algorithm.<br>
-[Wikipedia](https://en.wikipedia.org/wiki/Dijkstra's_algorithm)<br>
-[GeeksforGeeks](http://www.geeksforgeeks.org/greedy-algorithms-set-6-dijkstras-shortest-path-algorithm/)
+[Wikipedia](https://en.wikipedia.org/wiki/Dijkstra's_algorithm){:target="\_blank"}<br>
+[GeeksforGeeks](http://www.geeksforgeeks.org/greedy-algorithms-set-6-dijkstras-shortest-path-algorithm/){:target="\_blank"}
 ### Classes outside the Solution class:
 #### Edge
 A class defined to represent an edge in the graph, includes attributes for weight, starting node and ending node.
