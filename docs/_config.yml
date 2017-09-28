@@ -14,4 +14,4 @@ theme: jekyll-theme-hacker
 collections:
   solutions:
     output: true
-    # permalink: /hackerrank/:collection/:name
+    permalink: /hackerrank/:collection/:name

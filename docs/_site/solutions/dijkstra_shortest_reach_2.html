@@ -4,7 +4,7 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=0dae36fc7a327ce71c36a48fe7e53afb3bb4b377">
+    <link rel="stylesheet" href="/assets/css/style.css?v=2bd514fdc75b10b9baab2b27eeb7dc8971a7c3e9">
   </head>
 
   <body>
@@ -12,7 +12,7 @@
     <header>
       <div class="container">
         <h1>Solutions to HackerRank Exercises and Notes on Lessons Learned</h1>
-        <h2>Collection of coding solutions for exercises on hackerrank By Steven Barnes pag
+        <h2>Collection of coding solutions for exercises on hackerrank By Steven Barnes 
         <a href="https://github.com/slbccfl" target="_blank">Github</a>  <a href="https://www.linkedin.com/in/steven-barnes-mba-pmp/" target="_blank">LinkedIn</a></h2>
       </div>
     </header>
@@ -27,7 +27,7 @@ An implementation of the Dijkstra algorithm for finding the the shortest distanc
 (<a href="https://www.hackerrank.com/challenges/dijkstrashortreach" target="_blank">HackerRank Problem Description</a>)</p>
 <h2 id="solution">Solution:</h2>
 <h3 id="strategy">Strategy:</h3>
-<p>This solution implements the Dijkstra algorithm for finding the the path.<br />
+<p>This solution implements the Dijkstra algorithm for finding the path.<br />
 See the following references for descriptions and graphics  of Dijkstra’s algorithm.<br />
 <a href="https://en.wikipedia.org/wiki/Dijkstra's_algorithm" target="\_blank">Wikipedia</a><br />
 <a href="http://www.geeksforgeeks.org/greedy-algorithms-set-6-dijkstras-shortest-path-algorithm/" target="\_blank">GeeksforGeeks</a></p>
@@ -35,7 +35,7 @@ See the following references for descriptions and graphics  of Dijkstra’s algo
 <h4 id="edge">Edge</h4>
 <p>A class defined to represent an edge in the graph, includes attributes for weight, starting node and ending node.</p>
 <h4 id="node">Node</h4>
-<p>A class defined to represent a node in the graph. That attributes include the nodeID, as defined by the input, distance from the starting point in the graph, and an adjacencyList of the egdes that link to this node. When a node is instantiated distance is set to Long.MAX_VALUE and a new HashMap is instantiated for the adjacencyList. An edge is optionally passed to the constructor for the node. If an edge is included, the node being instantiated is identified as the starting or ending node of the edge and the other node is set as the adjacentNode and put in the adjacencyList for the node.</p>
+<p>A class defined to represent a node in the graph. Attributes include the nodeID, as defined by the input, distance from the starting point in the graph, and an adjacencyList of the egdes that link to this node. When a node is instantiated, distance is set to Long.MAX_VALUE, to represent infinity, and a new HashMap is instantiated for the adjacencyList. An edge is optionally passed to the constructor for the node. If an edge is included, the node being instantiated is identified as the starting or ending node of the edge and the other node is set as the adjacentNode and put in the adjacencyList for the node.</p>
 <h3 id="solution-class-fields">Solution Class fields:</h3>
 <h4 id="graph">graph</h4>
 <p>A HashMap that is the internal representation of the graph.</p>
@@ -47,23 +47,25 @@ See the following references for descriptions and graphics  of Dijkstra’s algo
 <p>This field is used for timing the algorithm and is not directly relevant to the solution.</p>
 <h3 id="methods">Methods:</h3>
 <h4 id="main">main</h4>
-<p>The main method acts as something of a wrapper for the primary method in this solution, dijkstraSPT. Loading the STDIN data before executing that method, and then constructing and outputting the STDOUT string after. One thing to note in the solution is the use of BufferedReader to read STDIN in an attempt to gain efficiency. Similarly, StringBuilder is used to compose the STDOUT string, also in an attempt to gain efficiency there.</p>
+<p>The main method acts as something of a wrapper for the primary method in this solution, dijkstraSPT. The STDIN data is loaded before executing that method, and then constructing and outputting the STDOUT string after. One thing to note in the solution is the use of BufferedReader to read STDIN in an attempt to gain efficiency. Similarly, StringBuilder is used to compose the STDOUT string, also in an attempt to gain efficiency there.</p>
 <h4 id="timestamp">timeStamp</h4>
 <p>The timeStamp method is a method only used during development to evaluate efforts to optimize the code efficiency.</p>
 <h4 id="addtograph">addToGraph</h4>
 <p>This method is used to add edges to the internal representation of the graph during the initial load of data from STDIN by the main method.</p>
 <h4 id="dijkstraspt">dijkstraSPT</h4>
 <p>This method uses a TreeMap (nodesQueue) to collect and hold the nodes to be evaluated on the frontier of analysis.
-queueNodeEdges is initilized, using queueNodeEdges to load the startNode. And then a loop runs findLowestEdge and queueNodeEdges until there are no more unsettled nodes no more nodes in nodesQueue to process. At this point the Dijkstra algorithm has been completed.</p>
+queueNodeEdges is initilized, using queueNodeEdges to load the startNode. And then a loop runs findLowestEdge and queueNodeEdges until there are no more unsettled nodes in nodesQueue to process. At this point the Dijkstra algorithm has been completed.</p>
 <h4 id="queuenodeedges">queueNodeEdges</h4>
-<p>Broadly, this method takes in and returns the nodesQueue, also taking in a node to be added to this queue. But it’s more complicated than that. The method iterates through each of the edges to link to the node being enqueued. For each adjacent node that has not been previously settled, the distance of the current node + the weight of the connecting edge is compared to the distance the adjacent node currently has and updates that distance if the new value is lower. And the adjacent node is enqueued in nodesQueue under the new distance value.</p>
+<p>Broadly, this method takes in and returns the nodesQueue, also taking in a node to be added to this queue. But it’s more complicated than that. The method iterates through each of the edges that link to the node being enqueued. For each adjacent node that has not been previously settled, the distance of the current node + the weight of the connecting edge is compared to the distance the adjacent node currently has and updates that distance if the new value is lower. And the adjacent node is enqueued in nodesQueue under the new distance value.</p>
 <h4 id="findlowestedge">findLowestEdge</h4>
+<p>The method takes in the TreeMap nodesQueue and disqueues the node in nodeQueue with the lowest distance. While getting the lowest distance node should just be a matter of executing the nodesQueue.pollFirstEntry() method. Polling has to continue until a node that is settled is found and the LinkedList of nodes for a given value has to be maintained too. The LinkedList within nodesQueue takes into account that there may be multiple nodes that are the same distance from the starting node.</p>
 <h3 id="data-structures">Data Structures:</h3>
 <h4 id="treemaplong-linkedlistnodesqueue">TreeMap&lt;Long, LinkedList<Integer>&gt;nodesQueue</Integer></h4>
-<p>This structure is used to store the nodes to be evaluated along the frontier of analysis. The Long key is used to store sets of nodes by their distance from the startNode. The LinkedList then allows for multiple nodes having the same distance from the startNode.</p>
+<p>This structure is used to store the nodes to be evaluated along the frontier of analysis. The Long key is used to store distance from the startNode. The LinkedList then allows for multiple nodes having the same distance from the startNode. The <a href="https://docs.oracle.com/javase/7/docs/api/java/util/TreeMap.html">TreeMap</a> data structure is just about perfect for managing a queue of nodes where we want the lowest distance node from that collection. The <a href="https://docs.oracle.com/javase/7/docs/api/java/util/TreeMap.html#pollLastEntry()">pollFirstEntry</a> method of this class “Removes and returns a key-value mapping associated with the least key in this map, or null if the map is empty.”</p>
 <h2 id="testsolution---junit-testing-method">TestSolution - junit testing method</h2>
 <h3 id="methods-1">Methods:</h3>
 <h4 id="testaddtograph">testAddToGraph</h4>
+
 <h4 id="testqueuenodeedges">testQueueNodeEdges</h4>
 <h4 id="testdijkstraspt">testDijkstraSPT</h4>
 
