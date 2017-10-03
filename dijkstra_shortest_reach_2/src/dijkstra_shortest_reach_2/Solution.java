@@ -35,26 +35,9 @@ public class Solution {
 
     static HashMap<Integer, Node> graph;
 	static HashMap<Integer, Boolean>settled;
-//	static LinkedList<Edge> SPTgraph;
+	static TreeMap<Long, LinkedList<Integer>> nodesQueue;
 	static int numberOfNodes, numberOfEdges;
 	static long startTime = System.currentTimeMillis();
-
-
-//	public static <Long, LinkedList<Integer>> extends Comparable<Node>> Map<Long, Integer> sortByDistance(final Map<Long, Integer> map) {
-//		Comparator<Long> distanceComparator = new Comparator<Long>() {
-//		  public int compare(Long d1, Long d2) {
-//		    int compare = map.get(d1).compareTo(map.get(d2));
-//		    if (compare == 0) 
-//		      return 1;
-//		    else 
-//		      return compare;
-//		  }
-//		};
-//		
-//		Map<Long, LinkedList<Integer>> sortedByDistance = new TreeMap<Long, LinkedList<Integer>>(distanceComparator);
-//		sortedByDistance.putAll(map);
-//		return sortedByDistance;
-//	}
 
     public static void main(String[] args) {
 //    	timeStamp("");
@@ -113,7 +96,7 @@ public class Solution {
 	        Iterator<Map.Entry<Integer, Node>> it = graph.entrySet().iterator();
 	        StringBuilder sb = new StringBuilder();
 	        while (it.hasNext()) {
-	        	Map.Entry<Integer, Node> graphEntry = (Map.Entry)it.next();
+	        	Map.Entry<Integer, Node> graphEntry = (Map.Entry<Integer, Node>)it.next();
 	        	Node node = graphEntry.getValue();
 	        	if (node.distance != 0) {
 	        		if (node.distance == Long.MAX_VALUE) node.distance = -1;
@@ -161,29 +144,26 @@ public class Solution {
     static void dijkstraSPT(int startNodeID) {
     	// using Dijkstra's algorithm to assemble a Shortest Path Tree for all nodes ...
 
-//    	SPTgraph = new LinkedList<Edge>();
-    	TreeMap<Long, LinkedList<Integer>>nodesQueue = new TreeMap<Long, LinkedList<Integer>>();
+    	nodesQueue = new TreeMap<Long, LinkedList<Integer>>();
     	Node node = graph.get(startNodeID);
     	node.distance = 0;
-    	nodesQueue = queueNodeEdges(nodesQueue, startNodeID);
-//    	Edge lowestEdge;
+    	queueNodeEdges(startNodeID);
     	Integer lowestNodeID;
     	
     	while (settled.containsValue(false) && !nodesQueue.isEmpty()) { 
-    		lowestNodeID = findLowestEdge(nodesQueue);
+    		lowestNodeID = findLowestEdge();
         	if (lowestNodeID != null) {
-        		nodesQueue = queueNodeEdges(nodesQueue, lowestNodeID);
+        		queueNodeEdges(lowestNodeID);
         	}
 //        	timeStamp("Queue size: " + nodesQueue.size());
     	}
     	return;
     }
-    static TreeMap<Long, LinkedList<Integer>> queueNodeEdges(TreeMap<Long, LinkedList<Integer>> nodesQueue, Integer nodeID) {
+    static void queueNodeEdges(Integer nodeID) {
 //    	timeStamp("queueNodeEdges in");
     	settled.put(nodeID, true);
     	Node node, adjacentNode;
     	node = graph.get(nodeID);
-//    	if (nodesQueue.containsValue(node)) nodesQueue.remove(node);
     	HashMap<Integer, Edge> edges = node.adjacencyList;
     	Iterator<Map.Entry<Integer, Edge>> edgeIterator = edges.entrySet().iterator();
     	while (edgeIterator.hasNext()) {
@@ -200,21 +180,17 @@ public class Solution {
         			LinkedList<Integer> nodeList  = nodesQueue.get(distance);
         			if (nodeList == null) nodeList = new LinkedList<Integer>();
         			nodeList.add(adjacentNodeID);
-//        			if (!nodesQueue.containsValue(adjacentNode)) {
-//        				nodesQueue.remove(adjacentNode);
-        				nodesQueue.put(distance, nodeList);
-//        			}
+    				nodesQueue.put(distance, nodeList);
     			}
     			
     		}
     	}
 //    	timeStamp("queueNodeEdges out - queue size: " + nodesQueue.size());
-    	return nodesQueue;
+    	return;
     }
-    static Integer findLowestEdge(TreeMap<Long, LinkedList<Integer>> nodesQueue) {
+    static Integer findLowestEdge() {
 //    	timeStamp("findLowestEdge in");
     	long lowestDistance = Long.MAX_VALUE;
-    	Edge lowestEdge = null;
     	LinkedList<Integer> lowestNodeList = null;
     	Integer lowestNodeID = null;
     	boolean lowestNodeSettled = true;
@@ -235,36 +211,6 @@ public class Solution {
         	}
     	}
     	
-//    	for (int nodeID : nodesQueue) { 
-//    		node = graph.get(nodeID);
-//        	HashMap<Integer, Edge> edges = node.adjacencyList;
-//        	Iterator<Map.Entry<Integer, Edge>> edgeIterator = edges.entrySet().iterator();
-//        	while (edgeIterator.hasNext()) {
-//        		Map.Entry<Integer, Edge> edgeEntry = (Map.Entry<Integer, Edge>)edgeIterator.next();
-//        		Edge edge = edgeEntry.getValue();
-//        		Integer adjacentNodeID = null;
-//        		if (edge.startNode == nodeID) adjacentNodeID = edge.endNode;
-//        		if (edge.endNode == nodeID) adjacentNodeID = edge.startNode;
-//        		if (settled.get(adjacentNodeID)) {
-//            		long nodeDistance = graph.get(adjacentNodeID).distance + edge.weight;
-//            		if (nodeDistance < lowestDistance) {
-//            			edge.startNode = adjacentNodeID;
-//            			edge.endNode = nodeID;
-//            			lowestEdge = edge;
-//            			lowestDistance = nodeDistance;
-//            		}
-//        		}
-//    		}
-//    	}
-//    	if (lowestEdge != null) {
-//	    	SPTgraph.add(lowestEdge);
-//	    	node = graph.get(lowestEdge.endNode);
-//	    	node.distance = lowestDistance;
-////    	}
-//    	if (lowestNode != null) {
-//	    	node = graph.get(lowestNode);
-//	    	node.distance = lowestDistance;
-//    	}
 //    	timeStamp("findLowestEdge out --" + lowestEdge.startNode + " to " + lowestEdge.endNode + " w:" + lowestEdge.weight);
     	return lowestNodeID;
     }
