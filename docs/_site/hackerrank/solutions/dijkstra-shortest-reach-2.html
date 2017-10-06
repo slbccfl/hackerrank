@@ -4,7 +4,7 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=2bd514fdc75b10b9baab2b27eeb7dc8971a7c3e9">
+    <link rel="stylesheet" href="/assets/css/style.css?v=ac410a7d67df586f8c765697d6178993faa46e5b">
   </head>
 
   <body>
@@ -61,7 +61,7 @@ queueNodeEdges is initilized, using queueNodeEdges to load the startNode. And th
 <p>The method takes in the TreeMap nodesQueue and disqueues the node in nodeQueue with the lowest distance. While getting the lowest distance node should just be a matter of executing the nodesQueue.pollFirstEntry() method. Polling has to continue until a node that is settled is found and the LinkedList of nodes for a given value has to be maintained too. The LinkedList within nodesQueue takes into account that there may be multiple nodes that are the same distance from the starting node.</p>
 <h3 id="data-structures">Data Structures:</h3>
 <h4 id="treemaplong-linkedlistnodesqueue">TreeMap&lt;Long, LinkedList<Integer>&gt;nodesQueue</Integer></h4>
-<p>This structure is used to store the nodes to be evaluated along the frontier of analysis. The Long key is used to store distance from the startNode. The LinkedList then allows for multiple nodes having the same distance from the startNode. The <a href="https://docs.oracle.com/javase/7/docs/api/java/util/TreeMap.html">TreeMap</a> data structure is just about perfect for managing a queue of nodes where we want the lowest distance node from that collection. The <a href="https://docs.oracle.com/javase/7/docs/api/java/util/TreeMap.html#pollLastEntry()">pollFirstEntry</a> method of this class “Removes and returns a key-value mapping associated with the least key in this map, or null if the map is empty.”</p>
+<p>This structure is used to store the nodes to be evaluated along the frontier of analysis. The Long key is used to store distance from the startNode. The LinkedList then allows for multiple nodes having the same distance from the startNode. The <a href="https://docs.oracle.com/javase/7/docs/api/java/util/TreeMap.html" target="\_blank">TreeMap</a> data structure is just about perfect for managing a queue of nodes where we want the lowest distance node from that collection. The <a href="https://docs.oracle.com/javase/7/docs/api/java/util/TreeMap.html#pollLastEntry()" target="\_blank">pollFirstEntry</a> method of this class “Removes and returns a key-value mapping associated with the least key in this map, or null if the map is empty.”</p>
 <h2 id="testsolution---junit-testing-method">TestSolution - junit testing method</h2>
 <h3 id="methods-1">Methods:</h3>
 <h4 id="testaddtograph">testAddToGraph</h4>

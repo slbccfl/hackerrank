@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/style.css?v=ac410a7d67df586f8c765697d6178993faa46e5b">
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Solutions to HackerRank Exercises and Notes on Lessons Learned</h1>
+        <h2>Collection of coding solutions for exercises on hackerrank By Steven Barnes 
+        <a href="https://github.com/slbccfl" target="_blank">Github</a>  <a href="https://www.linkedin.com/in/steven-barnes-mba-pmp/" target="_blank">LinkedIn</a></h2>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <a href="http://localhost:4000/hackerrank">Back to Top</a>
+<h1>Alex vs Fedor</h1>
+Given an arbitrary weighted graph, find all the potential spanning trees and all the potential minimal spanning trees so that a fraction can be outputted that will reflect the probably of randomly selected spanning tree, being a minimal spanning tree.<br><br>
+<h2>Problem:</h2>
+<p>See HackerRank website for the problem description.<br>
+(<a href="https://www.hackerrank.com/challenges/alex-vs-fedor" target="_blank">HackerRank Problem Description</a>)</p>
+<h2 id="solution">Solution:</h2>
+<p>Incomplete - …</p>
+<h3 id="strategy">Strategy:</h3>
+<p>This problem takes some interpretation. While the problem is presented as a game, I think it was critical to note that the participant picking a spanning tree to be a minimal spanning tree “… became too lazy to look for minimal spanning trees and now picks some arbitrary spanning tree…”. This effectively makes the problem into a probability of an arbitrarily selected spanning tree, being a minimal spanning tree. Being a simple random probability, we simply need to output the faction of</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>Number of all minimal spanning trees in the graph / Number of all spanning trees in the graph
+</code></pre>
+</div>
+<p>Given that all spanning trees in a graph could be identified. Each spanning tree could be summed to a total weight for each spanning tree. The lowest of these values would identify the total weight of a minimal spanning tree. And the number of trees that are of that value could be identified. We would then be in a position to output the required values.</p>
+<h3 id="methods">Methods:</h3>
+<p>For identifying the number of all spanning trees in a graph I found references to a <a href="https://en.wikipedia.org/wiki/Laplacian_matrix" target="\_blank">Laplacian Matrix</a> which, along with <a href="https://en.wikipedia.org/wiki/Kirchhoff%27s_theorem" target="\_blank">Kirchhoff’s theorem</a> could be used to calculate the number of spanning trees. While this would provide the denominator that we need. It would not tell us how many of the spanning trees are minimal and does not give us information about the weights of these trees.
+I attempted to use <a href="https://en.wikipedia.org/wiki/Kruskal%27s_algorithm" target="\_blank">Kruskal’s algorithm</a> to find a minimal spanning tree, so that we at least know what the weight of such a tree would be.
+But this does not tell us how many minimal spanning trees are in the graph.</p>
+<h4 id="main">main</h4>
+<p>The main method is almost exclusively dedicated to loading the STDIN data…</p>
+
+<h3 id="data-structures">Data Structures:</h3>
+
+<a href="http://localhost:4000/hackerrank">Back to Top</a>
+
+      </section>
+    </div>
+
+  </body>
+</html>
