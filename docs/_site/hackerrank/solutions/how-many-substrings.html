@@ -4,7 +4,7 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=ac410a7d67df586f8c765697d6178993faa46e5b">
+    <link rel="stylesheet" href="/assets/css/style.css?v=06dbd8d66bffec41430175c40c9fa3e1f85fdb79">
   </head>
 
   <body>
@@ -28,8 +28,9 @@ Find all the unique substrings in a given string of characters.<br><br>
 <h2 id="solution">Solution:</h2>
 <p>Incomplete - Solution is giving correct answers for cases #0 through #3, but timing out on test cases #4 through #10. So I believe the logic is correct, just not fast enough yet.</p>
 <h3 id="strategy">Strategy:</h3>
-
+<p>We need a means for collecting all the substrings of a string while eliminating duplicates of the same substring in this count.</p>
 <h3 id="methods">Methods:</h3>
+<p>I implemented the Trie data structure to attempt to solve this problem. Additionally I tried to optimize this solution by excluding cases where the same character repeated from the Trie. And instead calculated the number of substrings in those cases.</p>
 <h4 id="main">main</h4>
 <p>The main method is almost exclusively dedicated to loading the STDIN data…</p>
 
