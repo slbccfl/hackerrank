@@ -4,7 +4,7 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=06dbd8d66bffec41430175c40c9fa3e1f85fdb79">
+    <link rel="stylesheet" href="/assets/css/style.css?v=15a766e42c8100b8c2de4dd7641133f86c642176">
   </head>
 
   <body>
@@ -29,8 +29,16 @@ Find all the unique substrings in a given string of characters.<br><br>
 <p>Incomplete - Solution is giving correct answers for cases #0 through #3, but timing out on test cases #4 through #10. So I believe the logic is correct, just not fast enough yet.</p>
 <h3 id="strategy">Strategy:</h3>
 <p>We need a means for collecting all the substrings of a string while eliminating duplicates of the same substring in this count.</p>
+
+<p>I implemented the Trie data structure to attempt to solve this problem. Additionally I tried to optimize this solution by excluding cases where the same character repeated from the Trie. And instead calculated the number of substrings in those cases. At the moment this attempt to optimize is limited to substrings of a single character repeated. I suspect there are further optimizations possible for repeating substrings beyond a single character. I.e. “abc” repeated 50 times.</p>
+
+<p>I’ve also tried to think of this as either a recursion problem, where the overall string is broken in half and the respective substrings broken in half and so on to substrings of single characters. And then returning and building up a count from the constituent substrings. But I don’t have a vision of how this would work.</p>
+
+<p>I’ve also tried to look at this as a dynamic programming problem. Evaluating that the impact of the first character in relation to the balance of the string. And then doing a recursive evaluate of each character relative to the balance of the remaining substring. I suspect that an argument could be made that the trie data structure is effectively doing something like this. The potential first characters of all substrings are the letters connected to the root node. The potential second characters are the subsequent set of nodes connected to the first layer of nodes. And so on. But otherwise I am not seeing a solution for this problem using dynamic programming. At least not yet.</p>
+
+<p>For the cases where a single character repeats, it has occurred to me that this should be tracked as a key value pair. With a key for each letter and a count for the value, where the count is the longest length of a repeating series found in the overall string. This would allow counting the occurrences in only the longest such string, recognizing that all other substrings within shorter occurrences are non-unique strings and can be excluded from the final count. If there is an opportunity for further optimization for longer substrings that repeat, I suspect this tracking data structure count be expanded to support those too.</p>
 <h3 id="methods">Methods:</h3>
-<p>I implemented the Trie data structure to attempt to solve this problem. Additionally I tried to optimize this solution by excluding cases where the same character repeated from the Trie. And instead calculated the number of substrings in those cases.</p>
+
 <h4 id="main">main</h4>
 <p>The main method is almost exclusively dedicated to loading the STDIN data…</p>
 
