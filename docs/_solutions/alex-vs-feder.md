@@ -5,7 +5,7 @@ description: Given an arbitrary weighted graph, find all the potential spanning 
 exercise_link: https://www.hackerrank.com/challenges/alex-vs-fedor
 ---
 ## Solution:
-Incomplete - As of this writing, the latest submittion for this problem yeilds the correct result for Test case #0 and #38, Test cases #1, #4, #9, #10, #36, #37, #39 and #40 get incorrect results. All other Test cases timeout. There appears to be a 4 second limit for the problem.
+Incomplete - As of this writing, the latest submission for this problem yields the correct result for Test case #0 and #38, Test cases #1, #4, #9, #10, #36, #37, #39 and #40 get incorrect results. All other Test cases timeout. There appears to be a 4 second limit for the problem.
 ### Strategy:
 This problem takes some interpretation. While the problem is presented as a game, I think it was critical to note that the participant picking a spanning tree to be a minimal spanning tree "... became too lazy to look for minimal spanning trees and now picks some arbitrary spanning tree...". This effectively makes the problem into a probability of an arbitrarily selected spanning tree, being a minimal spanning tree. Being a simple random probability, we simply need to output the fraction of
 ~~~
