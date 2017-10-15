@@ -28,6 +28,7 @@ class Node {
 public class Solution {
 	
 	static HashMap<Integer, Boolean>visited;
+	static HashMap<Integer, Node> graph;
 	
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -37,7 +38,7 @@ public class Solution {
         LinkedList<Edge> edges;
         int[][] laplacianMatrix = new int[n][n];
         visited = new HashMap<Integer, Boolean>();
-        HashMap<Integer, Node> graph = new HashMap<Integer, Node>();
+        graph = new HashMap<Integer, Node>();
         for(int i = 0; i < m; i++){
             int x = in.nextInt();
             int y = in.nextInt();
@@ -45,15 +46,15 @@ public class Solution {
             visited.put(x, false);
             visited.put(y, false);
             Edge edge = new Edge(x,y,z);
-            addToGraph(graph, x, edge);
-            addToGraph(graph, y, edge);
+            addToGraph(x, edge);
+            addToGraph(y, edge);
             laplacianMatrix = addEdgeToLaplacianMatrix(laplacianMatrix, x-1,y-1);
         }
         
-        System.out.println(countOfMSTs(graph, visited, n) + "/" + countOfSpanningTrees(laplacianMatrix, n));
+        System.out.println(countOfMSTs(n) + "/" + countOfSpanningTrees(laplacianMatrix, n));
     }
 
-	static void addToGraph(HashMap<Integer, Node> graph, int x, Edge edge) {
+	static void addToGraph(int x, Edge edge) {
 		Node nodex;
 		if (graph.containsKey(x)) {
 		    nodex = graph.get(x);
@@ -92,7 +93,7 @@ public class Solution {
     	return edgesQueue;
     }
     
-    private static int countOfMSTs(HashMap<Integer, Node> graph, HashMap<Integer, Boolean>visited, int n) {
+    private static int countOfMSTs(int n) {
     	int count = 1;
     	// using Prim's algorithm to assemble a MST ...
 

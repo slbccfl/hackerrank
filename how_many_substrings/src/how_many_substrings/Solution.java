@@ -9,9 +9,12 @@ import java.util.regex.*;
 
 class TrieNode {
 	boolean isEnd;
+	TrieNode parentNode;
+	String string;
 	TrieNode[] letterArray;
 	
 	public TrieNode() {
+		this.string = "";
 		this.letterArray = new TrieNode[26];
 	}
 }
@@ -19,10 +22,12 @@ class TrieNode {
 public class Solution {
 
 	static TrieNode trieTreeRoot;
-//	static boolean[] alphabet;
-	static int[] repeatingCharCounts;
+	static long startTime = System.currentTimeMillis();
 
     public static void main(String[] args) {
+    	
+//    	timeStamp("Constuct a Compact Prefix Tree \"impolitely\"");
+    	
     	BufferedReader br = new BufferedReader (new InputStreamReader(System.in));
     	String line = null;
     	try {
@@ -32,19 +37,13 @@ public class Solution {
 		}
     	int n = Integer.parseInt(line.split("\\s")[0]);
     	int q = Integer.parseInt(line.split("\\s")[1]);
-//        int n = in.nextInt();
-//        int q = in.nextInt();
-    	Integer testCases = null;
     	String s = null;
 		try {
 			s = br.readLine();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-//        String s = in.next();
         for(int a0 = 0; a0 < q; a0++){ 
-        	repeatingCharCounts = new int[26];
-//        	alphabet = new boolean[26];
         	try {
 				line = br.readLine();
 			} catch (IOException e) {
@@ -52,64 +51,102 @@ public class Solution {
 			}
 	    	int left = Integer.parseInt(line.split("\\s")[0]);
 	    	int right = Integer.parseInt(line.split("\\s")[1]);
-//            int left = in.nextInt();
-//            int right = in.nextInt();
             
-//            Set<String> subSSet = new HashSet<String>();
             trieTreeRoot = new TrieNode();
             String subS = s.substring(left,right+1);
-            for (int ssLength = 1;ssLength <= subS.length(); ssLength++) {
-//            	char c = subS.charAt(ssLength - 1);
-//        		int index = c - 'a';
-//        		alphabet[index] = true;
-                for (int i = 0; i < subS.length() - ssLength + 1; i++) {
-                	int endIndex = ssLength + i - 1;
-                	char firstChar = subS.charAt(i);
-                	int j;
-                	for (j = i + 1; j <= endIndex; j++) {
-                		if (subS.charAt(j) != firstChar) break;
-                	}
-                	if (j > endIndex) {
-                		int index = firstChar - 'a';
-                		repeatingCharCounts[index] = Math.max(repeatingCharCounts[index], ssLength);
-            		} else {
-//                		String sSubS = subS.substring(i, endIndex + 1);
-                    	insertTrieTree(subS.substring(i, endIndex + 1));
-                	}
-                		
-                }
-            }
-//            double lettersUsed = 0;
-//            for (int i = 0; i < 26; i++) if (alphabet[i]) lettersUsed++;
-//            double letterPermutations = Math.pow(lettersUsed, (double) right - left + 1);
             
-            int repeatingCharCount = 0;
-            for (int i = 0;i < 26; i++) repeatingCharCount += repeatingCharCounts[i];
-//            System.out.println(a0 + ":  " + (repeatingCharCount + countNodesInTrie(trieTreeRoot)) + " -- " + subS.length() + ":  " + subS);
-            System.out.println(repeatingCharCount + countNodesInTrie(trieTreeRoot));
+//        	long queryStartTime = System.currentTimeMillis();
+//	    	timeStamp("Test case " + a0 + " -- Left:  " + left + " Right: " + right + "   subS.length(): " + subS.length());
+//	    	System.out.println(subS);
+
+	    	for (int ssLength = subS.length();ssLength >= 0; ssLength--) {
+	    		int beginIndex = subS.length() - ssLength;
+	    		insertPrefix(trieTreeRoot, subS.substring(beginIndex));
+            }
+	        
+//			long endTime = System.currentTimeMillis( );
+//			float queryElapsedTime = endTime - queryStartTime;
+//			System.out.println("Query Elapsed Milliseconds: " + queryElapsedTime + " -- Characters/millisecond: " + (subS.length() / queryElapsedTime));
+//        	long ouputStartTime = System.currentTimeMillis();
+        	
+          System.out.println(countNodesInTrie(trieTreeRoot));	        
+          
+//			endTime = System.currentTimeMillis( );
+//			System.out.println("Output Elapsed Milliseconds: " + (endTime - ouputStartTime));
+          
         }
     }
+
+//	private static void timeStamp(String title) {
+//		long endTime = System.currentTimeMillis( );
+//		System.out.println(new Date());
+//		System.out.println("Cumulative Elapsed Milliseconds: " + (endTime - startTime));
+//		System.out.println(title);
+//	}
     
-    static void insertTrieTree(String subS) {
-    	TrieNode p = trieTreeRoot;
-    	for (int i = 0; i < subS.length(); i++) {
-    		char c = subS.charAt(i);
-    		int index = c - 'a';
-    		if (p.letterArray[index] == null) {
-    			TrieNode temp = new TrieNode();
-    			p.letterArray[index] = temp;
-    			p = temp;
+    static void insertPrefix(TrieNode currentNode, String subS) {
+    	// Check of subS is a prefix of the current node's prefix, is so no action needed, return
+    	if (subS.length() < currentNode.string.length() && subS.equals(currentNode.string.substring(0, subS.length()))) return;
+    	// Check of current node's prefix is a prefix of subS, 
+    	if (subS.length() > currentNode.string.length() && currentNode.string.equals(subS.substring(0, currentNode.string.length()))) {
+    		char nextChar = subS.charAt(currentNode.string.length());
+    		int index = nextChar - 'a';
+    		String subSSuffix = subS.substring(currentNode.string.length(), subS.length());
+    		if (currentNode.letterArray[index] != null) {
+    			insertPrefix(currentNode.letterArray[index], subSSuffix);
     		} else {
-    			p = p.letterArray[index];
+    			boolean letterArrayIsEmpty = true;
+    			for (int i = 0; i < currentNode.letterArray.length; i++) {
+    				if (currentNode.letterArray[i] != null) {
+    					letterArrayIsEmpty = false;
+    					break;
+    				}
+    			}
+    			if (letterArrayIsEmpty) {
+    				currentNode.string = subS;
+    			} else {
+    				addNewCompactNode(currentNode, subSSuffix);
+    			}
     		}
-    		
+    		return;
     	}
-    	p.isEnd = true;
+    	int maxLCP = Math.min(subS.length(), currentNode.string.length());
+    	for (int i = 0; i < maxLCP; i++) {
+    		if (!subS.substring(i, i + 1).equals(currentNode.string.substring(i, i + 1))) {
+    			createBranch(subS, currentNode, i);
+    			return;
+    		}
+    	}
     }
+
+	static void createBranch(String subS, TrieNode oldNode, int lcp) {
+		TrieNode replacementNode = addNewCompactNode(oldNode.parentNode, oldNode.string.substring(0, lcp));
+		addNewCompactNode(replacementNode, subS.substring(lcp, subS.length()));
+		oldNode.string = oldNode.string.substring(lcp, oldNode.string.length());
+		char c = oldNode.string.charAt(0);
+		int oNodeIndex = c - 'a';
+		replacementNode.letterArray[oNodeIndex] = oldNode;
+		oldNode.parentNode = replacementNode;
+	}
+	
+	static TrieNode addNewCompactNode(TrieNode parentNode, String string) {
+		TrieNode newNode = new TrieNode();
+		if (parentNode == null) {
+			trieTreeRoot = newNode;
+		} else {
+			newNode.parentNode = parentNode;
+			char c = string.charAt(0);
+			int index = c - 'a';
+			parentNode.letterArray[index] = newNode;
+		}
+		newNode.string = string;
+		return newNode;
+		
+	}
     
     static int countNodesInTrie(TrieNode node) {
-    	int stringCount = 0;
-		if (node.isEnd) stringCount++;
+    	int stringCount = node.string.length();
+
     	for (int i = 0; i < 26; i++) {
     		if (node.letterArray[i] != null) {
     			stringCount += countNodesInTrie(node.letterArray[i]);
