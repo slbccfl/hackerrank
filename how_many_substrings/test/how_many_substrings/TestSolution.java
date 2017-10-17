@@ -12,7 +12,7 @@ public class TestSolution {
 		TrieNode newNode = Solution.addNewCompactNode(null, 0, 3);
 		assertEquals(newNode, Solution.trieTreeRoot);
 		assertEquals(null, newNode.parentNode);
-		assertEquals(Solution.s, Solution.s.substring(newNode.stringStart, newNode.stringEnd));
+		assertEquals(Solution.s, newNode.string());
 		boolean letterArrayIsEmpty = true;
 		for (int i = 0; i < newNode.letterArray.length; i++) {
 			if (newNode.letterArray[i] != null) {
@@ -23,46 +23,49 @@ public class TestSolution {
 		assertEquals(true, letterArrayIsEmpty);
 
 		Solution.s = "abcdabcx";
-		TrieNode nodeD = Solution.addNewCompactNode(newNode, 3, 4);
-		TrieNode nodeX = Solution.addNewCompactNode(newNode, 7, 8);
+		TrieNode nodeD = Solution.addNewCompactNode(newNode, 3, 5);
+		TrieNode nodeX = Solution.addNewCompactNode(newNode, 7, 1);
 		assertEquals(newNode, nodeD.parentNode);
 		assertEquals(newNode, nodeX.parentNode);
 		assertEquals(nodeD, newNode.letterArray[3]);
 		assertEquals(nodeX, newNode.letterArray[23]);
-		assertEquals("d", Solution.s.substring(nodeD.stringStart, nodeD.stringEnd));
+		assertEquals("dabcx", Solution.s.substring(nodeD.stringStart, nodeD.stringEnd));
 		assertEquals("x", Solution.s.substring(nodeX.stringStart, nodeX.stringEnd));
 	}
 
 	@Test
 	public void testCreateBranch() {
 		Solution.s = "abcdabce";
-		TrieNode startingNode = Solution.addNewCompactNode(null, 0, 3);
+		TrieNode startingNode = Solution.addNewCompactNode(null, 0, 8);
 //		String subS = "abce";
 		int subSStart = 4;
-		int subSEnd = 7;
-		int subSLength = 7 - 4 + 1;
-		Solution.createBranch(subSStart, subSEnd, startingNode, subSLength);
+		int subSLength = 4;
+		int lcpLength  = 3;
+		Solution.createBranch(subSStart, subSLength, startingNode, lcpLength);
 		
-//		TrieNode replacementNode = Solution.trieTreeRoot;
-//		assertEquals("abc", replacementNode.string);
-//		
-//		int index = 'd' - 'a';
-//		TrieNode oldNode = replacementNode.letterArray[index];
-//		assertEquals(startingNode, oldNode);
-//		assertEquals("d", oldNode.string);
-//		assertEquals(oldNode.parentNode, replacementNode);
-//		
-//		index = 'e' - 'a';
-//		TrieNode newNode = replacementNode.letterArray[index];
-//		assertEquals("e", newNode.string);
-//		assertEquals(newNode.parentNode, replacementNode);
-//		
-//		startingNode = Solution.trieTreeRoot;
+		TrieNode replacementNode = Solution.trieTreeRoot;
+		assertEquals("abc", replacementNode.string());
+		
+		TrieNode oldNode = replacementNode.letterArray['d' - 'a'];
+		assertEquals("dabce", oldNode.string());
+		assertEquals(startingNode, oldNode);
+		assertEquals(oldNode.parentNode, replacementNode);
+		
+		TrieNode newNode = replacementNode.letterArray['e' - 'a'];
+		assertEquals("e", newNode.string());
+		assertEquals(newNode.parentNode, replacementNode);
+		
+		startingNode = Solution.trieTreeRoot;
+		Solution.s += "abx";
+		subSStart = 8;
+		subSLength = 3;
+		lcpLength = 2;
+		Solution.createBranch(subSStart, subSLength, startingNode, lcpLength);
 //		Solution.createBranch("abx", startingNode, 2);
-//		
-//		replacementNode = Solution.trieTreeRoot;
-//		assertEquals("ab", replacementNode.string);
-//		
+		
+		replacementNode = Solution.trieTreeRoot;
+		assertEquals("ab", replacementNode.string());
+		
 //		index = 'c' - 'a';
 //		oldNode = replacementNode.letterArray[index];
 //		assertEquals(startingNode, oldNode);

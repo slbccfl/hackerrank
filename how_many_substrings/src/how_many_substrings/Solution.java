@@ -15,11 +15,15 @@ class TrieNode {
 	int stringEnd;
 	TrieNode[] letterArray;
 	
-	public TrieNode(int start, int end) {
+	public TrieNode(int start, int length) {
 		this.stringStart = start;
-		this.stringEnd = end;
+		this.stringEnd = start + length;
 //		this.string = "";
 		this.letterArray = new TrieNode[26];
+	}
+	
+	public String string() {
+		return Solution.s.substring(this.stringStart, this.stringEnd);
 	}
 }
 
@@ -125,18 +129,19 @@ public class Solution {
 //    	}
 //    }
 
-	static void createBranch(int start, int end, TrieNode oldNode, int lcp) {
-		TrieNode replacementNode = addNewCompactNode(oldNode.parentNode, oldNode.stringStart, oldNode.stringStart + lcp - 1);
-		addNewCompactNode(replacementNode, start + lcp, end);
-//		oldNode.string = oldNode.string.substring(lcp, oldNode.string.length());
+	static void createBranch(int start, int length, TrieNode oldNode, int lcpLength) {
+		TrieNode replacementNode = addNewCompactNode(oldNode.parentNode, oldNode.stringStart, lcpLength);
+		addNewCompactNode(replacementNode, start + lcpLength, length - lcpLength);
+//		oldNode.string = oldNode.string.substring(lcpLength, oldNode.string.length());
+		oldNode.stringStart = oldNode.stringStart + lcpLength;
 		char c = s.charAt(oldNode.stringStart);
 		int oNodeIndex = c - 'a';
 		replacementNode.letterArray[oNodeIndex] = oldNode;
 		oldNode.parentNode = replacementNode;
 	}
 	
-	static TrieNode addNewCompactNode(TrieNode parentNode, int start, int end) {
-		TrieNode newNode = new TrieNode(start, end);
+	static TrieNode addNewCompactNode(TrieNode parentNode, int start, int length) {
+		TrieNode newNode = new TrieNode(start, length);
 		if (parentNode == null) {
 			trieTreeRoot = newNode;
 		} else {
