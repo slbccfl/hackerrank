@@ -66,53 +66,61 @@ public class TestSolution {
 		replacementNode = Solution.trieTreeRoot;
 		assertEquals("ab", replacementNode.string());
 		
-//		index = 'c' - 'a';
-//		oldNode = replacementNode.letterArray[index];
-//		assertEquals(startingNode, oldNode);
-//		assertEquals("c", oldNode.string);
-//		assertEquals(oldNode.parentNode, replacementNode);
-//		
-//		index = 'x' - 'a';
-//		newNode = replacementNode.letterArray[index];
-//		assertEquals("x", newNode.string);
-//		assertEquals(newNode.parentNode, replacementNode);
+		oldNode = replacementNode.letterArray['c' - 'a'];
+		assertEquals(startingNode, oldNode);
+		assertEquals("c", oldNode.string());
+		assertEquals(oldNode.parentNode, replacementNode);
+		
+		newNode = replacementNode.letterArray['x' - 'a'];
+		assertEquals("x", newNode.string());
+		assertEquals(newNode.parentNode, replacementNode);
 	}
-//	
-//	@Test
-//	public void testInsertCompactNode() {
+	
+	@Test
+	public void testInsertPrefix() {
+		Solution.s = "abcd";
+		Solution.trieTreeRoot = Solution.addNewCompactNode(null, 0, 4);
 //		Solution.trieTreeRoot = new TrieNode();
 //		String subS = "abcd";
-//		for (int i = 0; i < 4; i++) {
-//			Solution.insertPrefix(Solution.trieTreeRoot, subS.substring(i,subS.length()));
-//		}
-//		
-//		assertEquals("", Solution.trieTreeRoot.string);
-//		TrieNode[] childNodes = new TrieNode[4];
-//		for (int i = 0; i < 4; i++) {
-//			childNodes[i] = Solution.trieTreeRoot.letterArray[i];
-//			assertEquals(subS.subSequence(i, subS.length()), childNodes[i].string);
-//			assertEquals(Solution.trieTreeRoot, childNodes[i].parentNode);
-//		}
-//		
+		int subSStart = 0;
+		int subSLength = 4;
+//		Solution.trieTreeRoot = new TrieNode(subSStart, subSLength);
+		for (int i = 0; i < subSLength; i++) {
+			Solution.insertPrefix(Solution.trieTreeRoot, subSStart + i, subSLength - i);
+		}
+		
+		assertEquals("", Solution.trieTreeRoot.string());
+		TrieNode[] childNodes = new TrieNode[4];
+		for (int i = 0; i < 4; i++) {
+			childNodes[i] = Solution.trieTreeRoot.letterArray[i];
+			assertEquals(Solution.s.substring(i, subSLength), childNodes[i].string());
+			assertEquals(Solution.trieTreeRoot, childNodes[i].parentNode);
+		}
+		
+		Solution.s = "abcabc";
+		Solution.trieTreeRoot = Solution.addNewCompactNode(null, 0, 6);
 //		Solution.trieTreeRoot = new TrieNode();
 //		subS = "abcabc";
-//		for (int i = 0; i < 6; i++) {
-//			Solution.insertPrefix(Solution.trieTreeRoot, subS.substring(i,subS.length()));
-//		}
-//		
-//		assertEquals("", Solution.trieTreeRoot.string);
-//		childNodes = new TrieNode[6];
-//		for (int i = 0; i < 6; i++) {
-//			if (i > 2) {
-//				assertEquals(null,Solution.trieTreeRoot.letterArray[i]);
-//			} else {
-//				childNodes[i] = Solution.trieTreeRoot.letterArray[i];
-//				assertEquals(subS.subSequence(i, subS.length()), childNodes[i].string);
-//				assertEquals(Solution.trieTreeRoot, childNodes[i].parentNode);
-//			}
-//		}
-//		
-//		
-//	}
+		subSStart = 0;
+		subSLength = 6;
+		
+		for (int i = 0; i < subSLength; i++) {
+			Solution.insertPrefix(Solution.trieTreeRoot, subSStart + i, subSLength - i);
+		}
+		
+		assertEquals("", Solution.trieTreeRoot.string());
+		childNodes = new TrieNode[6];
+		for (int i = 0; i < 6; i++) {
+			if (i > 2) {
+				assertEquals(null,Solution.trieTreeRoot.letterArray[i]);
+			} else {
+				childNodes[i] = Solution.trieTreeRoot.letterArray[i];
+				assertEquals(Solution.s.substring(i, Solution.s.length()), childNodes[i].string());
+				assertEquals(Solution.trieTreeRoot, childNodes[i].parentNode);
+			}
+		}
+		
+		
+	}
 
 }

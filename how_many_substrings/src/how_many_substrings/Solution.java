@@ -25,6 +25,10 @@ class TrieNode {
 	public String string() {
 		return Solution.s.substring(this.stringStart, this.stringEnd);
 	}
+	
+	public int stringLength() {
+		return this.stringEnd - this.stringStart;
+	}
 }
 
 public class Solution {
@@ -69,17 +73,17 @@ public class Solution {
 //	    	timeStamp("Test case " + a0 + " -- Left:  " + left + " Right: " + right + "   subS.length(): " + subS.length());
 //	    	System.out.println(subS);
 
-//	    	for (int ssLength = subS.length();ssLength >= 0; ssLength--) {
-//	    		int beginIndex = subS.length() - ssLength;
-//	    		insertPrefix(trieTreeRoot, subS.substring(beginIndex));
-//            }
+	    	for (int ssLength = subSLength; ssLength >= 0; ssLength--) {
+	    		int ssStart = subSLength - ssLength;
+	    		insertPrefix(trieTreeRoot, ssStart, ssLength);
+            }
 	        
 //			long endTime = System.currentTimeMillis( );
 //			float queryElapsedTime = endTime - queryStartTime;
 //			System.out.println("Query Elapsed Milliseconds: " + queryElapsedTime + " -- Characters/millisecond: " + (subS.length() / queryElapsedTime));
 //        	long ouputStartTime = System.currentTimeMillis();
         	
-//          System.out.println(countNodesInTrie(trieTreeRoot));	        
+          System.out.println(countNodesInTrie(trieTreeRoot));	        
           
 //			endTime = System.currentTimeMillis( );
 //			System.out.println("Output Elapsed Milliseconds: " + (endTime - ouputStartTime));
@@ -94,40 +98,44 @@ public class Solution {
 //		System.out.println(title);
 //	}
     
-//    static void insertPrefix(TrieNode currentNode, String subS) {
-//    	// Check of subS is a prefix of the current node's prefix, is so no action needed, return
-//    	if (subS.length() < currentNode.string.length() && subS.equals(currentNode.string.substring(0, subS.length()))) return;
-//    	// Check of current node's prefix is a prefix of subS, 
-//    	if (subS.length() > currentNode.string.length() && currentNode.string.equals(subS.substring(0, currentNode.string.length()))) {
-//    		char nextChar = subS.charAt(currentNode.string.length());
-//    		int index = nextChar - 'a';
-//    		String subSSuffix = subS.substring(currentNode.string.length(), subS.length());
-//    		if (currentNode.letterArray[index] != null) {
-//    			insertPrefix(currentNode.letterArray[index], subSSuffix);
-//    		} else {
-//    			boolean letterArrayIsEmpty = true;
-//    			for (int i = 0; i < currentNode.letterArray.length; i++) {
-//    				if (currentNode.letterArray[i] != null) {
-//    					letterArrayIsEmpty = false;
-//    					break;
-//    				}
-//    			}
-//    			if (letterArrayIsEmpty) {
-//    				currentNode.string = subS;
-//    			} else {
-//    				addNewCompactNode(currentNode, subSSuffix);
-//    			}
-//    		}
-//    		return;
-//    	}
-//    	int maxLCP = Math.min(subS.length(), currentNode.string.length());
-//    	for (int i = 0; i < maxLCP; i++) {
-//    		if (!subS.substring(i, i + 1).equals(currentNode.string.substring(i, i + 1))) {
-//    			createBranch(subS, currentNode, i);
-//    			return;
-//    		}
-//    	}
-//    }
+    static void insertPrefix(TrieNode currentNode, int prefixStart, int prefixLength) {
+    	// Check of subS is a prefix of the current node's prefix, is so no action needed, return
+    	if (prefixLength <= currentNode.stringLength() && s.substring(prefixStart, prefixStart + prefixLength).equals(s.substring(currentNode.stringStart, currentNode.stringStart + prefixLength))) return;
+    	// Check of current node's prefix is a prefix of subS, 
+    	if (prefixLength > currentNode.stringLength() && s.substring(currentNode.stringStart, currentNode.stringEnd).equals(s.substring(prefixStart, prefixStart + currentNode.stringLength()))) {
+    		char nextChar = s.substring(prefixStart, prefixStart + prefixLength).charAt(currentNode.stringLength());
+    		int index = nextChar - 'a';
+//    		String subSSuffix = s.substring(start, start + length).substring(currentNode.stringLength(), length);
+    		int subSSuffixStart = prefixStart + currentNode.stringLength();
+    		int subSSuffixLength = prefixLength - currentNode.stringLength();
+    		if (currentNode.letterArray[index] != null) {
+    			insertPrefix(currentNode.letterArray[index], subSSuffixStart, subSSuffixLength);
+    		} else {
+    			boolean letterArrayIsEmpty = true;
+    			for (int i = 0; i < currentNode.letterArray.length; i++) {
+    				if (currentNode.letterArray[i] != null) {
+    					letterArrayIsEmpty = false;
+    					break;
+    				}
+    			}
+    			if (letterArrayIsEmpty) {
+//    				currentNode.string = s.substring(start, start + length);
+					currentNode.stringStart = prefixStart;
+					currentNode.stringEnd = prefixStart + prefixLength;
+    			} else {
+    				addNewCompactNode(currentNode, subSSuffixStart, subSSuffixLength);
+    			}
+    		}
+    		return;
+    	}
+    	int maxLCP = Math.min(prefixLength, currentNode.stringLength());
+    	for (int i = 0; i < maxLCP; i++) {
+    		if (!s.substring(prefixStart + i, prefixStart + i + 1).equals(s.substring(currentNode.stringStart + i, currentNode.stringStart + i + 1))) {
+    			createBranch(prefixStart, prefixLength, currentNode, i);
+    			return;
+    		}
+    	}
+    }
 
 	static void createBranch(int start, int length, TrieNode oldNode, int lcpLength) {
 		TrieNode replacementNode = addNewCompactNode(oldNode.parentNode, oldNode.stringStart, lcpLength);
@@ -155,16 +163,16 @@ public class Solution {
 		
 	}
     
-//    static int countNodesInTrie(TrieNode node) {
-//    	int stringCount = node.string.length();
-//
-//    	for (int i = 0; i < 26; i++) {
-//    		if (node.letterArray[i] != null) {
-//    			stringCount += countNodesInTrie(node.letterArray[i]);
-//    		}
-//    	}
-//    	return stringCount;
-//    }
+    static int countNodesInTrie(TrieNode node) {
+    	int stringCount = node.stringLength();
+
+    	for (int i = 0; i < 26; i++) {
+    		if (node.letterArray[i] != null) {
+    			stringCount += countNodesInTrie(node.letterArray[i]);
+    		}
+    	}
+    	return stringCount;
+    }
     
 }
 
