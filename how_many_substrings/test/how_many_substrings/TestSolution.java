@@ -122,5 +122,27 @@ public class TestSolution {
 		
 		
 	}
+	
+	@Test
+	public void testBuildTree() {
+		// the following is the same five queries that are in test case #0
+
+		Solution.s = "aabaa";
+		int subSStart[] = {1, 1, 1, 1, 0};
+		int subSEnd[] = {1, 4, 1, 4, 2};
+    	int subStringCounts[] = {1, 8, 1, 8, 5};
+    	for (int i = 0; i < 5; i++) {
+        	int subSLength = subSEnd[i] - subSStart[i] + 1;
+			Solution.trieTreeRoot = Solution.addNewCompactNode(null, subSStart[i], subSLength);
+			
+	    	for (int ssLength = subSLength - 1; ssLength >= 0; ssLength--) {
+	    		int ssStart = subSStart[i] + subSLength - ssLength;
+	    		Solution.insertPrefix(Solution.trieTreeRoot, ssStart, ssLength);
+	        }
+	    	
+	    	assertEquals(subStringCounts[i], Solution.countNodesInTrie(Solution.trieTreeRoot));
+    	}
+
+	}
 
 }

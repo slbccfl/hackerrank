@@ -64,17 +64,17 @@ public class Solution {
 			}
 	    	int subSStart = Integer.parseInt(line.split("\\s")[0]);
 	    	int subSEnd = Integer.parseInt(line.split("\\s")[1]);
-	    	int subSLength = subSStart - subSEnd + 1;
+	    	int subSLength = subSEnd - subSStart + 1;
             
-            trieTreeRoot = new TrieNode(subSStart,subSEnd);
+	    	addNewCompactNode(null, subSStart, subSLength);
 //            String subS = s.substring(left,right+1);
             
 //        	long queryStartTime = System.currentTimeMillis();
 //	    	timeStamp("Test case " + a0 + " -- Left:  " + left + " Right: " + right + "   subS.length(): " + subS.length());
 //	    	System.out.println(subS);
 
-	    	for (int ssLength = subSLength; ssLength >= 0; ssLength--) {
-	    		int ssStart = subSLength - ssLength;
+	    	for (int ssLength = subSLength - 1; ssLength >= 0; ssLength--) {
+	    		int ssStart = subSStart + subSLength - ssLength;
 	    		insertPrefix(trieTreeRoot, ssStart, ssLength);
             }
 	        
@@ -83,7 +83,7 @@ public class Solution {
 //			System.out.println("Query Elapsed Milliseconds: " + queryElapsedTime + " -- Characters/millisecond: " + (subS.length() / queryElapsedTime));
 //        	long ouputStartTime = System.currentTimeMillis();
         	
-          System.out.println(countNodesInTrie(trieTreeRoot));	        
+	    	System.out.println(countNodesInTrie(trieTreeRoot));	        
           
 //			endTime = System.currentTimeMillis( );
 //			System.out.println("Output Elapsed Milliseconds: " + (endTime - ouputStartTime));
