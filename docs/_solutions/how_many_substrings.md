@@ -5,7 +5,7 @@ description: Find all the unique substrings in a given string of characters.
 exercise_link: https://www.hackerrank.com/challenges/how-many-substrings
 ---
 ## Solution:
-Incomplete - Solution is giving correct answers for cases #0 through #3, but timing out on test cases #4 through #10. So I believe the logic is correct, just not fast enough yet.
+Incomplete - Solution is giving correct answers for cases #0 through #3, but timing out on test cases #4 through #10. So the logic is correct, but is just not fast enough yet with the methods tried so far.
 ### Strategy:
 We need a means for collecting all the substrings of a string while eliminating duplicates of the same substring in this count.
 
@@ -28,7 +28,7 @@ class TrieNode {
 }
 
 ~~~
-The problem is limited to lower case letters only. Therefore, there are only 26 possible letters for each character in the string. So within each Trie node I create a simple array of Trie nodes, one for each possible letter. To designate that array cell that applies for a character I use an index based on the character's Unicode binary value, converting each character to a char and calculating the index with "int index = c - 'a';". In some cases a node would have only a couple of array cells used. I suspected that a simple HashMap might be more efficient. So I redefined the Trie as
+The problem is limited to lower case letters only. Therefore, there are only 26 possible letters for each character in the string. So within each Trie node I create an array of Trie nodes, one for each possible letter. To designate that array cell that applies for a character I use an index based on the character's Unicode binary value, converting each character to a char and calculating the index with "int index = c - 'a';", where c is the char variable. In some cases a node would have only a couple of array cells used. I suspected that a simple HashMap might be more efficient. So I redefined the Trie as
 ~~~
 
 class TrieNode {
@@ -41,16 +41,62 @@ class TrieNode {
 }
 
 ~~~
-and made the appropriate changes in the code using the Trie. Turns out this was significantly slower. So reset the code back.  
+and made the appropriate changes in the code using the Trie. Turns out this was significantly slower, so I reset the code back.  
+
+The process of slicing the substrings out of the designated string subS has also gone through a number of iterations. Within the loop for the query, I started with a pair of nested loops to slice out all the possible substrings for analysis. This was very brut force and not surprisingly, not optimal. There was one observation that was very informative. Initially these loops traversed the string subS front to back, changing the length of the successive substrings from 1 to the full length of subS. I turned this loop around, to process the longest string, all of subS, down to substrings of length 1. This ran about twice as fast. I suspect that the queries to the Trie finding the chain of characters already in place was faster than building the chain one call to insert into the Trie at a time. This led to a bit of an epiphany. The subsequent inserts into the Trie were only tagging the individual characters along the string as substrings themselves. This was leading to a bunch of unnecessary looping for my purposes. I needed to create the predictable chain of characters in the trie, with every character marked as an ending character. Realizing this, I was able to eliminated the inter loop in main and called method to generate the series of chained trie Nodes instead of using the trie insert method for all the substrings with in the prefix. The new method creates the series of Trie nodes to represent the substring, setting isEnd true for each letter an ending character of a string. The first letter is excluded in the next call and the chain of Trie nodes for that substring is created, and so on down to the last character of subS. This removed an entire loop from the generation of the Trie. Not surprisingly, the performance was nearly an order of magnitude better. What was surprising, and aggravating, was that the submission of this dramatically improved code got the same results on HackerRank. Timing out for testcases #4 through #10. I expected this code to pass at least some additional test cases. WTF?
+
+Since the problem is a analysis of many cuts of substrings from the same string "s" for each query, I keep wondering if there is some way of using information across all of these runs. At the moment each run completely separate from the others. A new Trie is built for each subS string, with no information saved from query to query. I also continue to suspect that there is some way of optimizing for the many repeating series of characters, using a calculated result instead of processing the series into the Trie.
+
+On to the next big idea. I consulted with someone much smarter than me, and he suggested that I look at a compact prefix tree, as an alternative to the Trie (or prefix tree) that I am using. This would store strings at each node, splitting out a portion of the string to a subsidiary node only when there is a difference between two substrings. I was afraid that this approach would result in more or less the same tree as the current Trie as I suspected every node was get broken down to a single character. Nevertheless, I did proceed to retrofit my soltion to implement this approach. This was about five times faster than a simple trie. Which, when submitted to HackerRank, stubbornly give the same result in timeouts from test case #4, on. My implementation of this used the following data structure for the node:
+~~~
+
+class TrieNode {
+	boolean isEnd;
+	TrieNode parentNode;
+	String string;
+	TrieNode[] letterArray;
+
+  public TrieNode(int start, int length) {
+		this.string = "";
+		this.letterArray = new TrieNode[26];
+	}
+~~~
+From what I read, what I did was move from a prefix trie to a prefix tree. I'm not sure this qualifies as a compact prefix tree. Some of my reading seemed to indicate that a compact prefix tree should use indexes into the original string instead of copying out the relative segements for storage in tree nodes or into variables for comparison. This made a lot of sense to me and I embarked on a further retrofit of my logic to use this data structure:
+~~~
+class TrieNode {
+	boolean isEnd;
+	TrieNode parentNode;
+	int stringStart;
+	int stringEnd;
+	TrieNode[] letterArray;
+
+	public TrieNode(int start, int length) {
+		this.stringStart = start;
+		this.stringEnd = start + length;
+		this.letterArray = new TrieNode[26];
+	}
+~~~
+Getting this code right, using indexes and comparison statements such as the following, was a real pain.
+~~~
+s.substring(prefixStart, prefixStart + prefixLength).equals(s.substring(currentNode.stringStart, currentNode.stringStart + prefixLength))
+~~~
+But I got it working and found that is was slightly *slower* than just storing the substrings in the nodes and dealing with variable references to them. (*Dammit!* that was a waste of time... )
+
+What's left? A lot actually.
+
+During my research I also found references to an algorithm (Ukkonen) that was supposed to be able to find all unique substrings in O(n) time. This required the construction of a suffix tree, instead of a prefix tree. Not that different from what I'm doing. But also includes suffix links to be created during the tree's constuction. I'm still working on understanding how these links are used. Here are links to some of the best (clearest) of what I've referred to:
+- <https://www.cs.helsinki.fi/u/ukkonen/SuffixT1withFigs.pdf>{:target="\_blank"}
+- <https://stackoverflow.com/questions/9452701/ukkonens-suffix-tree-algorithm-in-plain-english/9513423#9513423>{:target="\_blank"}
+- <https://www.cs.cmu.edu/~ckingsf/bioinfo-lectures/suffixtrees.pdf>{:target="\_blank"}
+- <https://en.wikipedia.org/wiki/Suffix_tree#Implementation>{:target="\_blank"}
+
+There is also this definition of a suffix array, that indicates that there are advantages over suffix trees:
+- <https://en.wikipedia.org/wiki/Suffix_array>{:target="\_blank"}
 
 ### Methods:
 
 #### main
-The main method uses BufferReader to read the inputs, with a for loops to take in the left and right indexes that identify the portion of the string "s" to be evaluated for each query, which is assigned to subS. Within the loop for the query, are two more loops to slice out all the substrings for analysis. The first of these for loops sets a substring length, ssLength, starting with 1 up to the length of the sting subS. The second of this pair of loops progresses and index "i" to pickup all the potential substrings in subS that can be of length ssLength. So each of the individual letters will be picked up in the first cycle through the outer loop of this pair with ssLength == 1. In the second run through the outer of these loops, with ssLength == 2, will pick up all the pairs of two characters in the string subS. The next pass will collect all the substrings of length ssLength == 3 and so on up the the entire subString subS. I turned this loop around, to process the longest string, all of subS, down to substrings of length 1. This ran about twice as fast. I suspect that the queries to the Trie finding the chain of characters already in place was faster than building the chain one call to insert into the Trie at a time. This led to a bit of an epiphany. The subsequent inserts into the Trie were only tagging the individual characters along the string as substrings themselves. This was leading to a bunch of unnecessary looping for my purposes. I needed to create the predictable chains of characters in the tree with every character marked as an ending character. The Trie was note really a bunch of prefixes, it was just a collection of substrings with larger substrings. So I eliminated the inter loop in main and called a addTrieChain instead of an insertTrieTree method. That method creates the series of Trie nodes to represent the substring, setting isEnd true for each letter an ending character of a string. The first letter is excluded in the next call and the chain of Trie nodes for that substring is created, and so on down to the last character of subS. This removed an entire loop from the generation of the Trie. Not surprisingly, the performance was nearly an order of magnitude better. What was surprising, and aggravating, was that the submission of this dramatically improved code got the same results on HackerRank. Timing out for testcases #4 through #10. I expected at least some of these to pass. WTF?
-
-Since the problem is a analysis of many cuts of substrings from the same string "s" for each query. I'm now wondering if there is some way of using information across all of these runs. At the moment they are run completely separate from each other, building a Trie for each subS string with no information saved from query to query. I also continue to suspect that there is some way of optimizing for the many repeating series of characters.
-
-I consulted with someone much smarter than me, and he suggested that I look at a compact prefix tree, as an alternative to the Trie (or prefix tree) that I am using. This would store strings at each node, splitting out a portion of the string to a subsidiary node only when there is a difference between two substrings. I have not yet tried this. I was afraid that it would more or less the same as the current Trie as I suspected every node was get broken down to a single character. After the above experience I think a compact tree would contain all the substrings that would be passed to the addTrieChain method, above, with a null node, indicating an the end of string for each letter in the string.
+The main method uses BufferReader to read the inputs, with a for loop to take in the left and right indexes that identify the portion of the string "s" to be evaluated for each query, which is assigned to subS.
 
 
 ### Data Structures:
