@@ -89,6 +89,7 @@ During my research I also found references to an algorithm (Ukkonen) that was su
 - <https://stackoverflow.com/questions/9452701/ukkonens-suffix-tree-algorithm-in-plain-english/9513423#9513423>{:target="\_blank"}
 - <https://www.cs.cmu.edu/~ckingsf/bioinfo-lectures/suffixtrees.pdf>{:target="\_blank"}
 - <https://en.wikipedia.org/wiki/Suffix_tree#Implementation>{:target="\_blank"}
+- <http://homepage.usask.ca/~ctl271/857/suffix_tree.shtml>{:target="\_blank"}
 
 There is also this definition of a suffix array, that indicates that there are advantages over suffix trees:
 - <https://en.wikipedia.org/wiki/Suffix_array>{:target="\_blank"}
