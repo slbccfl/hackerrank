@@ -1,5 +1,166 @@
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 21033
+Prefix Counts from a single Prefix Tree
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 43905795
+Test case 0 -- Left:  1 Right: 1   subSLength: 1
+
+Query Elapsed Nanoseconds: 252685.0 -- nanoseconds/character: 252685.0
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 47242742
+(1,2) a
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 47463986
+(1,2) a
+Prefix Elapsed Nanoseconds: 337687.0 -- nanoseconds/character: 337687.0
+Prefix Elapsed Nanoseconds: 698490.0 -- nanoseconds/character: 698490.0
 1
+Output Elapsed Nanoseconds: 1475272.0 -- nanoseconds/character: 1475272.0
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 48443888
+Test case 1 -- Left:  1 Right: 4   subSLength: 4
+aba
+Query Elapsed Nanoseconds: 426272.0 -- nanoseconds/character: 106568.0
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 48986957
+(1,5) abaa
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 49295306
+(1,5) abaa
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 49648405
+(2,5) baa
+Prefix Elapsed Nanoseconds: 339000.0 -- nanoseconds/character: 113000.0
+Prefix Elapsed Nanoseconds: 808349.0 -- nanoseconds/character: 202087.25
+Prefix Elapsed Nanoseconds: 1264326.0 -- nanoseconds/character: 316081.5
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 50364730
+(2,5) baa
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 50692196
+(2,5) baa
+Prefix Elapsed Nanoseconds: 330763.0 -- nanoseconds/character: 110254.336
+Prefix Elapsed Nanoseconds: 796751.0 -- nanoseconds/character: 265583.66
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 51291851
+(3,5) aa
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 51642249
+(3,5) aa
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 51947829
+(4,5) a
+Prefix Elapsed Nanoseconds: 332341.0 -- nanoseconds/character: 332341.0
+Prefix Elapsed Nanoseconds: 771615.0 -- nanoseconds/character: 385807.5
+Prefix Elapsed Nanoseconds: 1237463.0 -- nanoseconds/character: 618731.5
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 52661932
+(4,5) a
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 52990025
+(4,5) a
+Prefix Elapsed Nanoseconds: 435476.0 -- nanoseconds/character: 435476.0
+Prefix Elapsed Nanoseconds: 908365.0 -- nanoseconds/character: 908365.0
 8
+Output Elapsed Nanoseconds: 4886788.0 -- nanoseconds/character: 1221697.0
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 54370343
+Test case 2 -- Left:  1 Right: 1   subSLength: 1
+
+Query Elapsed Nanoseconds: 695840.0 -- nanoseconds/character: 695840.0
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 55229438
+(1,2) a
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 55762981
+(1,2) a
+Prefix Elapsed Nanoseconds: 508569.0 -- nanoseconds/character: 508569.0
+Prefix Elapsed Nanoseconds: 1181095.0 -- nanoseconds/character: 1181095.0
 1
+Output Elapsed Nanoseconds: 1402536.0 -- nanoseconds/character: 1402536.0
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 57270610
+Test case 3 -- Left:  1 Right: 4   subSLength: 4
+aba
+Query Elapsed Nanoseconds: 690990.0 -- nanoseconds/character: 172747.5
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 58070938
+(1,5) abaa
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 58622182
+(1,5) abaa
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 59015285
+(2,5) baa
+Prefix Elapsed Nanoseconds: 302060.0 -- nanoseconds/character: 100686.664
+Prefix Elapsed Nanoseconds: 810457.0 -- nanoseconds/character: 202614.25
+Prefix Elapsed Nanoseconds: 1502696.0 -- nanoseconds/character: 375674.0
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 59687093
+(2,5) baa
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 60012790
+(2,5) baa
+Prefix Elapsed Nanoseconds: 345846.0 -- nanoseconds/character: 115282.0
+Prefix Elapsed Nanoseconds: 777364.0 -- nanoseconds/character: 259121.33
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 60623567
+(3,5) aa
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 60933846
+(3,5) aa
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 61252958
+(4,5) a
+Prefix Elapsed Nanoseconds: 302431.0 -- nanoseconds/character: 302431.0
+Prefix Elapsed Nanoseconds: 730995.0 -- nanoseconds/character: 365497.5
+Prefix Elapsed Nanoseconds: 1176834.0 -- nanoseconds/character: 588417.0
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 61901907
+(4,5) a
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 62221488
+(4,5) a
+Prefix Elapsed Nanoseconds: 311440.0 -- nanoseconds/character: 311440.0
+Prefix Elapsed Nanoseconds: 752698.0 -- nanoseconds/character: 752698.0
 8
+Output Elapsed Nanoseconds: 4771062.0 -- nanoseconds/character: 1192765.5
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 63064724
+Test case 4 -- Left:  0 Right: 2   subSLength: 3
+aa
+Query Elapsed Nanoseconds: 439044.0 -- nanoseconds/character: 146348.0
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 63629871
+(0,3) aab
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 63962826
+(0,3) aab
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 64290224
+(1,3) ab
+Prefix Elapsed Nanoseconds: 309100.0 -- nanoseconds/character: 154550.0
+Prefix Elapsed Nanoseconds: 768966.0 -- nanoseconds/character: 256322.0
+Prefix Elapsed Nanoseconds: 1194817.0 -- nanoseconds/character: 398272.34
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 64926579
+(1,3) ab
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 65247327
+(1,3) ab
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 65548538
+(2,3) b
+Prefix Elapsed Nanoseconds: 357908.0 -- nanoseconds/character: 357908.0
+Prefix Elapsed Nanoseconds: 781782.0 -- nanoseconds/character: 390891.0
+Prefix Elapsed Nanoseconds: 1200502.0 -- nanoseconds/character: 600251.0
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 66219084
+(2,3) b
+Wed Oct 25 15:16:03 EDT 2017
+Cumulative Elapsed Nanoseconds: 66505114
+(2,3) b
+Prefix Elapsed Nanoseconds: 269507.0 -- nanoseconds/character: 269507.0
+Prefix Elapsed Nanoseconds: 652228.0 -- nanoseconds/character: 652228.0
 5
+Output Elapsed Nanoseconds: 3419427.0 -- nanoseconds/character: 1139809.0
