@@ -15,7 +15,7 @@ class TrieNode {
 	TrieNode[] letterArray;
 	TrieNode suffixLink;
 	int nodeNumber;
-	
+
 	public TrieNode(int start, Integer end) {
 		this.stringStart = start;
 //		this.stringEnd = start + length;
@@ -24,11 +24,11 @@ class TrieNode {
 		this.letterArray = new TrieNode[26];
 		this.nodeNumber = Solution.nodeCount++;
 	}
-	
+
 //	public String string() {
 //		return Solution.s.substring(this.stringStart, this.stringEnd);
 //	}
-//	
+//
 //	public int stringLength() {
 //		return this.stringEnd - this.stringStart;
 //	}
@@ -42,7 +42,7 @@ class VisitedNode {
 		counted = 0;
 		this.letterArray = new VisitedNode[26];
 	}
-}	
+}
 
 class activePoint {
 	TrieNode node;
@@ -109,11 +109,11 @@ public class Solution {
 //	    		int ssStart = subSStart + subSLength - ssLength;
 //	    		insertPrefix(trieTreeRoot, ssStart, ssLength);
 //            }
-//	    	System.out.println(prefixesCount);	        
-//          
+//	    	System.out.println(prefixesCount);
+//
 ////			endTime = System.currentTimeMillis( );
 ////			System.out.println("Output Elapsed Milliseconds: " + (endTime - ouputStartTime));
-//          
+//
 //        }
 //    }
 
@@ -145,10 +145,10 @@ public class Solution {
 		System.out.println("Cumulative Elapsed Nanoseconds: " + (endTime - startTime));
 		System.out.println(title);
 	}
-	
+
 	static void buildTree(int start, int end) {
 		Solution.aP = new activePoint();
-		addNewCompactNode(null, 0, 0);	
+		addNewCompactNode(null, 0, 0);
 		aP.node = trieTreeRoot;
 		aP.edgeIndex = null;
 		aP.length = 0;
@@ -157,16 +157,16 @@ public class Solution {
 			outputActivePoint();
 			aP.firstNodeCreated = true;
 			aP.priorNodeCreated = null;
-			if (aP.node.letterArray[(s.charAt(aP.currentPosition) - 'a')] == null) {
+			if (ap.edgeIndex != null && aP.node.letterArray[(s.charAt(aP.currentPosition) - 'a')] == null) {
 				addNewCompactNode(aP.node, aP.currentPosition, null);
 			} else {
-//				int index = s.charAt(aP.currentPosition) - 'a';
-				if (aP.edgeIndex == null) aP.edgeIndex = s.charAt(aP.currentPosition) - 'a';
-				if (s.charAt(aP.node.letterArray[aP.edgeIndex].stringStart + aP.length) != s.charAt(aP.currentPosition)) {
+				int index = s.charAt(aP.currentPosition) - 'a';
+				if (aP.edgeIndex == null) index = s.charAt(aP.currentPosition) - 'a';
+				if (s.charAt(aP.node.letterArray[index].stringStart + aP.length) != s.charAt(aP.currentPosition)) {
 					createBranch(
-							aP.node.letterArray[aP.edgeIndex].stringStart, 
-							aP.currentPosition, 
-							aP.node.letterArray[aP.edgeIndex], 
+							aP.node.letterArray[aP.edgeIndex].stringStart,
+							aP.currentPosition,
+							aP.node.letterArray[aP.edgeIndex],
 							aP.length);
 				} else {
 					aP.length++;
@@ -232,10 +232,10 @@ public class Solution {
 		oldNode.parentNode = replacementNode;
 
 		Solution.outputTree(Solution.trieTreeRoot, 0, Solution.vTreeRoot);
-		
+
 		aP.remainder--;
-		
-		// Rule 1 
+
+		// Rule 1
 		if (aP.node == Solution.trieTreeRoot) {
 			aP.edgeIndex = s.charAt(aP.node.letterArray[aP.edgeIndex].stringStart + aP.length - 1) - 'a';
 			aP.length--;
@@ -246,19 +246,19 @@ public class Solution {
 				aP.node = replacementNode.parentNode.suffixLink;
 			}
 		}
-		
+
 		// Rule 2
 		if (!aP.firstNodeCreated) {
 			aP.priorNodeCreated.suffixLink = replacementNode;
 		}
 		aP.firstNodeCreated = false;
  		aP.priorNodeCreated = replacementNode;
-		
+
 		if (aP.length == 0 && aP.node.letterArray[aP.edgeIndex] != null) {
 			addNewCompactNode(aP.node, aP.currentPosition  - 1, null);
 		}
 	}
-	
+
 	static TrieNode addNewCompactNode(TrieNode parentNode, int start, Integer end) {
 		TrieNode newNode;
 		newNode = new TrieNode(start, end);
@@ -272,21 +272,21 @@ public class Solution {
 		}
 //		newNode.string = string;
 		return newNode;
-		
+
 	}
-	
+
 	static String nodeString(TrieNode node) {
 		Integer end = node.stringEnd;
 		if (node.stringEnd == null) end = aP.currentPosition;
 		return s.substring(node.stringStart, end);
 	}
-	
+
 	static int nodeStringLength(TrieNode node) {
 		Integer end = node.stringEnd;
 		if (node.stringEnd == null) end = aP.currentPosition;
 		return end - node.stringStart + 1;
 	}
-    
+
 //    static int countNodesInTrie(TrieNode node) {
 //    	int stringCount = node.stringLength();
 //
@@ -297,9 +297,9 @@ public class Solution {
 //    	}
 //    	return stringCount;
 //    }
-    
+
     static int countPrefixes(TrieNode currentNode, int prefixStart, int prefixLength, VisitedNode currentVNode) {
-    	
+
     	// Check of subS is a prefix of the current node's prefix, is so no action needed, return
     	int returnValue = 0;
     	int currentNodeStringLength = nodeStringLength(currentNode);
@@ -308,9 +308,9 @@ public class Solution {
 	    		returnValue = prefixLength - currentVNode.counted;
 	    		currentVNode.counted = returnValue;
     		}
-    		
+
     	} else {
-	    	// Check of current node's prefix is a prefix of subS, 
+	    	// Check of current node's prefix is a prefix of subS,
 	    	if (currentNodeStringLength ==0 || (prefixLength > currentNodeStringLength && s.substring(currentNode.stringStart, currentNode.stringEnd).equals(s.substring(prefixStart, prefixStart + currentNodeStringLength)))) {
 	    		char nextChar = s.substring(prefixStart, prefixStart + prefixLength).charAt(currentNodeStringLength);
 	    		int index = nextChar - 'a';
@@ -341,7 +341,7 @@ public class Solution {
     }
     static void outputTree(TrieNode currentNode, int treeDepth, VisitedNode currentVNode) {
     	if (currentNode == null) return;
-    	
+
     	if (treeDepth == 0) System.out.println("=========");
 
     	String indent = "";
@@ -363,7 +363,7 @@ public class Solution {
     	treeDepth++;
     	for (int c = 0; c < 26; c++) outputTree(currentNode.letterArray[c], treeDepth, visitedArray[c]);
     }
-    
+
     static void outputActivePoint() {
     	String edge;
     	if (aP.edgeIndex == null) {
@@ -371,12 +371,11 @@ public class Solution {
     	} else {
     		edge = Character.toString((char) ('a' + aP.edgeIndex));
     	}
-    	System.out.format("Node: %d // Edge: %s // Length: %d // Remainder: %d // Position in s: %d(%c)\n", 
+    	System.out.format("Node: %d // Edge: %s // Length: %d // Remainder: %d // Position in s: %d(%c)\n",
     			aP.node.nodeNumber, edge, aP.length, aP.remainder, aP.currentPosition, s.charAt(aP.currentPosition));
-//    	System.out.format("Node: %d ", 
+//    	System.out.format("Node: %d ",
 //    			aP.node.nodeNumber);
-    
-    }
-    
-}
 
+    }
+
+}
