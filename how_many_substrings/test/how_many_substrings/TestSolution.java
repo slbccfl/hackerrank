@@ -2,287 +2,361 @@ package how_many_substrings;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 public class TestSolution {
 
 	@Test
 	public void testAddNewCompactNode() {
+		System.out.println("\n *** testAddNewCompactNode *** ");
 		Solution.aP = new activePoint();
-		Solution.aP.currentPosition = 1;
+//		Solution.aP.currentPosition = 1;
 		Solution.s = "abca";
-		TrieNode newNode = Solution.addNewCompactNode(null, 0, 0);
-		assertEquals(newNode, Solution.trieTreeRoot);
-		assertEquals(null, newNode.parentNode);
-//		assertEquals("", Solution.nodeString(newNode));
+		Solution.nodeCount = 0;
+		Solution.nodeTable = new ArrayList<TreeNode>();
+		Solution.suffixTreeRoot = new TreeNode(0, 0);
+		Solution.nodeTable.add(Solution.suffixTreeRoot.nodeNumber, Solution.suffixTreeRoot);
+		assertEquals(null, Solution.suffixTreeRoot.parentNode);
+//		assertEquals("", Solution.nodeString(Solution.trieTreeRoot));
 		boolean letterArrayIsEmpty = true;
-		for (int i = 0; i < newNode.letterArray.length; i++) {
-			if (newNode.letterArray[i] != null) {
+		for (int i = 0; i < Solution.suffixTreeRoot.letterArray.length; i++) {
+			if (Solution.suffixTreeRoot.letterArray[i] != null) {
 				letterArrayIsEmpty = false;
 				break;
 			}
 		}
 		assertEquals(true, letterArrayIsEmpty);
 
-		TrieNode nodeA = Solution.addNewCompactNode(newNode, 0, null);
-		TrieNode nodeB = Solution.addNewCompactNode(newNode, 1, null);
-		TrieNode nodeC = Solution.addNewCompactNode(newNode, 2, null);
-		assertEquals(newNode, nodeA.parentNode);
-		assertEquals(newNode, nodeB.parentNode);
-		assertEquals(newNode, nodeC.parentNode);
-		assertEquals(nodeA, newNode.letterArray[0]);
-		assertEquals(nodeB, newNode.letterArray[1]);
-		assertEquals(nodeC, newNode.letterArray[2]);
+		TreeNode nodeA = Solution.addNewCompactNode(Solution.suffixTreeRoot, 0, null);
+		TreeNode nodeB = Solution.addNewCompactNode(Solution.suffixTreeRoot, 1, null);
+		TreeNode nodeC = Solution.addNewCompactNode(Solution.suffixTreeRoot, 2, null);
+		assertEquals(Solution.suffixTreeRoot, nodeA.parentNode);
+		assertEquals(Solution.suffixTreeRoot, nodeB.parentNode);
+		assertEquals(Solution.suffixTreeRoot, nodeC.parentNode);
+		assertEquals(nodeA, Solution.suffixTreeRoot.letterArray[0]);
+		assertEquals(nodeB, Solution.suffixTreeRoot.letterArray[1]);
+		assertEquals(nodeC, Solution.suffixTreeRoot.letterArray[2]);
 		
-		Solution.aP.currentPosition += 3;
+		Solution.aP.currentPosition = Solution.s.length();
 		assertEquals("abca", Solution.nodeString(nodeA));
 		assertEquals("bca", Solution.nodeString(nodeB));
 		assertEquals("ca", Solution.nodeString(nodeC));
 		
-//		Solution.outputTree(Solution.trieTreeRoot, 0, Solution.vTreeRoot);
+//		Solution.outputTree();
 	}
 
 	@Test
 	public void testCreateBranch() {
+		System.out.println("\n *** testCreateBranch *** ");
 		Solution.s = "abcabxabcd";
 //		Solution.s = "abcdabce";
 		Solution.nodeCount = 0;
-		Solution.addNewCompactNode(null, 0, 0);
-		TrieNode nodeA = Solution.addNewCompactNode(Solution.trieTreeRoot, 0, null);
-		TrieNode nodeB = Solution.addNewCompactNode(Solution.trieTreeRoot, 1, null);
-		TrieNode nodeC = Solution.addNewCompactNode(Solution.trieTreeRoot, 2, null);
+		Solution.suffixTreeRoot = new TreeNode(0, 0);
+		Solution.aP = new activePoint();
+		Solution.aP.node = Solution.suffixTreeRoot;
+		Solution.aP.edgeIndex = 0;
+		Solution.aP.length = 0;
+		Solution.aP.remainder = 0;
+		Solution.aP.currentPosition = 3;
+		Solution.aP.firstNodeUpdated = true;
+		Solution.aP.priorNodeUpdated = null;
+		TreeNode nodeA = Solution.addNewCompactNode(Solution.suffixTreeRoot, 0, null);
+		TreeNode nodeB = Solution.addNewCompactNode(Solution.suffixTreeRoot, 1, null);
+		TreeNode nodeC = Solution.addNewCompactNode(Solution.suffixTreeRoot, 2, null);
 		
-		Solution.outputTree(Solution.trieTreeRoot, 0, Solution.vTreeRoot);
-//		String subS = "abce";
-//		int subSStart = 4;
-//		int subSLength = 4;
-//		int lcpLength  = 3;
-		Solution.aP.node = Solution.trieTreeRoot;
+
+		Solution.aP.node = Solution.suffixTreeRoot;
 		Solution.aP.edgeIndex = 0;
 		Solution.aP.length = 2;
 		Solution.aP.remainder = 2;
 		Solution.aP.currentPosition = 6;
-		Solution.aP.firstNodeCreated = true;
-		Solution.aP.priorNodeCreated = null;
+		Solution.aP.firstNodeUpdated = true;
+		Solution.aP.priorNodeUpdated = null;
 		while (Solution.aP.remainder > 0) {
-			Solution.outputActivePoint();
-			Solution.createBranch(
-					Solution.aP.node.letterArray[Solution.aP.edgeIndex].stringStart, 
-					Solution.aP.currentPosition, 
-					Solution.aP.node.letterArray[Solution.aP.edgeIndex], 
-					Solution.aP.length);
+//			Solution.outputActivePoint("testCreateBranch first branches");
+			Solution.createBranch();
 		}
+		char c = Solution.s.charAt(Solution.aP.currentPosition - 1);
+		int currentPositionIndex = c - 'a';
+		if (Solution.aP.node.letterArray[currentPositionIndex] == null) {
+			Solution.addNewCompactNode(Solution.aP.node, Solution.aP.currentPosition  - 1, null);
+//			Solution.outputTree();
+		}
+		if (Solution.aP.node == Solution.suffixTreeRoot) Solution.aP.edgeIndex = null;
 		
-		Solution.outputActivePoint();
-		Solution.outputTree(Solution.trieTreeRoot, 0, Solution.vTreeRoot);
-		TrieNode node4 = Solution.trieTreeRoot.letterArray['a' - 'a'];
+//		Solution.aP.currentPosition++;
+//		Solution.outputActivePoint("testCreateBranch before first asserts ");
+//		Solution.outputTree();
+		TreeNode node4 = Solution.suffixTreeRoot.letterArray['a' - 'a'];
 		assertEquals("ab", Solution.nodeString(node4));
 		assertEquals("cabx", Solution.nodeString(node4.letterArray['c' - 'a']));
 		assertEquals("x", Solution.nodeString(node4.letterArray['x' - 'a']));
-		TrieNode node6 = Solution.trieTreeRoot.letterArray['b' - 'a'];
+		TreeNode node6 = Solution.suffixTreeRoot.letterArray['b' - 'a'];
 		assertEquals(node4.suffixLink, node6);
 		assertEquals("b", Solution.nodeString(node6));
 		assertEquals("cabx", Solution.nodeString(node6.letterArray['c' - 'a']));
 		assertEquals("x", Solution.nodeString(node6.letterArray['x' - 'a']));
-		TrieNode node3 = Solution.trieTreeRoot.letterArray['c' - 'a'];
+		TreeNode node3 = Solution.suffixTreeRoot.letterArray['c' - 'a'];
 		assertEquals("cabx", Solution.nodeString(node3));
-		TrieNode node8 = Solution.trieTreeRoot.letterArray['x' - 'a'];
+		TreeNode node8 = Solution.suffixTreeRoot.letterArray['x' - 'a'];
 		assertEquals("x", Solution.nodeString(node8));
 
-		Solution.aP.node = Solution.trieTreeRoot.letterArray[0];
+		Solution.aP.node = Solution.suffixTreeRoot.letterArray[0];
 		Solution.aP.edgeIndex = 2;
 		Solution.aP.length = 1;
 		Solution.aP.remainder = 3;
 		Solution.aP.currentPosition = 10;
-		Solution.aP.firstNodeCreated = true;
-		Solution.aP.priorNodeCreated = null;
+		Solution.aP.firstNodeUpdated = true;
+		Solution.aP.priorNodeUpdated = null;
 		
 		while (Solution.aP.remainder > 0) {
-			Solution.outputActivePoint();
-			Solution.createBranch(
-					Solution.aP.node.letterArray[Solution.aP.edgeIndex].stringStart, 
-					Solution.aP.currentPosition, 
-					Solution.aP.node.letterArray[Solution.aP.edgeIndex], 
-					Solution.aP.length);
+//			Solution.outputActivePoint("testCreateBranch second branches");
+			Solution.createBranch();
 		}
+		c = Solution.s.charAt(Solution.aP.currentPosition - 1);
+		currentPositionIndex = c - 'a';
+		if (Solution.aP.node.letterArray[currentPositionIndex] == null) {
+			Solution.addNewCompactNode(Solution.aP.node, Solution.aP.currentPosition  - 1, null);
+//			Solution.outputTree();
+		}
+		if (Solution.aP.node == Solution.suffixTreeRoot) Solution.aP.edgeIndex = null;
 		
-		Solution.outputActivePoint();
-		Solution.outputTree(Solution.trieTreeRoot, 0, Solution.vTreeRoot);
-		TrieNode node9 = node4.letterArray['c' - 'a'];
+//		Solution.aP.currentPosition++;
+//		Solution.outputActivePoint("testCreateBranch before second asserts ");
+//		Solution.outputTree();
+		TreeNode node9 = node4.letterArray['c' - 'a'];
 		assertEquals("abxabcd", Solution.nodeString(node9.letterArray['a' - 'a']));
 		assertEquals("d", Solution.nodeString(node9.letterArray['d' - 'a']));
-		TrieNode node11 = node6.letterArray['c' - 'a'];
+		TreeNode node11 = node6.letterArray['c' - 'a'];
 		assertEquals(node9.suffixLink, node11);
 		assertEquals("abxabcd", Solution.nodeString(node11.letterArray['a' - 'a']));
 		assertEquals("d", Solution.nodeString(node11.letterArray['d' - 'a']));
-		TrieNode node13 = Solution.trieTreeRoot.letterArray['c' - 'a'];
+		TreeNode node13 = Solution.suffixTreeRoot.letterArray['c' - 'a'];
 		assertEquals(node11.suffixLink, node13);
 		assertEquals("abxabcd", Solution.nodeString(node13.letterArray['a' - 'a']));
 		assertEquals("d", Solution.nodeString(node13.letterArray['d' - 'a']));
-		TrieNode node15 = Solution.trieTreeRoot.letterArray['d' - 'a'];
+		TreeNode node15 = Solution.suffixTreeRoot.letterArray['d' - 'a'];
 		assertEquals("d", Solution.nodeString(node15));
 		assertEquals("xabcd", Solution.nodeString(node8));
 	}
 
 	@Test
 	public void testBuildTree() {
+		System.out.println("\n *** testBuildTree *** ");
 		int start;
 		int end;	
-		TrieNode[] childNodes;
+		TreeNode[] childNodes;
 		
 		Solution.s = "abcd";
-		start = 0;
-		end = Solution.s.length() - 1;	
+		start = 1;
+		end = Solution.s.length();	
 		
 		Solution.buildTree(start, end);
 
-		assertEquals("", Solution.nodeString(Solution.trieTreeRoot));
-		childNodes = new TrieNode[end + 1];
-		for (int i = 0; i <= end; i++) {
-			childNodes[i] = Solution.trieTreeRoot.letterArray[i];
-			assertEquals(Solution.s.substring(i, end + 1),Solution.nodeString(childNodes[i]));
-			assertEquals(Solution.trieTreeRoot, childNodes[i].parentNode);
+		Solution.aP.currentPosition = Solution.s.length();
+		assertEquals("", Solution.nodeString(Solution.suffixTreeRoot));
+		TreeNode childNode;
+		for (int i = 0; i < end; i++) {
+			childNode = Solution.suffixTreeRoot.letterArray[i];
+			assertEquals(Solution.s.substring(i, end),Solution.nodeString(childNode));
+			assertEquals(Solution.suffixTreeRoot, childNode.parentNode);
 		}
 
 		Solution.s = "abcabc";
-		start = 0;
-		end = Solution.s.length() - 1;
+		start = 1;
+		end = Solution.s.length();
 		
 		Solution.buildTree(start, end);
 
-		assertEquals("", Solution.nodeString(Solution.trieTreeRoot));
-		childNodes = new TrieNode[end + 1];
+		Solution.aP.currentPosition = Solution.s.length();
+		assertEquals("", Solution.nodeString(Solution.suffixTreeRoot));
+		childNodes = new TreeNode[end + 1];
 		for (int i = 0; i < 3; i++) {
-			childNodes[i] = Solution.trieTreeRoot.letterArray[i];
-			assertEquals(Solution.s.substring(i, end + 1),Solution.nodeString(childNodes[i]));
-			assertEquals(Solution.trieTreeRoot, childNodes[i].parentNode);
+			childNodes[i] = Solution.suffixTreeRoot.letterArray[i];
+			assertEquals(Solution.s.substring(i, end),Solution.nodeString(childNodes[i]));
+			assertEquals(Solution.suffixTreeRoot, childNodes[i].parentNode);
 		}
 		
 		Solution.s = "abcabxabcd";
-		start = 0;
+		start = 1;
 		end = Solution.s.length();
-		end = Solution.s.length() - 1;	
 		Solution.nodeCount = 0;
 		
 		Solution.buildTree(start, end);
 
-		assertEquals("", Solution.nodeString(Solution.trieTreeRoot));
-		TrieNode node4 = Solution.trieTreeRoot.letterArray['a' - 'a'];
+		Solution.aP.currentPosition = end;
+//		Solution.outputTree();
+		assertEquals("", Solution.nodeString(Solution.suffixTreeRoot));
+		TreeNode node4 = Solution.suffixTreeRoot.letterArray['a' - 'a'];
 		assertEquals("ab", Solution.nodeString(node4));
-		assertEquals("cabx", Solution.nodeString(node4.letterArray['c' - 'a']));
-		assertEquals("x", Solution.nodeString(node4.letterArray['x' - 'a']));
-		TrieNode node6 = Solution.trieTreeRoot.letterArray['b' - 'a'];
+		assertEquals("c", Solution.nodeString(node4.letterArray['c' - 'a']));
+		assertEquals("xabcd", Solution.nodeString(node4.letterArray['x' - 'a']));
+		TreeNode node6 = Solution.suffixTreeRoot.letterArray['b' - 'a'];
 		assertEquals(node4.suffixLink, node6);
 		assertEquals("b", Solution.nodeString(node6));
-		assertEquals("cabx", Solution.nodeString(node6.letterArray['c' - 'a']));
-		assertEquals("x", Solution.nodeString(node6.letterArray['x' - 'a']));
-		TrieNode node3 = Solution.trieTreeRoot.letterArray['c' - 'a'];
-		assertEquals("cabx", Solution.nodeString(node3));
-		TrieNode node8 = Solution.trieTreeRoot.letterArray['x' - 'a'];
-		assertEquals("x", Solution.nodeString(node8));
-		TrieNode node9 = node4.letterArray['c' - 'a'];
+		assertEquals("c", Solution.nodeString(node6.letterArray['c' - 'a']));
+		assertEquals("xabcd", Solution.nodeString(node6.letterArray['x' - 'a']));
+		TreeNode node9 = node4.letterArray['c' - 'a'];
+		assertEquals("c", Solution.nodeString(node9));
 		assertEquals("abxabcd", Solution.nodeString(node9.letterArray['a' - 'a']));
 		assertEquals("d", Solution.nodeString(node9.letterArray['d' - 'a']));
-		TrieNode node11 = node6.letterArray['c' - 'a'];
+		TreeNode node11 = node6.letterArray['c' - 'a'];
+		assertEquals("c", Solution.nodeString(node11));
 		assertEquals(node9.suffixLink, node11);
 		assertEquals("abxabcd", Solution.nodeString(node11.letterArray['a' - 'a']));
 		assertEquals("d", Solution.nodeString(node11.letterArray['d' - 'a']));
-		TrieNode node13 = Solution.trieTreeRoot.letterArray['c' - 'a'];
+		TreeNode node13 = Solution.suffixTreeRoot.letterArray['c' - 'a'];
+		assertEquals("c", Solution.nodeString(node13));
 		assertEquals(node11.suffixLink, node13);
 		assertEquals("abxabcd", Solution.nodeString(node13.letterArray['a' - 'a']));
 		assertEquals("d", Solution.nodeString(node13.letterArray['d' - 'a']));
-		TrieNode node15 = Solution.trieTreeRoot.letterArray['d' - 'a'];
+		TreeNode node15 = Solution.suffixTreeRoot.letterArray['d' - 'a'];
 		assertEquals("d", Solution.nodeString(node15));
+		TreeNode node8 = Solution.suffixTreeRoot.letterArray['x' - 'a'];
 		assertEquals("xabcd", Solution.nodeString(node8));
+
 	}
 
 	@Test
+	public void testBuildTreeX() {
+		System.out.println("\n *** testBuildTreeX *** ");
+		Solution.s = "bnbnnbnnnz";
+		int start = 1;
+		int end = Solution.s.length();
+		Solution.nodeCount = 0;
+		
+//		Solution.buildTree(start, end);
+
+//		Solution.outputTree();
+		int subSStart[] = {0};
+		int subSEnd[] = {9};
+    	long subStringCounts[] = {40};
+    	for (int i = 0; i < subStringCounts.length; i++) {
+        	int subSLength = subSEnd[i] - subSStart[i] + 1;
+    		Solution.buildTree(subSStart[i] + 1, subSEnd[i] + 1);
+    		Solution.aP.currentPosition = subSEnd[i] + 1;
+//        	long prefixesCount = Solution.countTreePrefixes(subSStart[i], subSLength);
+        	long prefixesCount = Solution.countTreePrefixes();
+	    	assertEquals(subStringCounts[i], prefixesCount);
+//	    	Solution.outputTree();
+    	}
+//		Solution.outputTree();
+	}
+
+	@Test
+	public void testBuildTreeObs3() {
+		System.out.println("\n *** testBuildTreeObs3 *** ");
+		Solution.s = "cdddcdc";
+		int start = 1;
+		int end = Solution.s.length();
+		Solution.nodeCount = 0;
+		
+//		Solution.buildTree(start, end);
+
+//		Solution.outputTree();
+		int subSStart[] = {0};
+		int subSEnd[] = {6};
+    	long subStringCounts[] = {20};
+    	for (int i = 0; i < subStringCounts.length; i++) {
+        	int subSLength = subSEnd[i] - subSStart[i] + 1;
+    		Solution.buildTree(subSStart[i] + 1, subSEnd[i] + 1);
+    		Solution.aP.currentPosition = subSEnd[i] + 1;
+//        	long prefixesCount = Solution.countTreePrefixes(subSStart[i], subSLength);
+        	long prefixesCount = Solution.countTreePrefixes();
+	    	assertEquals(subStringCounts[i], prefixesCount);
+//	    	Solution.outputTree();
+    	}
+//		Solution.outputTree();
+	}
+	
+
+	@Test
 	public void testBuildTree00() {
+		System.out.println("\n *** testBuildTree00 *** ");
 		// the following is the same five queries that are in test case #0
 		int start;
 		int end;	
-		TrieNode[] childNodes;
+//		TrieNode[] childNodes;
 
 		Solution.s = "aabaa";
-		start = 0;
-		end = Solution.s.length() - 1;	
-		
-		Solution.buildTree(start, end);
+		start = 1;
+		end = Solution.s.length();	
+		Solution.nodeCount = 0;
 
-		int subSStart[] = {1, 1, 1, 1, 0};
-		int subSEnd[] = {1, 4, 1, 4, 2};
-    	int subStringCounts[] = {1, 8, 1, 8, 5};
+		int subSStart[] = {1, 1, 1, 1, 0, 0};
+		int subSEnd[] = {1, 4, 1, 4, 2, 4};
+    	long subStringCounts[] = {1, 8, 1, 8, 5, 11};
     	for (int i = 0; i < subStringCounts.length; i++) {
-        	Solution.vTreeRoot = new VisitedNode();
-    		int prefixesCount = 0;
         	int subSLength = subSEnd[i] - subSStart[i] + 1;
-        	for (int ssLength = subSLength; ssLength > 0; ssLength--) {
-        		int ssStart = subSStart[i] + subSLength - ssLength;
-        		prefixesCount += Solution.countPrefixes(Solution.trieTreeRoot, ssStart, ssLength, Solution.vTreeRoot);
-
-            }
+    		Solution.buildTree(subSStart[i] + 1, subSEnd[i] + 1);
+    		Solution.aP.currentPosition = subSEnd[i] + 1;
+//        	long prefixesCount = Solution.countTreePrefixes(subSStart[i], subSLength);
+        	long prefixesCount = Solution.countTreePrefixes();
 	    	assertEquals(subStringCounts[i], prefixesCount);
-//	    	Solution.outputTree(Solution.trieTreeRoot, 0, Solution.vTreeRoot);
+//	    	Solution.outputTree();
     	}
-//    	Solution.outputTree(Solution.trieTreeRoot, 0, Solution.vTreeRoot);
+//    	Solution.outputTree();
 	}
 
+	@Test
+	public void testBuildTree01D() {
+		System.out.println("\n *** testBuildTree01D *** ");
+		// the following is the same as query #0 from test case #01
+		int start;
+		int end;	
+//		TrieNode[] childNodes;
 
-//	@Test
-//	public void testBuildTree01() {
-//		// the following is the same as query #'s 97, 94 and 87 from test case #01
-//
-//		Solution.s = "qqqqqqqqqqzrzrrzrzrrzrrzrzrrzrzrrzttttttttttttttttttttttttttttttttttttttttttttttttttttttqncpqzcxpbwa";
-//		int sLength = Solution.s.length();
-//		Solution.trieTreeRoot = Solution.addNewCompactNode(null, 0, sLength);
-//    	for (int ssLength = sLength - 1; ssLength >= 0; ssLength--) {
-//    		int ssStart = sLength - ssLength;
-//    		Solution.insertPrefix(Solution.trieTreeRoot, ssStart, ssLength);
-////        	Solution.outputTree(Solution.trieTreeRoot, 0, Solution.vTreeRoot);
-//        }
-//		int subSStart[] = {0, 0, 2};
-//		int subSEnd[] = {17, 22, 32};
-//    	int subStringCounts[] = {114, 193, 347};
-//    	for (int i = 0; i < subStringCounts.length; i++) {
-//        	Solution.vTreeRoot = new VisitedNode();
-//    		int prefixesCount = 0;
-//        	int subSLength = subSEnd[i] - subSStart[i] + 1;
-//        	for (int ssLength = subSLength; ssLength > 0; ssLength--) {
-//        		int ssStart = subSStart[i] + subSLength - ssLength;
-//        		prefixesCount += Solution.countPrefixes(Solution.trieTreeRoot, ssStart, ssLength, Solution.vTreeRoot);
-//
-//            }
-//	    	assertEquals(subStringCounts[i], prefixesCount);
-//	    	Solution.outputTree(Solution.trieTreeRoot, 0, Solution.vTreeRoot);
-//    	}
-////    	Solution.outputTree(Solution.trieTreeRoot, 0, Solution.vTreeRoot);
-//	}
-//	
-//	@Test
-//	public void testBuildTreeXX() {
-//
-//		Solution.s = "aaaabcbcbcd";
-//		int sLength = Solution.s.length();
-//		Solution.trieTreeRoot = Solution.addNewCompactNode(null, 0, sLength);
-////    	Solution.outputTree(Solution.trieTreeRoot, 0, Solution.vTreeRoot);
-//    	for (int ssLength = sLength - 1; ssLength >= 0; ssLength--) {
-//    		int ssStart = sLength - ssLength;
-//    		Solution.insertPrefix(Solution.trieTreeRoot, ssStart, ssLength);
-//        }
-//		int subSStart[] = {0};
-//		int subSEnd[] = {Solution.s.length() - 1};
-//    	int subStringCounts[] = {54};
-//    	for (int i = 0; i < subStringCounts.length; i++) {
-//        	Solution.vTreeRoot = new VisitedNode();
-//    		int prefixesCount = 0;
-//        	int subSLength = subSEnd[i] - subSStart[i] + 1;
-//        	for (int ssLength = subSLength; ssLength > 0; ssLength--) {
-//        		int ssStart = subSStart[i] + subSLength - ssLength;
-//        		prefixesCount += Solution.countPrefixes(Solution.trieTreeRoot, ssStart, ssLength, Solution.vTreeRoot);
-//
-//            }
-////	    	assertEquals(subStringCounts[i], prefixesCount);
-//    	}
-////    	Solution.outputTree(Solution.trieTreeRoot, 0, Solution.vTreeRoot);
-//	}
+		Solution.s = "qqqqqqqqqqzrzrrzrzrrzrrzrzrrzrzrrzttttttttttttttttttttttttttttttttttttttttttttttttttttttqncpqzcxpbwa";
+		start = 1;
+		end = Solution.s.length();	
+		Solution.nodeCount = 0;
+		
+//		Solution.buildTree(start, end);
+
+		int subSStart[] = {61};
+		int subSEnd[] = {97};
+		long subStringCounts[] = {349};
+    	for (int i = 0; i < subStringCounts.length; i++) {
+        	int subSLength = subSEnd[i] - subSStart[i] + 1;
+    		Solution.buildTree(subSStart[i] + 1, subSEnd[i] + 1);
+    		Solution.aP.currentPosition = subSEnd[i] + 1;
+//        	long prefixesCount = Solution.countTreePrefixes(subSStart[i], subSLength);
+        	long prefixesCount = Solution.countTreePrefixes();
+	    	assertEquals(subStringCounts[i], prefixesCount);
+    	}
+//    	Solution.outputTree();
+	}
+
+	@Test
+	public void testBuildTree01() {
+		System.out.println("\n *** testBuildTree01 *** ");
+		// the following is the same as query #'s 97, 94 87 and 0 from test case #01
+		int start;
+		int end;	
+//		TrieNode[] childNodes;
+
+		Solution.s = "qqqqqqqqqqzrzrrzrzrrzrrzrzrrzrzrrzttttttttttttttttttttttttttttttttttttttttttttttttttttttqncpqzcxpbwa";
+		start = 1;
+		end = Solution.s.length();	
+		Solution.nodeCount = 0;
+		
+//		Solution.buildTree(start, end);
+//		Solution.aP.currentPosition = end;
+//		Solution.outputTree();
+
+		int subSStart[] = {0, 0, 2, 61};
+		int subSEnd[] = {17, 22, 32, 97};
+		long subStringCounts[] = {114, 193, 347, 349};
+    	for (int i = 0; i < subStringCounts.length; i++) {
+        	int subSLength = subSEnd[i] - subSStart[i] + 1;
+    		Solution.buildTree(subSStart[i] + 1, subSEnd[i] + 1);
+    		Solution.aP.currentPosition = subSEnd[i] + 1;
+//        	long prefixesCount = Solution.countTreePrefixes(subSStart[i], subSLength);
+        	long prefixesCount = Solution.countTreePrefixes();
+	    	assertEquals(subStringCounts[i], prefixesCount);
+    	}
+//    	Solution.outputTree();
+	}
 }

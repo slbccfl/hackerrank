@@ -1,0 +1,376 @@
+
+ *** testBuildTree01B *** 
+Next character 
+Node: 0 / Edge: none / Length: 0 / Remainder: 0 / Position in s: 1(q)
+Next character 
+Node: 0 / Edge: none / Length: 0 / Remainder: 0 / Position in s: 2(q)
+Next character 
+Node: 0 / Edge: q / Length: 1 / Remainder: 1 / Position in s: 3(q)
+Prefix: q
+After branch 
+Node: 0 / Edge: q / Length: 1 / Remainder: 1 / Position in s: 3(q)
+Prefix: q
+Next character 
+Node: 0 / Edge: q / Length: 2 / Remainder: 2 / Position in s: 4(q)
+Prefix: qq
+After branch 
+Node: 0 / Edge: q / Length: 2 / Remainder: 2 / Position in s: 4(q)
+Prefix: qq
+Next character 
+Node: 0 / Edge: q / Length: 3 / Remainder: 3 / Position in s: 5(q)
+Prefix: qqq
+After branch 
+Node: 0 / Edge: q / Length: 3 / Remainder: 3 / Position in s: 5(q)
+Prefix: qqq
+Next character 
+Node: 0 / Edge: q / Length: 4 / Remainder: 4 / Position in s: 6(q)
+Prefix: qqqq
+After branch 
+Node: 0 / Edge: q / Length: 4 / Remainder: 4 / Position in s: 6(q)
+Prefix: qqqq
+Next character 
+Node: 0 / Edge: q / Length: 5 / Remainder: 5 / Position in s: 7(q)
+Prefix: qqqqq
+After branch 
+Node: 0 / Edge: q / Length: 5 / Remainder: 5 / Position in s: 7(q)
+Prefix: qqqqq
+Next character 
+Node: 0 / Edge: q / Length: 6 / Remainder: 6 / Position in s: 8(q)
+Prefix: qqqqqq
+After branch 
+Node: 0 / Edge: q / Length: 6 / Remainder: 6 / Position in s: 8(q)
+Prefix: qqqqqq
+Next character 
+Node: 0 / Edge: q / Length: 7 / Remainder: 7 / Position in s: 9(q)
+Prefix: qqqqqqq
+After branch 
+Node: 0 / Edge: q / Length: 7 / Remainder: 7 / Position in s: 9(q)
+Prefix: qqqqqqq
+Next character 
+Node: 0 / Edge: q / Length: 8 / Remainder: 8 / Position in s: 10(q)
+Prefix: qqqqqqqq
+After branch 
+Node: 0 / Edge: q / Length: 8 / Remainder: 8 / Position in s: 10(q)
+Prefix: qqqqqqqq
+Next character 
+Node: 0 / Edge: q / Length: 9 / Remainder: 9 / Position in s: 11(z)
+Prefix: qqqqqqqqq
+Branch at 
+Node: 0 / Edge: q / Length: 9 / Remainder: 9 / Position in s: 11(z)
+Prefix: qqqqqqqqq
+Branch at 
+Node: 0 / Edge: q / Length: 8 / Remainder: 8 / Position in s: 11(z)
+Prefix: qqqqqqqq
+Branch at 
+Node: 0 / Edge: q / Length: 7 / Remainder: 7 / Position in s: 11(z)
+Prefix: qqqqqqq
+Branch at 
+Node: 0 / Edge: q / Length: 6 / Remainder: 6 / Position in s: 11(z)
+Prefix: qqqqqq
+Branch at 
+Node: 0 / Edge: q / Length: 5 / Remainder: 5 / Position in s: 11(z)
+Prefix: qqqqq
+Branch at 
+Node: 0 / Edge: q / Length: 4 / Remainder: 4 / Position in s: 11(z)
+Prefix: qqqq
+Branch at 
+Node: 0 / Edge: q / Length: 3 / Remainder: 3 / Position in s: 11(z)
+Prefix: qqq
+Branch at 
+Node: 0 / Edge: q / Length: 2 / Remainder: 2 / Position in s: 11(z)
+Prefix: qq
+Branch at 
+Node: 0 / Edge: q / Length: 1 / Remainder: 1 / Position in s: 11(z)
+Prefix: q
+After branch 
+Node: 0 / Edge: none / Length: 0 / Remainder: 0 / Position in s: 11(z)
+Next character 
+Node: 0 / Edge: none / Length: 0 / Remainder: 0 / Position in s: 12(r)
+Next character 
+Node: 0 / Edge: none / Length: 0 / Remainder: 0 / Position in s: 13(z)
+Next character 
+Node: 0 / Edge: z / Length: 1 / Remainder: 1 / Position in s: 14(r)
+Prefix: z
+After branch 
+Node: 0 / Edge: z / Length: 1 / Remainder: 1 / Position in s: 14(r)
+Prefix: z
+Next character 
+Node: 0 / Edge: z / Length: 2 / Remainder: 2 / Position in s: 15(r)
+Prefix: zr
+Branch at 
+Node: 0 / Edge: z / Length: 2 / Remainder: 2 / Position in s: 15(r)
+Prefix: zr
+Branch at 
+Node: 0 / Edge: r / Length: 1 / Remainder: 1 / Position in s: 15(r)
+Prefix: r
+After branch 
+Node: 0 / Edge: none / Length: 0 / Remainder: 0 / Position in s: 15(r)
+Next character 
+Node: 24 / Edge: none / Length: 0 / Remainder: 1 / Position in s: 16(z)
+Prefix: r
+Next character 
+Node: 24 / Edge: z / Length: 1 / Remainder: 2 / Position in s: 17(r)
+Prefix: rz
+After branch 
+Node: 24 / Edge: z / Length: 1 / Remainder: 2 / Position in s: 17(r)
+Prefix: rz
+Next character 
+Node: 24 / Edge: z / Length: 2 / Remainder: 3 / Position in s: 18(z)
+Prefix: rzr
+Branch at 
+Node: 24 / Edge: z / Length: 2 / Remainder: 3 / Position in s: 18(z)
+Prefix: rzr
+After branch 
+Node: 22 / Edge: none / Length: 0 / Remainder: 2 / Position in s: 18(z)
+Prefix: zr
+Next character 
+Node: 22 / Edge: z / Length: 1 / Remainder: 3 / Position in s: 19(r)
+Prefix: zrz
+After branch 
+Node: 22 / Edge: z / Length: 1 / Remainder: 3 / Position in s: 19(r)
+Prefix: zrz
+Next character 
+Node: 22 / Edge: z / Length: 2 / Remainder: 4 / Position in s: 20(r)
+Prefix: zrzr
+After branch 
+Node: 22 / Edge: z / Length: 2 / Remainder: 4 / Position in s: 20(r)
+Prefix: zrzr
+Next character 
+Node: 22 / Edge: z / Length: 3 / Remainder: 5 / Position in s: 21(z)
+Prefix: zrzrr
+After branch 
+Node: 22 / Edge: z / Length: 3 / Remainder: 5 / Position in s: 21(z)
+Prefix: zrzrr
+Next character 
+Node: 22 / Edge: z / Length: 4 / Remainder: 6 / Position in s: 22(r)
+Prefix: zrzrrz
+After branch 
+Node: 22 / Edge: z / Length: 4 / Remainder: 6 / Position in s: 22(r)
+Prefix: zrzrrz
+Next character 
+Node: 22 / Edge: z / Length: 5 / Remainder: 7 / Position in s: 23(r)
+Prefix: zrzrrzr
+Branch at 
+Node: 22 / Edge: z / Length: 5 / Remainder: 7 / Position in s: 23(r)
+Prefix: zrzrrzr
+Branch at 
+Node: 26 / Edge: r / Length: 3 / Remainder: 6 / Position in s: 23(r)
+Prefix: rzrrzr
+Branch at 
+Node: 22 / Edge: r / Length: 3 / Remainder: 5 / Position in s: 23(r)
+Prefix: zrrzr
+Branch at 
+Node: 24 / Edge: r / Length: 3 / Remainder: 4 / Position in s: 23(r)
+Prefix: rrzr
+After branch 
+Node: 26 / Edge: none / Length: 0 / Remainder: 3 / Position in s: 23(r)
+Prefix: rzr
+*** i: 0 ***
+(1) 14
+(2) 15
+(4) 16
+(6) 17
+(8) 18
+(10) 19
+(12) 20
+(14) 21
+(16) 22
+(18) 23
+(0) 23
+qqqqqqqqqqzrzrrzrzrrzrr
+0, 23 >>> 23
+(3) 13
+(2) 13
+(4) 13
+(6) 13
+(8) 13
+(10) 13
+(12) 13
+(14) 13
+(16) 13
+(18) 13
+(0) 13
+qqqqqqqqqzrzrrzrzrrzrr
+1, 22 >>> 36
+(5) 13
+(4) 13
+(6) 13
+(8) 13
+(10) 13
+(12) 13
+(14) 13
+(16) 13
+(18) 13
+(0) 13
+qqqqqqqqzrzrrzrzrrzrr
+2, 21 >>> 49
+(7) 13
+(6) 13
+(8) 13
+(10) 13
+(12) 13
+(14) 13
+(16) 13
+(18) 13
+(0) 13
+qqqqqqqzrzrrzrzrrzrr
+3, 20 >>> 62
+(9) 13
+(8) 13
+(10) 13
+(12) 13
+(14) 13
+(16) 13
+(18) 13
+(0) 13
+qqqqqqzrzrrzrzrrzrr
+4, 19 >>> 75
+(11) 13
+(10) 13
+(12) 13
+(14) 13
+(16) 13
+(18) 13
+(0) 13
+qqqqqzrzrrzrzrrzrr
+5, 18 >>> 88
+(13) 13
+(12) 13
+(14) 13
+(16) 13
+(18) 13
+(0) 13
+qqqqzrzrrzrzrrzrr
+6, 17 >>> 101
+(15) 13
+(14) 13
+(16) 13
+(18) 13
+(0) 13
+qqqzrzrrzrzrrzrr
+7, 16 >>> 114
+(17) 13
+(16) 13
+(18) 13
+(0) 13
+qqzrzrrzrzrrzrr
+8, 15 >>> 127
+(19) 13
+(18) 13
+(0) 13
+qzrzrrzrzrrzrr
+9, 14 >>> 140
+(20) 6
+(28) 11
+(22) 13
+(0) 13
+zrzrrzrzrrzrr
+10, 13 >>> 153
+(21) 6
+(30) 9
+(26) 11
+(24) 12
+(0) 12
+rzrrzrzrrzrr
+11, 12 >>> 165
+(23) 6
+(32) 9
+(22) 9
+(0) 9
+zrrzrzrrzrr
+12, 11 >>> 174
+(25) 6
+(34) 9
+(24) 9
+(0) 9
+rrzrzrrzrr
+13, 10 >>> 183
+(27) 6
+(26) 6
+(24) 6
+(0) 6
+rzrzrrzrr
+14, 9 >>> 189
+(29) 1
+(28) 1
+(22) 1
+(0) 1
+zrzrrzrr
+15, 8 >>> 190
+(31) 1
+(30) 1
+(26) 1
+(24) 1
+(0) 1
+rzrrzrr
+16, 7 >>> 191
+(33) 1
+(32) 1
+(22) 1
+(0) 1
+zrrzrr
+17, 6 >>> 192
+(35) 1
+(34) 1
+(24) 1
+(0) 1
+rrzrr
+18, 5 >>> 193
+(30) 0
+(26) 0
+(24) 0
+(0) 0
+rzrr
+19, 4 >>> 193
+(32) 0
+(22) 0
+(0) 0
+zrr
+20, 3 >>> 193
+(34) 0
+(24) 0
+(0) 0
+rr
+21, 2 >>> 193
+(24) 0
+(0) 0
+r
+22, 1 >>> 193
+=========
+qqqqqqqqqqzrzrrzrzrrzrr
+(  0)-->(null)  0/  0 \(0,0)
+( 18)-->(null)  1/  1 \\q(0,1)
+( 16)-->(  18)  1/  1 \|\q(1,2)
+( 14)-->(  16)  1/  1 \|\\q(2,3)
+( 12)-->(  14)  1/  1 \|\|\q(3,4)
+( 10)-->(  12)  1/  1 \|\|\\q(4,5)
+(  8)-->(  10)  1/  1 \|\|\|\q(5,6)
+(  6)-->(   8)  1/  1 \|\|\|\\q(6,7)
+(  4)-->(   6)  1/  1 \|\|\|\|\q(7,8)
+(  2)-->(   4)  1/  1 \|\|\|\|\\q(8,9)
+(  1)-->(null) 14/ 14 \|\|\|\|\|\qzrzrrzrzrrzrr(9,null)
+(  3)-->(null) 13/ 13 \|\|\|\|\|\zrzrrzrzrrzrr(10,null)
+(  5)-->(null) 13/ 13 \|\|\|\|\\zrzrrzrzrrzrr(10,null)
+(  7)-->(null) 13/ 13 \|\|\|\|\zrzrrzrzrrzrr(10,null)
+(  9)-->(null) 13/ 13 \|\|\|\\zrzrrzrzrrzrr(10,null)
+( 11)-->(null) 13/ 13 \|\|\|\zrzrrzrzrrzrr(10,null)
+( 13)-->(null) 13/ 13 \|\|\\zrzrrzrzrrzrr(10,null)
+( 15)-->(null) 13/ 13 \|\|\zrzrrzrzrrzrr(10,null)
+( 17)-->(null) 13/ 13 \|\\zrzrrzrzrrzrr(10,null)
+( 19)-->(null) 13/ 13 \|\zrzrrzrzrrzrr(10,null)
+( 24)-->(null)  1/  1 \\r(11,12)
+( 34)-->(null)  3/  3 \|\rzr(14,17)
+( 35)-->(null)  1/  1 \|\\r(22,null)
+( 25)-->(null)  6/  6 \|\\zrrzrr(17,null)
+( 26)-->(null)  2/  2 \|\zr(12,14)
+( 30)-->(  32)  3/  3 \|\\rzr(14,17)
+( 31)-->(null)  1/  1 \|\|\r(22,null)
+( 21)-->(null)  6/  6 \|\|\zrrzrr(17,null)
+( 27)-->(null)  6/  6 \|\\zrrzrr(17,null)
+( 22)-->(  24)  2/  2 \\zr(10,12)
+( 32)-->(  34)  3/  3 \|\rzr(14,17)
+( 33)-->(null)  1/  1 \|\\r(22,null)
+( 23)-->(null)  6/  6 \|\\zrrzrr(17,null)
+( 28)-->(  30)  5/  5 \|\zrrzr(12,17)
+( 29)-->(null)  1/  1 \|\\r(22,null)
+( 20)-->(null)  6/  6 \|\\zrrzrr(17,null)
