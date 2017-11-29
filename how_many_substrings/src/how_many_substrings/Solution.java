@@ -24,15 +24,15 @@ class TreeNode {
 	}
 }
 
-class VisitedNode {
-	long counted;
-	VisitedNode[] letterArray;
-
-	public VisitedNode() {
-		counted = 0;
-		this.letterArray = new VisitedNode[26];
-	}
-}
+//class VisitedNode {
+//	long counted;
+//	VisitedNode[] letterArray;
+//
+//	public VisitedNode() {
+//		counted = 0;
+//		this.letterArray = new VisitedNode[26];
+//	}
+//}
 
 class activePoint {
 	TreeNode node;
@@ -47,19 +47,19 @@ class activePoint {
 public class Solution {
 
 	static TreeNode suffixTreeRoot;
-	static VisitedNode vTreeRoot;
+//	static VisitedNode vTreeRoot;
+	static int visitedChars[];
 	static long startTime = System.nanoTime();
 	static String s = null;
 	static activePoint aP;
 	static int nodeCount = 0;
 	static StringBuilder prefixesCountString;
-	static ArrayList<TreeNode> nodeTable;
+//	static ArrayList<TreeNode> nodeTable;
 
     public static void main(String[] args) {
 
-//    	timeStamp("Ukkonen Algorithm - Prefix Tree and Counts for each query\n	"
-//    			+ "and non-recursive prefix counts and StringBuilder output\n"
-//    			+ "and with nodeTable to drive prefixes count");
+    	timeStamp("Ukkonen Algorithm - A single Prefix Tree \n	"
+    			+ "prefix counts for each query using VisitedChars array");
 
     	BufferedReader br = new BufferedReader (new InputStreamReader(System.in));
     	String line = null;
@@ -80,14 +80,14 @@ public class Solution {
 		int sLength = s.length();
 		Solution.nodeCount = 0;
 
-//    	long buildStartTime = System.nanoTime();
-//    	timeStamp("Single Tree Build --  sLength: " + sLength);
-//    	
-//		Solution.buildTree(1, sLength);
-//		
-//		long endTime = System.nanoTime( );
-//		float buildElapsedTime = endTime - buildStartTime;
-//		System.out.printf("Build Elapsed Nanoseconds: %,.0f -- nanoseconds/character: %,.4f\n", buildElapsedTime, (buildElapsedTime / sLength));
+    	long buildStartTime = System.nanoTime();
+    	timeStamp("Single Tree Build --  sLength: " + sLength);
+    	
+		Solution.buildTree(1, sLength);
+
+		long endTime = System.nanoTime( );
+		float buildElapsedTime = endTime - buildStartTime;
+		System.out.printf("Build Elapsed Nanoseconds: %,.0f -- nanoseconds/character: %,.4f\n", buildElapsedTime, (buildElapsedTime / sLength));
 
         for(int a0 = 0; a0 < q; a0++){
         	try {
@@ -101,39 +101,40 @@ public class Solution {
 	    	
 //	    	long buildStartTime = System.nanoTime();
 //	    	timeStamp("Build #" + a0 + " -- Left:  " + subSStart + " Right: " + subSEnd + "   subSLength: " + subSLength);
-	    	
-			Solution.buildTree(subSStart + 1, subSEnd + 1);
-			
+//	    	
+//			Solution.buildTree(subSStart + 1, subSEnd + 1);
+//			
 //			long endTime = System.nanoTime( );
 //			float buildElapsedTime = endTime - buildStartTime;
 //			System.out.printf("Build Elapsed Nanoseconds: %,.0f -- nanoseconds/character: %,.4f\n", buildElapsedTime, (buildElapsedTime / sLength));
-//	    	
-//        	long queryStartTime = System.nanoTime();
-//	    	timeStamp("Query #" + a0 + " -- Left:  " + subSStart + " Right: " + subSEnd + "   subSLength: " + subSLength);
+	    	
+        	long queryStartTime = System.nanoTime();
+	    	timeStamp("Query #" + a0 + " -- Left:  " + subSStart + " Right: " + subSEnd + "   subSLength: " + subSLength);
 //	    	System.out.println(s.substring(subSStart, subSEnd));
 	    	
-//    		System.out.println(countTreePrefixes(subSStart, subSLength));
-//    		prefixesCountString.append(countTreePrefixes(subSStart, subSLength));
-    		Solution.aP.currentPosition = subSEnd + 1;
-    		prefixesCountString.append(countTreePrefixes());
+//    		System.out.println(countTreePrefixes(subSStart, subSLength));		
+			visitedChars = new int[nodeCount];
+    		prefixesCountString.append(countTreePrefixes(subSStart, subSLength));
+//    		Solution.aP.currentPosition = subSEnd + 1;
+//    		prefixesCountString.append(countTreePrefixes());
     		prefixesCountString.append("\n");
 
-//			endTime = System.nanoTime( );
-//			float queryElapsedTime = endTime - queryStartTime;
-//			System.out.printf("Query Elapsed Nanoseconds: %,.0f -- nanoseconds/character: %,.4f\n", queryElapsedTime, (queryElapsedTime / subSLength));
+			endTime = System.nanoTime( );
+			float queryElapsedTime = endTime - queryStartTime;
+			System.out.printf("Query Elapsed Nanoseconds: %,.0f -- nanoseconds/character: %,.4f\n", queryElapsedTime, (queryElapsedTime / subSLength));
 
 
 
         }
-//    	long outputStartTime = System.nanoTime();
+    	long outputStartTime = System.nanoTime();
 
 		System.out.print(prefixesCountString);
 		
-//		long endTime = System.nanoTime( );
-//		float outputElapsedTime = endTime - outputStartTime;
-//		System.out.printf("Output Elapsed Nanoseconds: %,.0f -- nanoseconds/character: %,.4f\n", outputElapsedTime, (outputElapsedTime / prefixesCountString.length()));
-////		outputTree(trieTreeRoot, 0);
-//		timeStamp("Final TimeStamp");
+		endTime = System.nanoTime( );
+		float outputElapsedTime = endTime - outputStartTime;
+		System.out.printf("Output Elapsed Nanoseconds: %,.0f -- nanoseconds/character: %,.4f\n", outputElapsedTime, (outputElapsedTime / prefixesCountString.length()));
+//		outputTree(trieTreeRoot, 0);
+		timeStamp("Final TimeStamp");
     }
 
 	private static void timeStamp(String title) {
@@ -146,13 +147,15 @@ public class Solution {
 	static void buildTree(int start, int end) {
 		aP = new activePoint();
 		nodeCount = 0;
-		nodeTable = new ArrayList<TreeNode>();
+//		nodeTable = new ArrayList<TreeNode>();
 		suffixTreeRoot = new TreeNode(0, 0);
-		nodeTable.add(suffixTreeRoot.nodeNumber, suffixTreeRoot);
+//		nodeTable.add(suffixTreeRoot.nodeNumber, suffixTreeRoot);
 		aP.node = suffixTreeRoot;
 		aP.edgeIndex = null;
 		aP.length = 0;
 		aP.remainder = 0;
+		long leafCount = 0;
+		long prefixCount = 0;
 		Character currentPositionChar;
 		for (aP.currentPosition = start; aP.currentPosition <= end; aP.currentPosition++) {
 			aP.firstNodeUpdated = true;
@@ -167,6 +170,7 @@ public class Solution {
 				if (currentAPChar != null && currentAPChar != currentPositionChar) {
 //					outputActivePoint("Branch at ");
 					createBranch();
+					leafCount++;
 					currentAPChar = getAPCharacter();
 				}
 				if (currentAPChar == null) {
@@ -174,6 +178,7 @@ public class Solution {
 					if (currentAPChar == null) {
 //						outputActivePoint("New Leaf at ");
 						addNewCompactNode(aP.node, aP.currentPosition - 1, null);
+						leafCount++;
 						if (aP.node == suffixTreeRoot) {
 							treeModified = false;
 						}
@@ -191,7 +196,10 @@ public class Solution {
 					}
 				}
 			}
+			prefixCount += leafCount;
 		}
+		prefixesCountString.append(prefixCount);
+		prefixesCountString.append("\n");
 	}
 
 	private static Character checkForNode() {
@@ -264,7 +272,7 @@ public class Solution {
 					"in Solution.addNewCompactNode: >>> parentNode is null <<<");
 		}
 		TreeNode newNode = new TreeNode(start, end);
-		nodeTable.add(newNode.nodeNumber, newNode);
+//		nodeTable.add(newNode.nodeNumber, newNode);
 		newNode.parentNode = parentNode;
 		parentNode.letterArray[s.charAt(start) - 'a'] = newNode;
 			
@@ -303,28 +311,29 @@ public class Solution {
 		}
 	}
 
-	static long countTreePrefixes() {
-		long prefixesCount = 0;
-		for (int nodeID = 0; nodeID < nodeCount; nodeID++) {
-			prefixesCount += nodeStringLength(nodeTable.get(nodeID));
-		}
-		return prefixesCount;
-	}
-
-//	static long countTreePrefixes(int subSStart, int subSLength) {
-//		Solution.vTreeRoot = new VisitedNode();
+//	static long countTreePrefixes() {
 //		long prefixesCount = 0;
-//		for (int ssLength = subSLength; ssLength > 0; ssLength--) {
-//			int ssStart = subSStart + subSLength - ssLength;
-////			prefixesCount += countNodePrefixes(suffixTreeRoot, ssStart, ssLength, vTreeRoot);
-//			prefixesCount += countNodePrefixes(suffixTreeRoot, ssStart, ssLength, vTreeRoot);
-//			
-//
+//		for (int nodeID = 0; nodeID < nodeCount; nodeID++) {
+////			prefixesCount += nodeStringLength(nodeTable.get(nodeID));
 //		}
 //		return prefixesCount;
 //	}
 
-    static long countNodePrefixes(TreeNode currentNode, int prefixStart, int prefixLength, VisitedNode currentVNode) {
+	static long countTreePrefixes(int subSStart, int subSLength) {
+//		Solution.vTreeRoot = new VisitedNode();
+		long prefixesCount = 0;
+		for (int ssLength = subSLength; ssLength > 0; ssLength--) {
+			int ssStart = subSStart + subSLength - ssLength;
+//			prefixesCount += countNodePrefixes(suffixTreeRoot, ssStart, ssLength, vTreeRoot);
+			prefixesCount += countNodePrefixes(suffixTreeRoot, ssStart, ssLength);
+			
+
+		}
+		return prefixesCount;
+	}
+
+//  static long countNodePrefixes(TreeNode currentNode, int prefixStart, int prefixLength, VisitedNode currentVNode) {
+  static long countNodePrefixes(TreeNode currentNode, int prefixStart, int prefixLength) {
     	// Check of subS is a prefix of the current node's prefix, is so no action needed, return
     	int returnValue = 0;
     	int currentNodeStringLength = 0;
@@ -336,17 +345,17 @@ public class Solution {
     	while (prefixLength > 0) {
     		nextChar = s.charAt(prefixStart);
     		index = nextChar - 'a';
-    		if (currentVNode.letterArray[index] == null) currentVNode.letterArray[index] = new VisitedNode();
+//    		if (currentVNode.letterArray[index] == null) currentVNode.letterArray[index] = new VisitedNode();
     		currentNode = currentNode.letterArray[index];
-    		currentVNode = currentVNode.letterArray[index];
+//    		currentVNode = currentVNode.letterArray[index];
         	currentNodeStringLength = nodeStringLength(currentNode);
 	    	if (prefixLength > currentNodeStringLength 
 	    			&& 
 	    			s.substring(currentNode.stringStart, currentNode.stringStart + currentNodeStringLength)
 	    					.equals(s.substring(prefixStart, prefixStart + currentNodeStringLength))
 	    					) {
-	    		if (currentVNode.counted < currentNodeStringLength) returnValue += currentNodeStringLength - currentVNode.counted;
-	    		currentVNode.counted = currentNodeStringLength;
+	    		if (visitedChars[currentNode.nodeNumber] < currentNodeStringLength) returnValue += currentNodeStringLength - visitedChars[currentNode.nodeNumber];
+	    		visitedChars[currentNode.nodeNumber] = currentNodeStringLength;
 	    		prefixStart += currentNodeStringLength;
 	    		prefixLength -= currentNodeStringLength;
 	    	} else {
@@ -357,9 +366,9 @@ public class Solution {
 		    		}
 		    	prefixStart += lcp;
     			prefixLength -= lcp;
-	    		if (lcp > currentVNode.counted) {
-	    			returnValue += lcp - currentVNode.counted;
-	    			currentVNode.counted = lcp;
+	    		if (lcp > visitedChars[currentNode.nodeNumber]) {
+	    			returnValue += lcp - visitedChars[currentNode.nodeNumber];
+	    			visitedChars[currentNode.nodeNumber] = lcp;
 	    		}
 	    	}
     		
@@ -383,10 +392,12 @@ public class Solution {
     static void outputTree() {
 		System.out.println("=========");
 		System.out.println(s);
-		outputNode(Solution.suffixTreeRoot, 0, Solution.vTreeRoot);
+//		outputNode(Solution.suffixTreeRoot, 0, Solution.vTreeRoot);
+		outputNode(Solution.suffixTreeRoot, 0);
     }
-    
-    static void outputNode(TreeNode currentNode, int treeDepth, VisitedNode currentVNode) {
+
+//  static void outputNode(TreeNode currentNode, int treeDepth, VisitedNode currentVNode) {
+  static void outputNode(TreeNode currentNode, int treeDepth) {
     	if (currentNode == null) return;
 
     	String indent = "";
@@ -405,16 +416,17 @@ public class Solution {
     	}
     	System.out.format("(%3d)-->(%4s)", currentNode.nodeNumber, suffixString);
 
-    	VisitedNode[] visitedArray = new VisitedNode[26];
-    	if (currentVNode != null) {
-        	System.out.format("%3d/%3d ", currentVNode.counted,  nodeStringLength(currentNode));
-        	visitedArray = currentVNode.letterArray.clone();
-    	} else {
+//    	VisitedNode[] visitedArray = new VisitedNode[26];
+//    	if (currentVNode != null) {
+//        	System.out.format("%3d/%3d ", currentVNode.counted,  nodeStringLength(currentNode));
+////        	visitedArray = currentVNode.letterArray.clone();
+//    	} else {
     		System.out.print("-------");
-    	}
+//    	}
     	System.out.println(indent + "\\" + nodeString(currentNode) + "(" + currentNode.stringStart + "," + currentNode.stringEnd + ")");
     	treeDepth++;
-    	for (int c = 0; c < 26; c++) outputNode(currentNode.letterArray[c], treeDepth, visitedArray[c]);
+//    	for (int c = 0; c < 26; c++) outputNode(currentNode.letterArray[c], treeDepth, visitedArray[c]);
+    	for (int c = 0; c < 26; c++) outputNode(currentNode.letterArray[c], treeDepth);
     }
 
     static void outputActivePoint(String label) {
