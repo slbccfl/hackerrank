@@ -6,7 +6,7 @@ import java.util.*;
 
 import org.junit.Test;
 
-import missing_numbers.Solution;
+import flipping_bits.Solution;
 
 public class TestSolution {
 
