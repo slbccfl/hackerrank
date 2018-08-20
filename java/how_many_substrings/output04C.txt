@@ -1,0 +1,191 @@
+Mon Oct 09 14:03:24 EDT 2017
+Cumulative Elapsed Milliseconds: 0
+
+Mon Oct 09 14:03:24 EDT 2017
+Cumulative Elapsed Milliseconds: 44
+Test case 0 -- Left:  574 Right: 807   subS.length(): 234
+Query Elapsed Milliseconds: 119
+13727
+Mon Oct 09 14:03:24 EDT 2017
+Cumulative Elapsed Milliseconds: 168
+Test case 1 -- Left:  2136 Right: 2896   subS.length(): 761
+Query Elapsed Milliseconds: 4176
+247285
+Mon Oct 09 14:03:28 EDT 2017
+Cumulative Elapsed Milliseconds: 4364
+Test case 2 -- Left:  1484 Right: 2904   subS.length(): 1421
+Query Elapsed Milliseconds: 23610
+733739
+Mon Oct 09 14:03:52 EDT 2017
+Cumulative Elapsed Milliseconds: 28020
+Test case 3 -- Left:  1891 Right: 2265   subS.length(): 375
+Query Elapsed Milliseconds: 552
+33551
+Mon Oct 09 14:03:52 EDT 2017
+Cumulative Elapsed Milliseconds: 28578
+Test case 4 -- Left:  2669 Right: 2781   subS.length(): 113
+Query Elapsed Milliseconds: 5
+6074
+Mon Oct 09 14:03:52 EDT 2017
+Cumulative Elapsed Milliseconds: 28584
+Test case 5 -- Left:  1551 Right: 1944   subS.length(): 394
+Query Elapsed Milliseconds: 714
+38762
+Mon Oct 09 14:03:53 EDT 2017
+Cumulative Elapsed Milliseconds: 29305
+Test case 6 -- Left:  1468 Right: 2079   subS.length(): 612
+Query Elapsed Milliseconds: 3773
+94223
+Mon Oct 09 14:03:57 EDT 2017
+Cumulative Elapsed Milliseconds: 33083
+Test case 7 -- Left:  1572 Right: 2216   subS.length(): 645
+Query Elapsed Milliseconds: 4429
+101789
+Mon Oct 09 14:04:01 EDT 2017
+Cumulative Elapsed Milliseconds: 37526
+Test case 8 -- Left:  2124 Right: 2829   subS.length(): 706
+Query Elapsed Milliseconds: 7498
+204961
+Mon Oct 09 14:04:09 EDT 2017
+Cumulative Elapsed Milliseconds: 45057
+Test case 9 -- Left:  494 Right: 1760   subS.length(): 1267
+Query Elapsed Milliseconds: 22172
+565541
+Mon Oct 09 14:04:31 EDT 2017
+Cumulative Elapsed Milliseconds: 67277
+Test case 10 -- Left:  1343 Right: 2827   subS.length(): 1485
+Query Elapsed Milliseconds: 35219
+774491
+Mon Oct 09 14:05:06 EDT 2017
+Cumulative Elapsed Milliseconds: 102558
+Test case 11 -- Left:  1074 Right: 1747   subS.length(): 674
+Query Elapsed Milliseconds: 5619
+166775
+Mon Oct 09 14:05:12 EDT 2017
+Cumulative Elapsed Milliseconds: 108202
+Test case 12 -- Left:  2569 Right: 2607   subS.length(): 39
+Query Elapsed Milliseconds: 0
+419
+Mon Oct 09 14:05:12 EDT 2017
+Cumulative Elapsed Milliseconds: 108202
+Test case 13 -- Left:  2209 Right: 2253   subS.length(): 45
+Query Elapsed Milliseconds: 1
+545
+Mon Oct 09 14:05:12 EDT 2017
+Cumulative Elapsed Milliseconds: 108203
+Test case 14 -- Left:  1698 Right: 2400   subS.length(): 703
+Query Elapsed Milliseconds: 6474
+121999
+Mon Oct 09 14:05:19 EDT 2017
+Cumulative Elapsed Milliseconds: 114697
+Test case 15 -- Left:  1419 Right: 2007   subS.length(): 589
+Query Elapsed Milliseconds: 3277
+84239
+Mon Oct 09 14:05:22 EDT 2017
+Cumulative Elapsed Milliseconds: 117987
+Test case 16 -- Left:  1853 Right: 2473   subS.length(): 621
+Query Elapsed Milliseconds: 2905
+90869
+Mon Oct 09 14:05:25 EDT 2017
+Cumulative Elapsed Milliseconds: 120905
+Test case 17 -- Left:  576 Right: 2050   subS.length(): 1475
+Query Elapsed Milliseconds: 37556
+806521
+Mon Oct 09 14:06:02 EDT 2017
+Cumulative Elapsed Milliseconds: 158534
+Test case 18 -- Left:  672 Right: 1611   subS.length(): 940
+Query Elapsed Milliseconds: 11103
+285672
+Mon Oct 09 14:06:14 EDT 2017
+Cumulative Elapsed Milliseconds: 169665
+Test case 19 -- Left:  895 Right: 2979   subS.length(): 2085
+Query Elapsed Milliseconds: 69735
+1784414
+Mon Oct 09 14:07:23 EDT 2017
+Cumulative Elapsed Milliseconds: 239521
+Test case 20 -- Left:  2846 Right: 2975   subS.length(): 130
+Query Elapsed Milliseconds: 9
+8398
+Mon Oct 09 14:07:23 EDT 2017
+Cumulative Elapsed Milliseconds: 239532
+Test case 21 -- Left:  62 Right: 2675   subS.length(): 2614
+Query Elapsed Milliseconds: 111296
+2760234
+Mon Oct 09 14:09:15 EDT 2017
+Cumulative Elapsed Milliseconds: 350969
+Test case 22 -- Left:  1596 Right: 2084   subS.length(): 489
+Query Elapsed Milliseconds: 1652
+55157
+Mon Oct 09 14:09:16 EDT 2017
+Cumulative Elapsed Milliseconds: 352630
+Test case 23 -- Left:  1657 Right: 2954   subS.length(): 1298
+Query Elapsed Milliseconds: 24240
+640953
+Mon Oct 09 14:09:41 EDT 2017
+Cumulative Elapsed Milliseconds: 376933
+Test case 24 -- Left:  304 Right: 2105   subS.length(): 1802
+Query Elapsed Milliseconds: 44613
+1197775
+Mon Oct 09 14:10:26 EDT 2017
+Cumulative Elapsed Milliseconds: 421647
+Test case 25 -- Left:  1726 Right: 1768   subS.length(): 43
+Query Elapsed Milliseconds: 1
+505
+Mon Oct 09 14:10:26 EDT 2017
+Cumulative Elapsed Milliseconds: 421648
+Test case 26 -- Left:  2936 Right: 2960   subS.length(): 25
+Query Elapsed Milliseconds: 0
+316
+Mon Oct 09 14:10:26 EDT 2017
+Cumulative Elapsed Milliseconds: 421648
+Test case 27 -- Left:  774 Right: 1760   subS.length(): 987
+Query Elapsed Milliseconds: 14999
+350981
+Mon Oct 09 14:10:41 EDT 2017
+Cumulative Elapsed Milliseconds: 436688
+Test case 28 -- Left:  927 Right: 1806   subS.length(): 880
+Query Elapsed Milliseconds: 9746
+290367
+Mon Oct 09 14:10:50 EDT 2017
+Cumulative Elapsed Milliseconds: 446475
+Test case 29 -- Left:  434 Right: 1400   subS.length(): 967
+Query Elapsed Milliseconds: 11421
+239041
+Mon Oct 09 14:11:02 EDT 2017
+Cumulative Elapsed Milliseconds: 457929
+Test case 30 -- Left:  283 Right: 1853   subS.length(): 1571
+Query Elapsed Milliseconds: 36942
+880000
+Mon Oct 09 14:11:39 EDT 2017
+Cumulative Elapsed Milliseconds: 494923
+Test case 31 -- Left:  490 Right: 2396   subS.length(): 1907
+Query Elapsed Milliseconds: 50413
+1352021
+Mon Oct 09 14:12:29 EDT 2017
+Cumulative Elapsed Milliseconds: 545483
+Test case 32 -- Left:  1921 Right: 2050   subS.length(): 130
+Query Elapsed Milliseconds: 10
+4234
+Mon Oct 09 14:12:29 EDT 2017
+Cumulative Elapsed Milliseconds: 545494
+Test case 33 -- Left:  1733 Right: 2086   subS.length(): 354
+Query Elapsed Milliseconds: 916
+30527
+Mon Oct 09 14:12:30 EDT 2017
+Cumulative Elapsed Milliseconds: 546418
+Test case 34 -- Left:  1982 Right: 2452   subS.length(): 471
+Query Elapsed Milliseconds: 1649
+55919
+Mon Oct 09 14:12:32 EDT 2017
+Cumulative Elapsed Milliseconds: 548074
+Test case 35 -- Left:  2524 Right: 2641   subS.length(): 118
+Query Elapsed Milliseconds: 7
+5235
+Mon Oct 09 14:12:32 EDT 2017
+Cumulative Elapsed Milliseconds: 548082
+Test case 36 -- Left:  395 Right: 2646   subS.length(): 2252
+Query Elapsed Milliseconds: 83092
+1960931
+Mon Oct 09 14:13:55 EDT 2017
+Cumulative Elapsed Milliseconds: 631469
+Test case 37 -- Left:  62 Right: 1950   subS.length(): 1889
