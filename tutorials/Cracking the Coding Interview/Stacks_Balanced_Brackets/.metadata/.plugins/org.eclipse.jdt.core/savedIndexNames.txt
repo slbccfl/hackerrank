@@ -1,1 +1,0 @@
-INDEX VERSION 1.130+/home/slbarnes/Projects/hackerrank/tutorials/Cracking the Coding Interview/Stacks:_Balanced_Brackets/.metadata/.plugins/org.eclipse.jdt.core
