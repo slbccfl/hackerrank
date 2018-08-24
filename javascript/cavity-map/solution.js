@@ -40,7 +40,7 @@ function cavityMap(grid) {
                 cellValue > grid[i+1].charAt(j) &&
                 cellValue > grid[i].charAt(j-1) &&
                 cellValue > grid[i].charAt(j+1))
-                newGrid[i] = newGrid[i].substr(0,i) + "X" + newGrid[i].substr(i+1);
+                newGrid[i] = newGrid[i].substr(0,j) + "X" + newGrid[i].substr(j+1);
         }
     }
     return newGrid;

@@ -26,23 +26,17 @@ function readLine() {
 
 // Complete the bigSorting function below.
 function bigSorting(unsorted) {
-    return unsorted.sort(function(a,b) {charCompare(a, b)});
+    return unsorted.sort(charCompare);
 }
 
-function charCompare(a,b) {
-    if (a.length > b.length) {
-        // a is longer than b, so a bigger number
-        return 1;
-    } else if (a.length < b.length) {
-        // converse: b is longer/bigger number than a
-        return -1;
+function charCompare(a, b) {
+    if (a.length != b.length) {
+        return (a.length - b.length);
     } else {
         // strings are equal length, so compare each number until one is larger
-        for (let i = 0; i < a.length; i++ ) {
-            if (a.charAt(i) > b.charAt(i)) {
-                return 1
-            } else if (a.charAt(i) < b.charAt(i)) {
-                return -1
+        for (let i = 0; i < a.length; i++) {
+            if (a.charAt(i) != b.charAt(i)) {
+                return (a.charAt(i) - b.charAt(i))
             }
         }
         return 0;

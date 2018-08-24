@@ -6,6 +6,12 @@
     "configurations": [
         {
             "type": "node",
+            "request": "attach",
+            "name": "Attach to port 12345",
+            "port": 12345
+        },
+        {
+            "type": "node",
             "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceFolder}/Solution.js"
