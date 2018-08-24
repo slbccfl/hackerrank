@@ -6,4 +6,4 @@ else
   fileNum=$1
 fi
 export OUTPUT_PATH=output$fileNum.txt
-node Solution.js < input$fileNum.txt
+node solution.js < input$fileNum.txt
