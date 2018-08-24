@@ -29,6 +29,7 @@ function icecreamParlor(m, arr) {
     // console.log("m=" + m);
     var i, j;
     console.log("arr: " + arr);
+    debugger;
     for (i = 1; i < arr.length; i++) {
         j = arr.indexOf(m - arr[i-1],i);
         // console.log("m - arr[i-1]=" + (m - arr[i]) + ", j=" + j + ", arr[j]=" + arr[j]);
